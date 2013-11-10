@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author root
  */
-public interface RegionsDAIF extends Remote{
+public interface RegionDAIF extends Remote{
     
     public Result<Region> insertRegion(List<Region> ins, User user) throws RemoteException;
     public Result<Region> updateRegion(List<Region> upd, User user) throws RemoteException;
