@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import services.implementations.ServiceExposer;
 
 /**
  *
@@ -20,6 +21,14 @@ public class Server extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        
+        try {
+            ServiceExposer.exposeAll();
+        } catch(Exception e){
+            e.printStackTrace();
+            return;
+        }
+        
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
