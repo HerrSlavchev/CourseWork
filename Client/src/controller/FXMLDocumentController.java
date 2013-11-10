@@ -32,7 +32,7 @@ public class FXMLDocumentController implements Initializable {
         System.out.println("You clicked me!");
         label.setText("Hello World!");
 
-        RegionsDAIF stub = (RegionsDAIF) RemoteServices.getStub(BindingConsts.regionDA);
+        RegionsDAIF stub = (RegionsDAIF) RemoteServices.getStub(BindingConsts.REGION_DA);
         try {
             Result<Region> res = stub.fetchRegions(new RegionFilter());
             System.out.println("result size: " + res.getResult().size());

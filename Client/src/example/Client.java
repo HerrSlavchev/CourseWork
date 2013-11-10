@@ -6,12 +6,17 @@
 
 package example;
 
+import java.rmi.server.UnicastRemoteObject;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import services.BindingConsts;
 import services.RemoteServices;
+import services.client.NotifiableIF;
+import services.server.ClientManagerIF;
+import static session.Session.notifImpl;
 
 /**
  *
@@ -19,11 +24,15 @@ import services.RemoteServices;
  */
 public class Client extends Application {
     
+    
     @Override
     public void start(Stage stage) throws Exception {
         
         try {
             RemoteServices.init();
+            ClientManagerIF stub = (ClientManagerIF) RemoteServices.getStub(BindingConsts.CLIENT_MANAGER);
+            NotifiableIF notifStub = (NotifiableIF) UnicastRemoteObject.exportObject(notifImpl, 0);
+            stub.registerClient(notifStub, (int) (Math.random() * 1000 * Math.random()));
         } catch(Exception e){
             e.printStackTrace();
             return;
