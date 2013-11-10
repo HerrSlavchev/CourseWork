@@ -12,6 +12,8 @@ package services;
  */
 public class BindingConsts {
     
+    public static final int port = 2001;
+    
     /*
     Use the same key to register/lookup a stub
     */
