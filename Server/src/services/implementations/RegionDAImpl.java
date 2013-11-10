@@ -72,15 +72,16 @@ public class RegionDAImpl implements RegionDAIF {
             int rand = (int) (5 * Math.random() + 1);
             for (int i = 0; i < rand; i++){
                 Region r = new Region(i);
+                r.name = "huc " + i;
                 res.add(r);
             }
-            for (NotifiableIF ntf : ClientManagerImpl.getClients().values()){
+            /*for (NotifiableIF ntf : ClientManagerImpl.getClients().values()){
                 int idx = (int) (Math.random() * NotificationType.values().length);
                 Notification info = new Notification(0, NotificationType.values()[idx], null);
                 List<Notification> news = new ArrayList<Notification>();
                 news.add(info);
                 ntf.acceptNotifications(news);
-            }
+            }*/
             //TODO
         } catch (Exception exc) {
             ex = exc;
