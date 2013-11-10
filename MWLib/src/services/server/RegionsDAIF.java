@@ -23,5 +23,5 @@ public interface RegionsDAIF extends Remote{
     public Result<Region> insertRegion(List<Region> ins, User user) throws RemoteException;
     public Result<Region> updateRegion(List<Region> upd, User user) throws RemoteException;
     public Result<Region> deleteRegion(List<Region> del, User user) throws RemoteException;
-    public Result<Region> fetchRegions(RegionFilter filter);
+    public Result<Region> fetchRegions(RegionFilter filter) throws RemoteException;
 }
