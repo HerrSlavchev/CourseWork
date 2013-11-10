@@ -27,12 +27,12 @@ public class Client extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        
+        //huc huc
         try {
             RemoteServices.init();
-            ClientManagerIF stub = (ClientManagerIF) RemoteServices.getStub(BindingConsts.CLIENT_MANAGER);
-            NotifiableIF notifStub = (NotifiableIF) UnicastRemoteObject.exportObject(notifImpl, 0);
-            stub.registerClient(notifStub, (int) (Math.random() * 1000 * Math.random()));
+            //ClientManagerIF stub = (ClientManagerIF) RemoteServices.getStub(BindingConsts.CLIENT_MANAGER);
+            //NotifiableIF notifStub = (NotifiableIF) UnicastRemoteObject.exportObject(notifImpl, 0);
+            //stub.registerClient(notifStub, (int) (Math.random() * 1000 * Math.random()));
         } catch(Exception e){
             e.printStackTrace();
             return;
