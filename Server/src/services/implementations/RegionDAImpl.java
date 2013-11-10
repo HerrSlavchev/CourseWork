@@ -65,6 +65,11 @@ public class RegionDAImpl implements RegionsDAIF {
         Exception ex = null;
         try {
             System.out.println("fetching");
+            int rand = (int) (5 * Math.random() + 1);
+            for (int i = 0; i < rand; i++){
+                Region r = new Region(i);
+                res.add(r);
+            }
             //TODO
         } catch (Exception exc) {
             ex = exc;
