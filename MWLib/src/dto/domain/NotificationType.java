@@ -14,11 +14,16 @@ public enum NotificationType{
     
     NEW_GROUP("New group created"), //and it regards smth you are interested in
     NEW_PUBLICATION("New publication"), //in a group you participate in
-    NEW_EVENT("New event"); //in a group you participate in or a city near you
+    NEW_EVENT("New event"),
+    LOGGED_FROM_ANOTHER_CLIENT("Another session with this user has been initialized"); //in a group you participate in or a city near you
     
     private String message;
 
     NotificationType(String message){
         this.message = message;
+    }
+    
+    public String getMessage(){
+        return message;
     }
 }

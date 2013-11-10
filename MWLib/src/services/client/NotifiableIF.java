@@ -6,10 +6,16 @@
 
 package services.client;
 
+import dto.domain.Notification;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.List;
+
 /**
  *
  * @author root
  */
-public interface NotifiableIF {
+public interface NotifiableIF extends Remote{
     
+    public void acceptNotifications(List<Notification> news) throws RemoteException;
 }

@@ -17,6 +17,7 @@ public abstract class PersistedDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     
     private int ID = 0;
+    //most entities are expected to have these fields also
     private long timeIns = 0;
     private long timeUpd = 0;
     private int userIns = 0;

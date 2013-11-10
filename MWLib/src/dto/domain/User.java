@@ -10,6 +10,11 @@ package dto.domain;
  *
  * @author root
  */
-public class User {
+public class User extends PersistedDTO{
+
+    public User(int ID, long timeIns, long timeUpd, int userUpd) {
+        super(ID, timeIns, timeUpd, 0, userUpd);
+    }
+    
     
 }
