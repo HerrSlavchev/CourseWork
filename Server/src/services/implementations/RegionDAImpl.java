@@ -6,12 +6,15 @@
 package services.implementations;
 
 import dto.Result;
+import dto.domain.Notification;
+import dto.domain.NotificationType;
 import dto.domain.Region;
 import dto.domain.User;
 import dto.filters.RegionFilter;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import services.client.NotifiableIF;
 import services.server.RegionsDAIF;
 
 /**
@@ -64,11 +67,19 @@ public class RegionDAImpl implements RegionsDAIF {
         List<Region> res = new ArrayList<Region>();
         Exception ex = null;
         try {
-            System.out.println("fetching");
+            //WARNING
+            //System.out.println("fetching");
             int rand = (int) (5 * Math.random() + 1);
             for (int i = 0; i < rand; i++){
                 Region r = new Region(i);
                 res.add(r);
+            }
+            for (NotifiableIF ntf : ClientManagerImpl.getClients().values()){
+                int idx = (int) (Math.random() * NotificationType.values().length);
+                Notification info = new Notification(0, NotificationType.values()[idx], null);
+                List<Notification> news = new ArrayList<Notification>();
+                news.add(info);
+                ntf.acceptNotifications(news);
             }
             //TODO
         } catch (Exception exc) {
