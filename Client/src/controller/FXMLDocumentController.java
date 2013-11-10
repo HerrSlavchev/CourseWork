@@ -16,7 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import services.BindingConsts;
 import services.RemoteServices;
-import services.server.RegionsDAIF;
+import services.server.RegionDAIF;
 
 /**
  *
@@ -31,14 +31,15 @@ public class FXMLDocumentController implements Initializable {
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
         label.setText("Hello World!");
-
-        RegionsDAIF stub = (RegionsDAIF) RemoteServices.getStub(BindingConsts.REGION_DA);
+        
+        /*RegionsDAIF stub = (RegionsDAIF) RemoteServices.getStub(BindingConsts.REGION_DA);
         try {
             Result<Region> res = stub.fetchRegions(new RegionFilter());
             System.out.println("result size: " + res.getResult().size());
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
+        //Hallo Welt
 
     }
 

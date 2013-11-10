@@ -30,7 +30,6 @@ public class RemoteServices {
 
         reg = LocateRegistry.getRegistry(BindingConsts.port);
         
-        System.out.println("got reg");
     }
 
     public static Remote getStub(String key) {
@@ -39,7 +38,6 @@ public class RemoteServices {
             try {
                 stub = (Remote) reg.lookup(key);
                 stubs.put(key, stub);
-                System.out.println("got stub");
             } catch (Exception e) {
                 e.printStackTrace();
             }
