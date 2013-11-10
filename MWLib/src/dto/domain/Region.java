@@ -18,4 +18,8 @@ public class Region extends PersistedDTO{
         super(ID);
     }
     
+    public String getName(){
+        return name;
+    }
+    
 }

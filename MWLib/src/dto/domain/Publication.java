@@ -6,6 +6,8 @@
 
 package dto.domain;
 
+import java.util.List;
+
 /**
  *
  * @author root
@@ -13,6 +15,7 @@ package dto.domain;
 public class Publication extends PersistedDTO{
 
     public String text;
+    List<Publication> childer;
     
     public Publication(int ID, long timeIns, long timeUpd, int userIns, int userUpd) {
         super(ID, timeIns, timeUpd, userIns, userUpd);

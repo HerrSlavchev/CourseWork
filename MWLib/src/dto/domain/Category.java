@@ -17,4 +17,7 @@ public class Category extends PersistedDTO {
         super(ID);
     }
 
+    public String getName(){
+        return name;
+    }
 }
