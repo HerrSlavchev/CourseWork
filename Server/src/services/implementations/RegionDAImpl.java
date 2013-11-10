@@ -15,13 +15,13 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import services.client.NotifiableIF;
-import services.server.RegionsDAIF;
+import services.server.RegionDAIF;
 
 /**
  *
  * @author root
  */
-public class RegionDAImpl implements RegionsDAIF {
+public class RegionDAImpl implements RegionDAIF {
 
     @Override
     public Result<Region> insertRegion(List<Region> ins, User user) throws RemoteException {

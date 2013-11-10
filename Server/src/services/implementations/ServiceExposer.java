@@ -10,7 +10,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import services.BindingConsts;
 import services.server.ClientManagerIF;
-import services.server.RegionsDAIF;
+import services.server.RegionDAIF;
 
 /**
  *
@@ -28,8 +28,8 @@ public class ServiceExposer {
         
         Registry registry = LocateRegistry.createRegistry(BindingConsts.port);
 
-        RegionsDAIF regionsIF = new RegionDAImpl(); //local implementation
-        RegionsDAIF regionsStub = (RegionsDAIF) UnicastRemoteObject.exportObject(regionsIF, 0); //expose
+        RegionDAIF regionsIF = new RegionDAImpl(); //local implementation
+        RegionDAIF regionsStub = (RegionDAIF) UnicastRemoteObject.exportObject(regionsIF, 0); //expose
         registry.bind(BindingConsts.REGION_DA, regionsStub); //publish to the registry
 
         ClientManagerIF clmIF = new ClientManagerImpl();
