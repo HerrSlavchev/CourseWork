@@ -70,7 +70,6 @@ public class CategoryFXMLController implements Initializable {
         }
         //Hallo Welt
         
-        
     }
     
 }

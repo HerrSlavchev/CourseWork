@@ -38,7 +38,7 @@ public class Client extends Application {
             return;
         }
         
-        Parent root = FXMLLoader.load(getClass().getResource("CategoryFXML.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("MainPageFXML.fxml"));
         
         Scene scene = new Scene(root);
         
