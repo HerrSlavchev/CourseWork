@@ -69,7 +69,7 @@ public class RegionDAImpl implements RegionDAIF {
         try {
             //WARNING
             //System.out.println("fetching");
-            int rand = (int) (5 * Math.random() + 1);
+            int rand = (int) (5 * Math.random() + 30);
             for (int i = 0; i < rand; i++){
                 Region r = new Region(i);
                 r.name = "huc " + i;
