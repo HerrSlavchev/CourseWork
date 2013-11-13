@@ -23,7 +23,7 @@ public class NotifiableImpl implements NotifiableIF, Serializable{
     @Override
     public void acceptNotifications(List<Notification> news) throws RemoteException {
         for(Notification n : news){
-            System.out.println(n.getReasonType());
+            System.out.println(n.getTriggerType());
         }
     }
     
