@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dto.domain;
 
 import dto.rolemanagement.Role;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author root
  */
-public class User extends PersistedDTO{
-    
+public class User extends PersistedDTO {
+
     public String fName;
     public String sName;
     public String lName;
@@ -22,36 +22,62 @@ public class User extends PersistedDTO{
     public String password;
     public String description;
     public Role role;
-    
+    //extrinsic
+    public List<Town> towns;
+    public List<Interest> interests;
+    public List<Group> groups;
+    public List<Event> events;
+    public List<Conversation> conversations;
+
     public User(int ID, Date timeIns, Date timeUpd, User userUpd) {
         super(ID, timeIns, timeUpd, null, userUpd);
     }
-    
-    public String getFName(){
+
+    public String getFName() {
         return fName;
     }
-    
-    public String getSName(){
+
+    public String getSName() {
         return sName;
     }
-    
-    public String getLName(){
+
+    public String getLName() {
         return lName;
     }
-    
-    public String getEMail(){
+
+    public String getEMail() {
         return eMail;
     }
-    
-    public String getPassword(){
+
+    public String getPassword() {
         return password;
     }
-    
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-    
-    public Role getRole(){
+
+    public Role getRole() {
         return role;
+    }
+
+    public List<Town> getTowns() {
+        return towns;
+    }
+
+    public List<Interest> getInterests() {
+        return interests;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public List<Conversation> getConversations() {
+        return conversations;
     }
 }
