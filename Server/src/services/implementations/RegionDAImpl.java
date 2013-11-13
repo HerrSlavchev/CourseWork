@@ -7,7 +7,7 @@ package services.implementations;
 
 import dto.Result;
 import dto.domain.Notification;
-import dto.domain.NotificationType;
+import dto.domain.TriggerType;
 import dto.domain.Region;
 import dto.domain.User;
 import dto.filters.RegionFilter;

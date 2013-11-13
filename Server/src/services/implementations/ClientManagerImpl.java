@@ -7,7 +7,7 @@
 package services.implementations;
 
 import dto.domain.Notification;
-import dto.domain.NotificationType;
+import dto.domain.TriggerType;
 import dto.domain.User;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -36,7 +36,8 @@ public class ClientManagerImpl implements ClientManagerIF{
         //if someone has logged with this user, kill his client and register this one
         NotifiableIF old = clients.get(id);
         if (old != null) {
-            Notification info = new Notification(0, NotificationType.LOGGED_FROM_ANOTHER_CLIENT, null);
+            Notification info = new Notification(0);
+            info.triggerType = TriggerType.LOGGED_FROM_ANOTHER_CLIENT;
             List<Notification> news = new ArrayList();
             news.add(info);
             old.acceptNotifications(news);
