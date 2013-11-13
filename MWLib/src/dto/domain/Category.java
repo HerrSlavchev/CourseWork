@@ -5,19 +5,33 @@
  */
 package dto.domain;
 
+import java.util.List;
+
 /**
  *
  * @author root
  */
 public class Category extends PersistedDTO {
 
+    
     public String name;
+    public String description;
+    //extrinsic
+    public List<SubCategory> subCategories;
 
     public Category(int ID) {
         super(ID);
     }
 
-    public String getName(){
+    public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<SubCategory> getSubCategories() {
+        return subCategories;
     }
 }

@@ -10,7 +10,7 @@ package dto.domain;
  *
  * @author root
  */
-public enum NotificationType{
+public enum TriggerType{
     
     NEW_GROUP("New group created"), //and it regards smth you are interested in
     NEW_PUBLICATION("New publication"), //in a group you participate in
@@ -19,7 +19,7 @@ public enum NotificationType{
     
     private String message;
 
-    NotificationType(String message){
+    TriggerType(String message){
         this.message = message;
     }
     

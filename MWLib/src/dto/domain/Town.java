@@ -5,6 +5,8 @@
  */
 package dto.domain;
 
+import java.util.List;
+
 /**
  *
  * @author root
@@ -12,9 +14,29 @@ package dto.domain;
 public class Town extends PersistedDTO {
 
     public String name;
-
+    
+    //extrinsic
+    public Region region;
+    public List<User> users;
+    public List<Event> events;
+    
     public Town(int ID) {
         super(ID);
     }
+    
+    public String getName(){
+        return name;
+    }
 
+    public Region getRegion() {
+        return region;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+    
+    public List<Event> getEvents() {
+        return events;
+    }
 }

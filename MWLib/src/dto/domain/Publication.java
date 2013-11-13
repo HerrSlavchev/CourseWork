@@ -6,6 +6,7 @@
 
 package dto.domain;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,11 +16,34 @@ import java.util.List;
 public class Publication extends PersistedDTO{
 
     public String text;
-    List<Publication> childer;
     
-    public Publication(int ID, long timeIns, long timeUpd, int userIns, int userUpd) {
+    //extrinsic
+    public List<Publication> children;
+    public Group group;
+    public Publication parentPublication;
+    public Event event;
+    
+    public Publication(int ID, Date timeIns, Date timeUpd, User userIns, User userUpd) {
         super(ID, timeIns, timeUpd, userIns, userUpd);
     }
     
+    public String getText(){
+        return text;
+    }
     
+    public List<Publication> getChilder(){
+        return children;
+    }
+    
+    public Group getGroup(){
+        return group;
+    }
+    
+    public Publication getParentPublication(){
+        return parentPublication;
+    }
+    
+    public Event getEvent(){
+        return event;
+    }
 }

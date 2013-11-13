@@ -6,17 +6,10 @@
 
 package dto.domain;
 
-import java.util.Date;
-
 /**
  *
  * @author root
  */
-public class User extends PersistedDTO{
-
-    public User(int ID, Date timeIns, Date timeUpd, User userUpd) {
-        super(ID, timeIns, timeUpd, null, userUpd);
-    }
-    
-    
+public enum ReasonType {
+    INTEREST_OBSERVER, GROUP_OBSERVER, EVENT_OBSERVER, TOWN_OBSERVER
 }

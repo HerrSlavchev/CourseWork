@@ -3,33 +3,48 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dto.domain;
 
 /**
  *
  * @author root
  */
-public class Notification extends PersistedDTO{
-    
-    private NotificationType type;
-    private PersistedDTO ref; //what exactly happened
-    
+public class Notification extends PersistedDTO {
+
+    public TriggerType triggerType;
+    public ReasonType reasonType;
     public boolean isImportant;
     public boolean isRead;
-    
-    public Notification(int ID, NotificationType type, PersistedDTO ref){
+
+    //extrinsic
+    public PersistedDTO reason; //why report
+    public PersistedDTO trigger; //what exactly happened
+
+    public Notification(int ID) {
         super(ID);
-        this.type = type;
-        this.ref = ref;
     }
-    
-    public NotificationType getType(){
-        return type;
+
+    public TriggerType getTriggerType() {
+        return triggerType;
     }
-    
-    public PersistedDTO getRef(){
-        return ref;
+
+    public PersistedDTO getTrigger() {
+        return trigger;
     }
-    
+
+    public ReasonType getReasonType() {
+        return reasonType;
+    }
+
+    public PersistedDTO getReason() {
+        return reason;
+    }
+
+    public boolean isImportant() {
+        return isImportant;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
 }

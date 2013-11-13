@@ -3,17 +3,45 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dto.domain;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author root
  */
-public class Event extends Publication{
+public class Event extends Publication {
 
-    public Event(int ID, long timeIns, long timeUpd, int userIns, int userUpd) {
+    public String name;
+    public Date dateFrom;
+    public Date dateTo;
+    //extrinsic
+    public List<User> users;
+    public List<Town> towns;
+
+    public Event(int ID, Date timeIns, Date timeUpd, User userIns, User userUpd) {
         super(ID, timeIns, timeUpd, userIns, userUpd);
     }
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public Date getDateFrom() {
+        return dateFrom;
+    }
+
+    public Date getDateTo() {
+        return dateTo;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public List<Town> getTowns() {
+        return towns;
+    }
 }

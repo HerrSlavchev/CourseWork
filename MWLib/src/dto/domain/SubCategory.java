@@ -6,6 +6,8 @@
 
 package dto.domain;
 
+import java.util.List;
+
 /**
  *
  * @author root
@@ -13,10 +15,29 @@ package dto.domain;
 public class SubCategory extends PersistedDTO{
 
     public String name;
+    public String description;
+    
+    //extrinsic
+    public Category category;
+    public List<Interest> interests;
     
     public SubCategory(int ID) {
         super(ID);
     }
     
+    public String getName(){
+        return name;
+    }
     
+    public String getDescription(){
+        return description;
+    }
+    
+    public Category getCategory(){
+        return category;
+    }
+    
+    public List<Interest> getInterests(){
+        return interests;
+    }
 }
