@@ -16,6 +16,10 @@ public abstract class PersistedDTO implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
+    //all private fields must be READONLY
+    //rest of the fields - public for ease of access
+    //getter methods - required for javaFX viewresolvers
+    
     private int ID = 0;
     //most entities are expected to have these fields also
     private long timeIns = 0;
