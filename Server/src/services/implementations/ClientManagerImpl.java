@@ -25,16 +25,20 @@ import services.server.ClientManagerIF;
 public class ClientManagerImpl implements ClientManagerIF{
 
     private static Map<Integer, NotifiableIF> clients = new HashMap<Integer, NotifiableIF>();
+    private static int _ITERATIONS = 1000;
     
     public static Map<Integer, NotifiableIF> getClients(){
         return Collections.unmodifiableMap(clients);
     }
     
     @Override
-    public void registerClient(NotifiableIF cli, Integer id) throws RemoteException {
+    public void registerClient(NotifiableIF cli, User user) throws RemoteException {
+        
+        String password = user.password;
+        int extraIters = 7;
         
         //if someone has logged with this user, kill his client and register this one
-        NotifiableIF old = clients.get(id);
+        NotifiableIF old = clients.get(user.getID());
         if (old != null) {
             Notification info = new Notification(0);
             info.triggerType = TriggerType.LOGGED_FROM_ANOTHER_CLIENT;
@@ -43,7 +47,7 @@ public class ClientManagerImpl implements ClientManagerIF{
             old.acceptNotifications(news);
         }
         
-        clients.put(id, cli);
+        clients.put(user.getID(), cli);
     }
 
     @Override
