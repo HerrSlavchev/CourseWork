@@ -18,9 +18,8 @@ import services.client.NotifiableIF;
 public interface ClientManagerIF extends Remote{
     
     //call this whenever someone logs in
-    public void registerClient(NotifiableIF cli, Integer id) throws RemoteException;
+    public void registerClient(NotifiableIF cli, User user) throws RemoteException;
     
     //call this when loggin out
-    //WARNING : pass notifications as param to persist them
     public void removeClient(User user) throws RemoteException;
 }
