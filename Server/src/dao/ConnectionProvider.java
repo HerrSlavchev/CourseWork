@@ -56,18 +56,4 @@ public class ConnectionProvider {
         cpds.close();
     }
 
-    public static void main(String[] args) {
-        try {
-            ConnectionProvider.init();
-            Connection conn = ConnectionProvider.getConnection();
-            
-            Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("select f_name from user;");
-            
-            System.out.println(resultSet.getFetchSize());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-    }
 }
