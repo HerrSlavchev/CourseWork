@@ -7,8 +7,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.RegionFXMLController">
-    <stylesheets>
-        <URL value="@regionfxml.css"/>
-    </stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.RegionFXMLController">
+  <children>
+    <RadioButton layoutX="86.0" layoutY="56.0" mnemonicParsing="false" text="RadioButton" />
+    <Slider layoutX="30.0" layoutY="101.0" />
+  </children>
+  <stylesheets>
+    <URL value="@regionfxml.css" />
+  </stylesheets>
 </AnchorPane>

@@ -12,11 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import services.BindingConsts;
 import services.RemoteServices;
-import services.client.NotifiableIF;
-import services.server.ClientManagerIF;
-import static session.Session.notifImpl;
+
 
 /**
  *
