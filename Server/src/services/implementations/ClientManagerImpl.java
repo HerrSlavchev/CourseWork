@@ -25,7 +25,6 @@ import services.server.ClientManagerIF;
 public class ClientManagerImpl implements ClientManagerIF{
 
     private static Map<Integer, NotifiableIF> clients = new HashMap<Integer, NotifiableIF>();
-    private static int _ITERATIONS = 1000;
     
     public static Map<Integer, NotifiableIF> getClients(){
         return Collections.unmodifiableMap(clients);
