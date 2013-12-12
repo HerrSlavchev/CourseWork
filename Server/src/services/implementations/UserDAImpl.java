@@ -56,7 +56,7 @@ public class UserDAImpl implements UserDAIF {
                 if (false == valid) {
                     exc = new Exception("Wrong e-mail or password.");
                 } else {
-                    //SELECT USER AND ROLE, ATTACH CLIENT TO THE SYSTEM
+                    //SELECT USER AND ROLE, ATTACH CLIENT TO THE CLIENTMANAGER
                 }
 
             }
@@ -89,4 +89,6 @@ public class UserDAImpl implements UserDAIF {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
+    
 }
