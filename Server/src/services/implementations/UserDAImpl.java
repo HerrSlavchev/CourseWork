@@ -16,6 +16,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import security.Credentials;
+import security.PasswordManagerIF;
+import security.PasswordManagerPBKDF2;
 import services.server.UserDAIF;
 
 /**
@@ -38,17 +41,24 @@ public class UserDAImpl implements UserDAIF {
             String slct = "SELECT password, hash, iterations FROM user WHERE e_mail = '" + email + "';";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(slct);
-            
+
             if (rs.getFetchSize() == 0) {
-                exc = new Exception("No users match this e-mail");
+                exc = new Exception("Wrong e-mail or password");
             } else if (rs.getFetchSize() > 1) {
                 exc = new Exception("More than one users are registered with this e-mail.");
             } else {
-                while (rs.next()) {
-                    String realPassword = rs.getString("password");
-                    String realHash = rs.getString("hash");
-                    int realIterations = rs.getInt("iterations");
+                rs.next();
+                String realPassword = rs.getString("password");
+                String realSalt = rs.getString("salt");
+                int realIterations = rs.getInt("iterations");
+                Credentials creds = new Credentials(realPassword, realSalt, realIterations);
+                boolean valid = PasswordManagerPBKDF2.getInstance().validatePassword(password, creds);
+                if (false == valid) {
+                    exc = new Exception("Wrong e-mail or password.");
+                } else {
+                    //SELECT USER AND ROLE, ATTACH CLIENT TO THE SYSTEM
                 }
+
             }
         } catch (SQLException SQLe) {
             exc = SQLe;
