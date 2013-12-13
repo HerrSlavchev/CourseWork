@@ -126,6 +126,7 @@ public class ClientManagerImpl implements ClientManagerIF {
             old.acceptNotifications(news);
             String oldSessionCode = old.getSessionCode();
             mapCodesToIDs.remove(oldSessionCode);
+            mapIDsToClients.remove(userID);
             sessionCodeProviderIF.releaseSessionCode(oldSessionCode);
         }
 
@@ -139,7 +140,17 @@ public class ClientManagerImpl implements ClientManagerIF {
 
     @Override
     public void removeClient(Session session) throws RemoteException {
-
+        
+        String sessionCode = session.getSessionCode();
+        Integer userID = mapCodesToIDs.remove(sessionCode);
+        if (userID == null){
+            return;
+        }
+        NotifiableIF cli = mapIDsToClients.remove(userID);
+        if (cli == null){
+            return;
+        }
+        BasicSessionCodeProvider.getInstance().releaseSessionCode(sessionCode);
     }
 
 }
