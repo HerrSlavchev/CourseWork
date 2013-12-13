@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import session.BasicSessionCodeProvider;
+import session.SessionCodeProviderIF;
 
 /**
  *
@@ -16,6 +18,8 @@ import java.sql.Statement;
  */
 public class DAOUtils {
 
+    public static SessionCodeProviderIF sessionCodeProvider = BasicSessionCodeProvider.getInstance();
+    
     public static void releaseRes(Connection conn, Statement stmt, ResultSet rs) throws SQLException {
         if (rs != null && false == rs.isClosed()) {
             rs.close();

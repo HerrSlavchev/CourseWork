@@ -41,7 +41,6 @@ public class ClientManagerImpl implements ClientManagerIF {
 
     private static Map<Integer, NotifiableIF> mapIDsToClients = new HashMap<Integer, NotifiableIF>();
     private static Map<String, Integer> mapCodesToIDs = new HashMap<String, Integer>();
-    SessionCodeProviderIF sessionCodeProviderIF = BasicSessionCodeProvider.getInstance();
 
     public static Map<Integer, NotifiableIF> getClients() {
         return Collections.unmodifiableMap(mapIDsToClients);
@@ -127,10 +126,10 @@ public class ClientManagerImpl implements ClientManagerIF {
             String oldSessionCode = old.getSessionCode();
             mapCodesToIDs.remove(oldSessionCode);
             mapIDsToClients.remove(userID);
-            sessionCodeProviderIF.releaseSessionCode(oldSessionCode);
+            DAOUtils.sessionCodeProvider.releaseSessionCode(oldSessionCode);
         }
 
-        String sessionCode = sessionCodeProviderIF.getSessionCode();
+        String sessionCode = DAOUtils.sessionCodeProvider.getSessionCode();
         mapCodesToIDs.put(sessionCode, userID);
         mapIDsToClients.put(userID, cli);
         cli.setSessionCode(sessionCode);
@@ -150,7 +149,8 @@ public class ClientManagerImpl implements ClientManagerIF {
         if (cli == null){
             return;
         }
-        BasicSessionCodeProvider.getInstance().releaseSessionCode(sessionCode);
+        
+        DAOUtils.sessionCodeProvider.releaseSessionCode(sessionCode);
     }
 
 }
