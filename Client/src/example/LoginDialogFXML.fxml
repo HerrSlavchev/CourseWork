@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="155.13291249999747" prefWidth="345.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.LoginDialogFXMLController">
+  <children>
+    <Label layoutX="37.0" layoutY="40.0" text="E-mail:" />
+    <Label layoutX="37.0" layoutY="75.0" text="Password:" />
+    <PasswordField id="passTF" fx:id="passwordTF" layoutX="108.0" layoutY="72.0" prefWidth="200.0" />
+    <TextField fx:id="eMailTF" layoutX="108.0" layoutY="37.0" prefWidth="200.0" />
+    <Button layoutX="137.0" layoutY="114.0" mnemonicParsing="false" onAction="#handleLoginAction" text="Login" />
+  </children>
+  <stylesheets>
+    <URL value="@logindialogfxml.css" />
+  </stylesheets>
+</AnchorPane>

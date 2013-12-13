@@ -5,6 +5,7 @@
  */
 package example;
 
+import controller.MainPageFXMLController;
 import dto.session.Session;
 import java.rmi.server.UnicastRemoteObject;
 import javafx.application.Application;
@@ -33,8 +34,21 @@ public class Client extends Application {
             return;
         }
 
-        Parent root = FXMLLoader.load(getClass().getResource("MainPageFXML.fxml"));
-
+        FXMLLoader fl = new FXMLLoader();
+        fl.setLocation(getClass().getResource("MainPageFXML.fxml"));
+        fl.load();
+        //loader.load(Client.class.getResource("MainPageFXML.fxml").openStream());
+        
+        Parent root = fl.getRoot();
+        //Parent root = loader.getRoot();
+        
+        MainPageFXMLController mpController = (MainPageFXMLController) fl.getController();
+        if (mpController != null) {
+            mpController.setStage(stage);
+        } else {
+            System.out.println("...");
+        }
+        
         Scene scene = new Scene(root);
 
         stage.setScene(scene);

@@ -15,6 +15,7 @@
           <children>
             <Button layoutX="23.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleButton1Action" text="Button" />
             <Button layoutX="138.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleButton2Action" text="Button" />
+            <Button layoutX="255.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleLoginAction" text="Login" />
           </children>
         </AnchorPane>
       </top>
