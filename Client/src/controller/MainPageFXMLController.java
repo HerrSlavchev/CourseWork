@@ -69,6 +69,18 @@ public class MainPageFXMLController implements Initializable {
     }
     
     @FXML
+    private void handleRegisterAction(ActionEvent event) {
+        try{
+            FXMLLoader loader = new FXMLLoader(Client.class.getResource("RegistrationFormFXML.fxml"));
+            AnchorPane ap = (AnchorPane) loader.load();
+            mainPane.setCenter(ap);
+            
+        }catch(Exception e){
+            
+        }
+    }
+    
+    @FXML
     private void handleLoginAction(ActionEvent event) {
         System.out.println("XXX");
         try{

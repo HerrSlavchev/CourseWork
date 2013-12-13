@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="437.0" prefWidth="403.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.RegistrationFormFXMLController">
+  <children>
+    <Label layoutX="36.0" layoutY="33.0" text="E-mail:" />
+    <Label layoutX="36.0" layoutY="130.0" text="First name:" />
+    <Label layoutX="36.0" layoutY="153.0" text="Surname:" />
+    <Label layoutX="36.0" layoutY="178.0" text="Last Name:" />
+    <Label layoutX="36.0" layoutY="62.0" text="Password:" />
+    <Label layoutX="36.0" layoutY="81.0" prefHeight="33.0" prefWidth="74.0" text="Confirm password:" wrapText="true" />
+    <Label layoutX="36.0" layoutY="218.0" text="Description:" />
+    <TextArea fx:id="descriptionTF" layoutX="161.0" layoutY="218.0" prefWidth="224.0" promptText="Share something about you..." wrapText="true" />
+    <TextField id="e" fx:id="eMailTF" layoutX="161.0" layoutY="30.0" prefWidth="200.0" promptText="Enter your e-mail" />
+    <TextField fx:id="fNameTF" layoutX="161.0" layoutY="127.0" prefWidth="200.0" />
+    <TextField fx:id="lNameTF" layoutX="161.0" layoutY="150.0" prefWidth="200.0" />
+    <TextField fx:id="sNameTF" layoutX="161.0" layoutY="175.0" prefWidth="200.0" />
+    <PasswordField fx:id="passwordTF" layoutX="161.0" layoutY="59.0" prefWidth="200.0" promptText="Choose a password" />
+    <PasswordField fx:id="confirmTF" layoutX="161.0" layoutY="87.0" prefWidth="200.0" promptText="Repeat password" />
+    <Button layoutX="163.0" layoutY="394.0" mnemonicParsing="false" onAction="#handleRegistrationAction" text="Register" />
+  </children>
+  <stylesheets>
+    <URL value="@registrationformfxml.css" />
+  </stylesheets>
+</AnchorPane>

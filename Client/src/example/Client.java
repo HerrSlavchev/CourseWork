@@ -37,20 +37,10 @@ public class Client extends Application {
         FXMLLoader fl = new FXMLLoader();
         fl.setLocation(getClass().getResource("MainPageFXML.fxml"));
         fl.load();
-        //loader.load(Client.class.getResource("MainPageFXML.fxml").openStream());
-        
         Parent root = fl.getRoot();
-        //Parent root = loader.getRoot();
-        
         MainPageFXMLController mpController = (MainPageFXMLController) fl.getController();
-        if (mpController != null) {
-            mpController.setStage(stage);
-        } else {
-            System.out.println("...");
-        }
-        
+        mpController.setStage(stage);
         Scene scene = new Scene(root);
-
         stage.setScene(scene);
         stage.show();
     }
