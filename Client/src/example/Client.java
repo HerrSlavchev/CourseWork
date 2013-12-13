@@ -3,42 +3,40 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package example;
 
+import dto.session.Session;
 import java.rmi.server.UnicastRemoteObject;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import services.BindingConsts;
 import services.RemoteServices;
-
+import services.client.NotifiableIF;
+import services.server.ClientManagerIF;
 
 /**
  *
  * @author root
  */
 public class Client extends Application {
-    
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         //huc huc
         try {
             RemoteServices.init();
-            //ClientManagerIF stub = (ClientManagerIF) RemoteServices.getStub(BindingConsts.CLIENT_MANAGER);
-            //NotifiableIF notifStub = (NotifiableIF) UnicastRemoteObject.exportObject(notifImpl, 0);
-            //stub.registerClient(notifStub, (int) (Math.random() * 1000 * Math.random()));
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return;
         }
-        
+
         Parent root = FXMLLoader.load(getClass().getResource("MainPageFXML.fxml"));
-        
+
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
         stage.show();
     }

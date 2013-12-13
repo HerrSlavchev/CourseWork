@@ -20,14 +20,14 @@ public class BasicSessionCodeProvider implements SessionCodeProviderIF{
     
     public static final int MAX_POOL_SIZE = 128;
     
-    private BasicSessionCodeProvider instance;
+    private static BasicSessionCodeProvider instance;
     
     private BasicSessionCodeProvider(){
         codeCounter = 0;
         codePool = new ArrayDeque<String>(MAX_POOL_SIZE);
     }
     
-    public BasicSessionCodeProvider getInstance(){
+    public static BasicSessionCodeProvider getInstance(){
         if (instance == null){
             instance = new BasicSessionCodeProvider();
         }

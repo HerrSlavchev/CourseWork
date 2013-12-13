@@ -7,9 +7,11 @@
 package services.implementations;
 
 import dto.domain.Notification;
+import dto.session.Session;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
+import properties.Properties;
 import services.client.NotifiableIF;
 
 /**
@@ -25,6 +27,17 @@ public class NotifiableImpl implements NotifiableIF, Serializable{
         for(Notification n : news){
             System.out.println(n.getTriggerType());
         }
+    }
+    
+    @Override
+    public String getSessionCode() throws RemoteException {
+        return Properties.getSession().getSessionCode();
+    }
+
+    @Override
+    public void setSessionCode(String sessionCode) throws RemoteException {
+        Session session = new Session(sessionCode);
+        Properties.setSession(session);
     }
     
 }

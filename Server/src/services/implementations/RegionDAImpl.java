@@ -11,6 +11,7 @@ import dto.domain.TriggerType;
 import dto.domain.Region;
 import dto.domain.User;
 import dto.filters.RegionFilter;
+import dto.session.Session;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import services.server.RegionDAIF;
 public class RegionDAImpl implements RegionDAIF {
 
     @Override
-    public Result<Region> insertRegion(List<Region> ins, User user) throws RemoteException {
+    public Result<Region> insertRegion(List<Region> ins, Session session) throws RemoteException {
         List<Region> res = new ArrayList<Region>();
         Exception ex = null;
         try {
@@ -37,7 +38,7 @@ public class RegionDAImpl implements RegionDAIF {
     }
 
     @Override
-    public Result<Region> updateRegion(List<Region> upd, User user) throws RemoteException {
+    public Result<Region> updateRegion(List<Region> upd, Session session) throws RemoteException {
         List<Region> res = new ArrayList<Region>();
         Exception ex = null;
         try {
@@ -50,7 +51,7 @@ public class RegionDAImpl implements RegionDAIF {
     }
 
     @Override
-    public Result<Region> deleteRegion(List<Region> del, User user) throws RemoteException {
+    public Result<Region> deleteRegion(List<Region> del, Session session) throws RemoteException {
         List<Region> res = new ArrayList<Region>();
         Exception ex = null;
         try {

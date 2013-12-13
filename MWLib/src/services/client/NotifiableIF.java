@@ -18,4 +18,6 @@ import java.util.List;
 public interface NotifiableIF extends Remote{
     
     public void acceptNotifications(List<Notification> news) throws RemoteException;
+    public String getSessionCode() throws RemoteException;
+    public void setSessionCode(String sessionCode) throws RemoteException;
 }

@@ -6,7 +6,9 @@
 
 package services.server;
 
+import dto.Result;
 import dto.domain.User;
+import dto.session.Session;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import services.client.NotifiableIF;
@@ -16,10 +18,8 @@ import services.client.NotifiableIF;
  * @author root
  */
 public interface ClientManagerIF extends Remote{
+        
+    public Result<User> registerClient(NotifiableIF cli, User user) throws RemoteException;
     
-    //call this whenever someone logs in
-    public void registerClient(NotifiableIF cli, User user) throws RemoteException;
-    
-    //call this when loggin out
-    public void removeClient(User user) throws RemoteException;
+    public void removeClient(Session session) throws RemoteException;
 }

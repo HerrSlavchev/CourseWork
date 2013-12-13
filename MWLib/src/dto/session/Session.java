@@ -5,10 +5,6 @@
  */
 package dto.session;
 
-import services.BindingConsts;
-import services.server.ClientManagerIF;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 /**
  *
  * @author root
@@ -22,6 +18,7 @@ public class Session {
     }
     
     public String getSessionCode(){
-        return "";
+        return sessionCode;
     }
+    
 }
