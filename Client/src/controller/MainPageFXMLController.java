@@ -7,6 +7,7 @@
 package controller;
 
 import example.Client;
+import images.ImageViewFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,11 +16,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import utils.ConfirmationDelegatorIF;
+import utils.Utils;
 
 /**
  * FXML Controller class
@@ -30,12 +35,22 @@ public class MainPageFXMLController implements Initializable {
 
     @FXML
     BorderPane mainPane;
+    
+    @FXML
+    Button loginB;
+    
+    private ImageView logged;
+    private ImageView guest;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        logged = ImageViewFactory.getImageView("user_64_in.png", loginB.getMinHeight());
+        guest =  ImageViewFactory.getImageView("user_64.png", loginB.getMinHeight());
+        loginB.setGraphicTextGap(0);
+        loginB.setGraphic(guest);
     }    
     
     @FXML
@@ -68,7 +83,6 @@ public class MainPageFXMLController implements Initializable {
             FXMLLoader loader = new FXMLLoader(Client.class.getResource("RegistrationFormFXML.fxml"));
             AnchorPane ap = (AnchorPane) loader.load();
             mainPane.setCenter(ap);
-            
         }catch(Exception e){
             
         }
@@ -98,5 +112,35 @@ public class MainPageFXMLController implements Initializable {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+    
+    public void setLogged(boolean b){
+        if (b){
+            loginB.setGraphic(logged);
+        } else {
+            loginB.setGraphic(guest);
+        }
+    }
+    
+    @FXML
+    private void handleLogoutAction(ActionEvent event) {
+        Utils.showConfirmation("Are you sure you want to exit?", Client.getMainPageStage(), new ConfirmationDelegatorIF() {
+
+        @Override
+        public void ok() {
+            logout();
+        }
+
+        @Override
+        public void cancel() {
+            //no need to do anything
+        }
+        
+    });
+    }
+    
+    
+    public void logout(){
+        
     }
 }

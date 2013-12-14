@@ -20,10 +20,14 @@ public class Properties {
             return;
         }
         Properties.session = session;
-        System.out.println("reg: " + session.getSessionCode());
     }
     
     public static Session getSession(){
         return session;
     }
+    
+    public static void killSession(){
+        session = null;
+    }
+    
 }

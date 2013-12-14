@@ -15,6 +15,8 @@ import java.util.Deque;
  */
 public class BasicSessionCodeProvider implements SessionCodeProviderIF{
     
+    public static final boolean ALLOW_SESSION_REUSE = false;
+    
     private Deque<String> codePool;
     private int codeCounter;
     
@@ -38,10 +40,9 @@ public class BasicSessionCodeProvider implements SessionCodeProviderIF{
     public String getSessionCode(){
         String code = "";
         synchronized(this) {
-            if (codePool.isEmpty()) {
+            if (false == ALLOW_SESSION_REUSE || codePool.isEmpty()) {
                 code = codeCounter + "";
                 codeCounter++;
-                
             } else {
                 code = codePool.pop();
             }
@@ -50,6 +51,10 @@ public class BasicSessionCodeProvider implements SessionCodeProviderIF{
     }
     
     public void releaseSessionCode(String sessionCode){
+        
+        if(false == ALLOW_SESSION_REUSE){
+            return;
+        }
         
         synchronized(this){
             if (codePool.size() < MAX_POOL_SIZE) {

@@ -3,26 +3,39 @@
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.MainPageFXMLController">
+<GridPane prefHeight="415.0" prefWidth="481.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.MainPageFXMLController">
   <children>
-    <BorderPane fx:id="mainPane" layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
-      <top>
-        <AnchorPane prefHeight="73.0" prefWidth="600.0">
-          <children>
-            <Button layoutX="23.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleButton1Action" text="Button" />
-            <Button layoutX="138.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleButton2Action" text="Button" />
-            <Button layoutX="255.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleLoginAction" text="Login" />
-            <Button layoutX="333.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleRegisterAction" text="Register" />
-          </children>
-        </AnchorPane>
-      </top>
-    </BorderPane>
+    <GridPane gridLinesVisible="false" prefHeight="85.0" prefWidth="481.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="0">
+      <children>
+        <Button id="" fx:id="loginB" cancelButton="false" contentDisplay="CENTER" defaultButton="false" graphicTextGap="0.0" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="22.0" prefWidth="22.0" text="" textAlignment="CENTER" underline="false" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+          <GridPane.margin>
+            <Insets />
+          </GridPane.margin>
+        </Button>
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
   </children>
-  <stylesheets>
-    <URL value="@mainpagefxml.css" />
-  </stylesheets>
-</AnchorPane>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="225.0" minHeight="10.0" prefHeight="225.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="138.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>

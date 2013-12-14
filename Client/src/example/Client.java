@@ -58,6 +58,7 @@ public class Client extends Application {
         mainPageStage = stage;
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        //mainPageController.setLogged(false);
         stage.show();
     }
 
