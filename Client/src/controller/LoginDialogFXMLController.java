@@ -5,18 +5,22 @@
  */
 package controller;
 
+import dto.Result;
+import dto.domain.User;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import services.BindingConsts;
+import services.RemoteServices;
+import services.client.NotifiableIF;
+import services.implementations.ServiceExposer;
+import services.server.ClientManagerIF;
+import utils.Utils;
 
 /**
  * FXML Controller class
@@ -25,7 +29,6 @@ import javafx.stage.Stage;
  */
 public class LoginDialogFXMLController implements Initializable {
 
-    private Stage parentStage = null;
     private Stage stage = null;
     
     @FXML
@@ -38,26 +41,38 @@ public class LoginDialogFXMLController implements Initializable {
         String eMail = eMailTF.getText();
         String password = passwordTF.getText();
 
-        int rnd = (int) (Math.random() * 2);
+        ClientManagerIF stub = (ClientManagerIF) RemoteServices.getStub(BindingConsts.CLIENT_MANAGER);
+        User user = null;
+        Throwable exc = null;
+        try {
+            User u = new User(0);
+            u.eMail = eMailTF.getText();
+            u.password = passwordTF.getText();
+            NotifiableIF client = ServiceExposer.client;
+            Result<User> res = stub.registerClient(client, u);
+            if (res.getException() != null){
+                exc = res.getException();
+            } else {
+                user = res.getResult().get(0);
+            }
+        } catch (Exception e){
+            exc = e;
+        }
         
-        if(rnd == 1){
-            successfulLogin();
+        if(exc != null) {
+            errorPrompt(exc);
         } else {
-            errorPrompt();
+            successfulLogin(user);
         }
     }
 
-    private void successfulLogin(){
-        System.out.println("Success");
+    private void successfulLogin(User user){
+        Utils.showMessage("SUCCESS!", "Successful login!", stage);
         stage.close();
     }
     
-    private void errorPrompt(){
-        
-    }
-    
-    public void setParent(Stage parentStage){
-        this.parentStage = parentStage;
+    private void errorPrompt(Throwable exc){
+        Utils.showError(exc.getMessage(), stage);
     }
     
     public void setStage(Stage stage){

@@ -7,7 +7,7 @@ package controller;
 
 import dto.Result;
 import dto.domain.User;
-import javafx.geometry.Insets;
+import example.Client;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +15,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import properties.Properties;
 import services.BindingConsts;
 import services.RemoteServices;
@@ -38,6 +31,7 @@ import utils.Utils;
  */
 public class RegistrationFormFXMLController implements Initializable {
 
+    
     @FXML
     TextField eMailTF;
     @FXML
@@ -61,6 +55,7 @@ public class RegistrationFormFXMLController implements Initializable {
         u.fName = fNameTF.getText();
         u.sName = sNameTF.getText();
         u.lName = lNameTF.getText();
+        
         return u;
     }
 
@@ -76,13 +71,15 @@ public class RegistrationFormFXMLController implements Initializable {
             Result<User> res = stub.insertUser(lst, Properties.getSession());
             if (res.getException() != null) {
                 exc = res.getException();
+            } else {
+                Utils.showMessage("SUCCESS!", "Successful registration!", Client.getMainPageStage());
             }
         } catch (Exception e) {
             exc = e;
         }
         
         if (exc != null) {
-            Utils.showMessage(exc.getMessage());
+            Utils.showError(exc.getMessage(), Client.getMainPageStage());
         }
     }
 

@@ -5,6 +5,7 @@
  */
 package utils;
 
+import controller.MainPageFXMLController;
 import java.awt.Desktop.Action;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,9 +25,14 @@ import javax.xml.ws.Response;
  */
 public class Utils {
 
-    public static void showMessage(String text) {
+    public static void showError(String text, Stage owner) {
+        showMessage("ERROR!", text, owner);
+    }
+
+    public static void showMessage(String title, String text, Stage owner) {
         final Stage dialogStage = new Stage();
-        dialogStage.setTitle("Error!");
+        dialogStage.setTitle(title);
+        
         Button okButton = new Button("OK");
         okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -34,12 +40,12 @@ public class Utils {
                 dialogStage.close();
             }
         });
-        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(owner);
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.setScene(new Scene(VBoxBuilder.create().
                 children(new Text(text), new Text("\n"), okButton
                 ).
                 alignment(Pos.CENTER).padding(new Insets(5)).build()));
         dialogStage.show();
     }
-
 }

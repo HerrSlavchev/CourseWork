@@ -13,14 +13,15 @@ import dto.domain.TriggerType;
 import dto.domain.User;
 import dto.rolemanagement.Role;
 import dto.session.Session;
+import exceptions.ExceptionProcessor;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,10 +29,9 @@ import java.util.List;
 import java.util.Map;
 import security.Credentials;
 import security.PasswordManagerPBKDF2;
+import security.SecurityUtils;
 import services.client.NotifiableIF;
 import services.server.ClientManagerIF;
-import session.BasicSessionCodeProvider;
-import session.SessionCodeProviderIF;
 
 /**
  *
@@ -46,29 +46,30 @@ public class ClientManagerImpl implements ClientManagerIF {
         return Collections.unmodifiableMap(mapIDsToClients);
     }
 
-    private User login(User user) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, SQLException {
+    private User login(User user) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, SQLException, Exception {
 
         User u = null;
 
         String email = user.eMail;
         String password = user.password;
         Connection conn = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         ResultSet rs = null;
+        
         try {
             conn = ConnectionProvider.getConnection();
-            String slct = "SELECT ID, password, hash, iterations FROM user WHERE e_mail = '" + email + "';";
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(slct);
+            String slct = "SELECT ID, password, salt, iterations FROM user WHERE e_mail = ?";
+            stmt = conn.prepareStatement(slct);
+            stmt.setString(1, email);
+            rs = stmt.executeQuery();
 
-            if (rs.getFetchSize() == 1) {
-                rs.next();
+            if (rs.first()) {
                 int ID = rs.getInt("ID");
                 String realPassword = rs.getString("password");
                 String realSalt = rs.getString("salt");
                 int realIterations = rs.getInt("iterations");
                 Credentials creds = new Credentials(realPassword, realSalt, realIterations);
-                boolean valid = PasswordManagerPBKDF2.getInstance().validatePassword(password, creds);
+                boolean valid = SecurityUtils.passwordManager.validatePassword(password, creds);
                 if (valid) {
                     u = new User(ID, null, null, null);
                     slct = "select "
@@ -79,15 +80,22 @@ public class ClientManagerImpl implements ClientManagerIF {
                             + "from "
                             + "user u "
                             + "where "
-                            + "u.ID = " + ID + ";";
-                    rs = stmt.executeQuery(slct);
+                            + "u.ID = ?";
+                    stmt = conn.prepareStatement(slct);
+                    stmt.setInt(1, ID);
+                    rs = stmt.executeQuery();
                     rs.next();
-                    u.fName = rs.getString("u.f_name");
-                    u.lName = rs.getString("u.l_name");
-                    u.eMail = rs.getString("u.e_mail");
-                    int roleIdx = rs.getInt("u.role");
+                    
+                    u.fName = rs.getString("f_name");
+                    u.lName = rs.getString("l_name");
+                    u.eMail = rs.getString("e_mail");
+                    int roleIdx = rs.getInt("role");
                     u.role = Role.values()[roleIdx];
+                } else {
+                    throw new Exception("Password and e-mail do not match!");
                 }
+            } else {
+                throw new Exception("Password and e-mail do not match!");
             }
         } finally {
             DAOUtils.releaseRes(conn, stmt, rs);
@@ -106,15 +114,17 @@ public class ClientManagerImpl implements ClientManagerIF {
             dbUser = login(user);
             lst.add(dbUser);
         } catch (Exception e) {
-            exc = e;
+            exc = ExceptionProcessor.processException(e);
         }
         Result res = new Result(lst, exc);
         
-        if (dbUser == null || exc != null) {
+        if (exc != null) {
             return res;
         }
         
+        
         int userID = dbUser.getID();
+        
         //if someone has logged with this user, kill his client and register this one
         NotifiableIF old = mapIDsToClients.get(userID);
         if (old != null) {
@@ -128,7 +138,8 @@ public class ClientManagerImpl implements ClientManagerIF {
             mapIDsToClients.remove(userID);
             DAOUtils.sessionCodeProvider.releaseSessionCode(oldSessionCode);
         }
-
+        
+        
         String sessionCode = DAOUtils.sessionCodeProvider.getSessionCode();
         mapCodesToIDs.put(sessionCode, userID);
         mapIDsToClients.put(userID, cli);

@@ -29,7 +29,6 @@ public class RemoteServices {
         }
 
         reg = LocateRegistry.getRegistry(BindingConsts.port);
-        
     }
 
     public static Remote getStub(String key) {

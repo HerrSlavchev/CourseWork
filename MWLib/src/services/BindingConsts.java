@@ -19,8 +19,9 @@ public class BindingConsts {
     */
     
     //===CLIENT METHODS===
-    
+        
     //===SERVER METHODS===
     public static final String REGION_DA = "RegionDA";
     public static final String CLIENT_MANAGER = "ClientManager";
+    public static final String USER_DA = "UserDA";
 }

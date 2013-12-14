@@ -18,7 +18,8 @@ import session.SessionCodeProviderIF;
  */
 public class DAOUtils {
 
-    public static SessionCodeProviderIF sessionCodeProvider = BasicSessionCodeProvider.getInstance();
+    public static final SessionCodeProviderIF sessionCodeProvider = BasicSessionCodeProvider.getInstance();
+    
     
     public static void releaseRes(Connection conn, Statement stmt, ResultSet rs) throws SQLException {
         if (rs != null && false == rs.isClosed()) {
@@ -30,5 +31,9 @@ public class DAOUtils {
         if (conn != null && false == conn.isClosed()) {
             conn.close();
         }
+    }
+    
+    public static void processSQLException(SQLException SQLe){
+        SQLe.printStackTrace();
     }
 }

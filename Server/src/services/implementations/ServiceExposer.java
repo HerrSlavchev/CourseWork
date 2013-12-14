@@ -5,12 +5,15 @@
  */
 package services.implementations;
 
+import java.rmi.AlreadyBoundException;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 import services.BindingConsts;
-import services.server.ClientManagerIF;
-import services.server.RegionDAIF;
 
 /**
  *
@@ -18,23 +21,42 @@ import services.server.RegionDAIF;
  */
 public class ServiceExposer {
 
+    //Because of that: http://stackoverflow.com/questions/645208/java-rmi-nosuchobjectexception-no-such-object-in-table
+    private static List<Remote> hardReferences = new ArrayList();
+    
     private static boolean done = false;
-
+    private static Registry registry = null;
+    
+    private static <E extends Remote> void register(E daImpl, String key) throws RemoteException, AlreadyBoundException{
+        E daIF = daImpl;
+        E stub = (E) UnicastRemoteObject.exportObject(daIF, 0);
+        hardReferences.add(stub);
+        registry.bind(key, stub);
+    }
+    
     public static void exposeAll() throws Exception {
         
         if (done) { //bootstrap only once
             return;
         }
         
-        Registry registry = LocateRegistry.createRegistry(BindingConsts.port);
+        registry = LocateRegistry.createRegistry(BindingConsts.port);
 
-        RegionDAIF regionsIF = new RegionDAImpl(); //local implementation
-        RegionDAIF regionsStub = (RegionDAIF) UnicastRemoteObject.exportObject(regionsIF, 0); //expose
-        registry.bind(BindingConsts.REGION_DA, regionsStub); //publish to the registry
+        register(new ClientManagerImpl(), BindingConsts.CLIENT_MANAGER);
+        register(new UserDAImpl(), BindingConsts.USER_DA);
+        register(new RegionDAImpl(), BindingConsts.REGION_DA);
+        
+        
+        
+        /*
+        RegionDAIF regionsIF = new RegionDAImpl(); 
+        RegionDAIF regionsStub = (RegionDAIF) UnicastRemoteObject.exportObject(regionsIF, 0); 
+        registry.bind(BindingConsts.REGION_DA, regionsStub); 
 
         ClientManagerIF clmIF = new ClientManagerImpl();
         ClientManagerIF clmStub = (ClientManagerIF) UnicastRemoteObject.exportObject(clmIF, 0); 
         registry.bind(BindingConsts.CLIENT_MANAGER, clmStub);
+        */
         
         done = true; //bootstrapping went well
     }

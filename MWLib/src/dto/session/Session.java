@@ -5,12 +5,16 @@
  */
 package dto.session;
 
+import java.io.Serializable;
+
 /**
  *
  * @author root
  */
-public class Session {
+public class Session implements Serializable{
 
+    private static final long serialVersionUID = 1L;
+    
     private final String sessionCode;
     
     public Session(String sessionCode){

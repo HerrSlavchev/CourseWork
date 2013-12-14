@@ -37,7 +37,9 @@ public class NotifiableImpl implements NotifiableIF, Serializable{
     @Override
     public void setSessionCode(String sessionCode) throws RemoteException {
         Session session = new Session(sessionCode);
+        System.out.println("SC: " + sessionCode);
         Properties.setSession(session);
+        
     }
     
 }

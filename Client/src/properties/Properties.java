@@ -16,10 +16,11 @@ public class Properties {
     private static Session session;
 
     public static void setSession(Session session) {
-        if (session != null) {
+        if (Properties.session != null) {
             return;
         }
         Properties.session = session;
+        System.out.println("reg: " + session.getSessionCode());
     }
     
     public static Session getSession(){

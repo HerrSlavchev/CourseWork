@@ -32,6 +32,10 @@ public class User extends PersistedDTO {
     public User(int ID, Date timeIns, Date timeUpd, User userUpd) {
         super(ID, timeIns, timeUpd, null, userUpd);
     }
+    
+    public User(int ID){
+        super(ID);
+    }
 
     public String getFName() {
         return fName;

@@ -19,5 +19,4 @@ public interface PasswordManagerIF {
     public Credentials createCredentials(String password) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException;
 
     public boolean validatePassword(String password, Credentials creds) throws NoSuchAlgorithmException, InvalidKeySpecException;
-
 }

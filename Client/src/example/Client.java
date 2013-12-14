@@ -24,6 +24,17 @@ import services.server.ClientManagerIF;
  */
 public class Client extends Application {
 
+    private static Stage mainPageStage = null;
+    private static MainPageFXMLController mainPageController = null;
+    
+    public static Stage getMainPageStage(){
+        return mainPageStage;
+    }
+    
+    public static MainPageFXMLController getMainPageController(){
+        return mainPageController;
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
         //huc huc
@@ -38,8 +49,8 @@ public class Client extends Application {
         fl.setLocation(getClass().getResource("MainPageFXML.fxml"));
         fl.load();
         Parent root = fl.getRoot();
-        MainPageFXMLController mpController = (MainPageFXMLController) fl.getController();
-        mpController.setStage(stage);
+        mainPageController = (MainPageFXMLController) fl.getController();
+        mainPageStage = stage;
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

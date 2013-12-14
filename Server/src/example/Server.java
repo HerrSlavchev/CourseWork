@@ -6,6 +6,7 @@
 
 package example;
 
+import dao.ConnectionProvider;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +25,7 @@ public class Server extends Application {
         
         try {
             ServiceExposer.exposeAll();
+            ConnectionProvider.init();
         } catch(Exception e){
             e.printStackTrace();
             return;

@@ -28,8 +28,6 @@ import javafx.stage.StageStyle;
  */
 public class MainPageFXMLController implements Initializable {
 
-    Stage primaryStage = null;
-    
     @FXML
     BorderPane mainPane;
     /**
@@ -39,10 +37,6 @@ public class MainPageFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-    
-    public void setStage(Stage stage){
-        primaryStage = stage;
-    }
     
     @FXML
     private void handleButton1Action(ActionEvent event) {
@@ -82,7 +76,7 @@ public class MainPageFXMLController implements Initializable {
     
     @FXML
     private void handleLoginAction(ActionEvent event) {
-        System.out.println("XXX");
+        
         try{
             FXMLLoader loginLoader = new FXMLLoader();
             loginLoader.setLocation(Client.class.getResource("LoginDialogFXML.fxml"));
@@ -92,11 +86,10 @@ public class MainPageFXMLController implements Initializable {
             
             Stage loginDialog = new Stage(StageStyle.DECORATED);
             loginDialog.initModality(Modality.APPLICATION_MODAL);
-            loginDialog.initOwner(primaryStage);
+            loginDialog.initOwner(Client.getMainPageStage());
             Scene scene = new Scene(root);
             
             LoginDialogFXMLController loginController = loginLoader.getController();
-            loginController.setParent(primaryStage);
             loginController.setStage(loginDialog);
             
             loginDialog.setScene(scene);
