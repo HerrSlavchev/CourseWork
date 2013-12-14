@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane prefHeight="415.0" prefWidth="481.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.MainPageFXMLController">
+<GridPane disable="false" prefHeight="415.0" prefWidth="481.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.MainPageFXMLController">
   <children>
     <GridPane gridLinesVisible="false" prefHeight="85.0" prefWidth="481.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="0">
       <children>
@@ -17,24 +17,26 @@
             <Insets />
           </GridPane.margin>
         </Button>
+        <Button mnemonicParsing="false" onAction="#handleButton1Action" text="Regions" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
       </children>
       <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="45.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="196.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
       </columnConstraints>
       <rowConstraints>
         <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
+    <BorderPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="52.0" valignment="TOP" vgrow="NEVER" />
     <RowConstraints maxHeight="225.0" minHeight="10.0" prefHeight="225.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="138.0" vgrow="SOMETIMES" />
   </rowConstraints>
