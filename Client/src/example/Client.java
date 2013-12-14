@@ -26,15 +26,20 @@ public class Client extends Application {
 
     private static Stage mainPageStage = null;
     private static MainPageFXMLController mainPageController = null;
-    
-    public static Stage getMainPageStage(){
+    private boolean askBeforeExit = true;
+
+    public void setAskBeforeExit(boolean b) {
+        askBeforeExit = b;
+    }
+
+    public static Stage getMainPageStage() {
         return mainPageStage;
     }
-    
-    public static MainPageFXMLController getMainPageController(){
+
+    public static MainPageFXMLController getMainPageController() {
         return mainPageController;
     }
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         //huc huc
@@ -67,5 +72,11 @@ public class Client extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
+    @Override
+    public void stop() throws Exception {
+        if (askBeforeExit) {
+            //prompt user and return
+        }
+    }
 }

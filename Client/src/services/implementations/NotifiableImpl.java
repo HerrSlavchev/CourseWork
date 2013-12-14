@@ -3,32 +3,44 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package services.implementations;
 
 import dto.domain.Notification;
+import dto.domain.TriggerType;
 import dto.session.Session;
+import example.Client;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
+import javafx.application.Platform;
 import properties.Properties;
 import services.client.NotifiableIF;
+import utils.Utils;
 
 /**
  *
  * @author root
  */
-public class NotifiableImpl implements NotifiableIF, Serializable{
+public class NotifiableImpl implements NotifiableIF, Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Override
     public void acceptNotifications(List<Notification> news) throws RemoteException {
-        for(Notification n : news){
-            System.out.println(n.getTriggerType());
+        for (Notification n : news) {
+            final TriggerType tt = n.getTriggerType();
+            if (tt == TriggerType.LOGGED_FROM_ANOTHER_CLIENT) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        Utils.showError(tt.getMessage(), Client.getMainPageStage());
+                    }
+                });
+                
+            }
         }
     }
-    
+
     @Override
     public String getSessionCode() throws RemoteException {
         return Properties.getSession().getSessionCode();
@@ -39,7 +51,7 @@ public class NotifiableImpl implements NotifiableIF, Serializable{
         Session session = new Session(sessionCode);
         System.out.println("SC: " + sessionCode);
         Properties.setSession(session);
-        
+
     }
-    
+
 }

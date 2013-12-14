@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import security.Credentials;
-import security.PasswordManagerPBKDF2;
 import security.SecurityUtils;
 import services.client.NotifiableIF;
 import services.server.ClientManagerIF;
