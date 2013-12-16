@@ -34,9 +34,10 @@ public class NotifiableImpl implements NotifiableIF, Serializable {
                     @Override
                     public void run() {
                         Utils.showError(tt.getMessage(), Client.getMainPageStage());
+                        Client.getMainPageController().setLogged(false);
                     }
                 });
-                
+
             }
         }
     }
@@ -50,6 +51,17 @@ public class NotifiableImpl implements NotifiableIF, Serializable {
     public void setSessionCode(String sessionCode) throws RemoteException {
         Session session = new Session(sessionCode);
         Properties.setSession(session);
+    }
+
+    @Override
+    public void logout() throws RemoteException {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Client.getMainPageController().setLogged(false);
+            }
+        });
+
     }
 
 }

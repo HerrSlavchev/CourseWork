@@ -12,16 +12,17 @@
   <children>
     <GridPane gridLinesVisible="false" prefHeight="85.0" prefWidth="481.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="0">
       <children>
-        <Button id="" fx:id="loginB" cancelButton="false" contentDisplay="CENTER" defaultButton="false" graphicTextGap="0.0" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="22.0" prefWidth="22.0" text="" textAlignment="CENTER" underline="false" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
-          <GridPane.margin>
-            <Insets />
-          </GridPane.margin>
-        </Button>
+        <MenuButton fx:id="loginB" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" disable="false" graphicTextGap="0.0" maxHeight="22.0" maxWidth="51.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" opacity="1.0" prefHeight="22.0" prefWidth="51.0" text="MenuButton" visible="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Action 1" />
+            <MenuItem mnemonicParsing="false" text="Action 2" />
+          </items>
+        </MenuButton>
         <Button mnemonicParsing="false" onAction="#handleButton1Action" text="Regions" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
       </children>
       <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="45.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="196.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="64.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="177.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
       </columnConstraints>

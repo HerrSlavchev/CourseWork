@@ -10,8 +10,8 @@
 <AnchorPane id="AnchorPane" prefHeight="159.0" prefWidth="506.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.ConfirmationFXMLController">
   <children>
     <Label fx:id="label" alignment="CENTER" contentDisplay="LEFT" ellipsisString="" layoutX="0.0" layoutY="14.0" prefWidth="506.0" text="Are you sure?" textAlignment="CENTER" />
-    <Button layoutX="144.0" layoutY="125.0" mnemonicParsing="false" text="Button" />
-    <Button layoutX="283.0" layoutY="125.0" mnemonicParsing="false" text="Button" />
+    <Button layoutX="130.0" layoutY="125.0" mnemonicParsing="false" onAction="#handleOKAction" prefWidth="67.0" text="OK" />
+    <Button layoutX="283.0" layoutY="125.0" mnemonicParsing="false" onAction="#handleCancelAction" text="Cancel" />
   </children>
   <stylesheets>
     <URL value="@confirmationfxml.css" />

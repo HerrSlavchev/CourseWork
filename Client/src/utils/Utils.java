@@ -65,6 +65,7 @@ public class Utils {
 
             Parent root = confirmationLoader.getRoot();
             Stage dialogStage = new Stage(StageStyle.DECORATED);
+            dialogStage.setTitle(title);
             dialogStage.setResizable(false);
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.initOwner(owner);
