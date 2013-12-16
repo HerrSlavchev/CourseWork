@@ -161,6 +161,8 @@ public class ClientManagerImpl implements ClientManagerIF {
         }
         
         DAOUtils.sessionCodeProvider.releaseSessionCode(sessionCode);
+        
+        cli.logout();
     }
 
 }

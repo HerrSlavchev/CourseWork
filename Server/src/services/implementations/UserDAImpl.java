@@ -98,6 +98,7 @@ public class UserDAImpl implements UserDAIF {
 
     @Override
     public Result<User> updateUser(List<User> upd, Session session) throws RemoteException {
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
