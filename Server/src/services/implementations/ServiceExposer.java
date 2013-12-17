@@ -29,8 +29,9 @@ public class ServiceExposer {
     
     private static <E extends Remote> void register(E daImpl, String key) throws RemoteException, AlreadyBoundException{
         E daIF = daImpl;
-        E stub = (E) UnicastRemoteObject.exportObject(daIF, 0);
+        E stub = (E) UnicastRemoteObject.exportObject(daIF, BindingConsts.port);
         hardReferences.add(stub);
+        hardReferences.add(daImpl);
         registry.bind(key, stub);
     }
     
