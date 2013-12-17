@@ -174,7 +174,13 @@ public class MainPageFXMLController implements Initializable {
     }
 
     private void handleEditAction() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Client.class.getResource("RegistrationFormFXML.fxml"));
+            AnchorPane ap = (AnchorPane) loader.load();
+            mainPane.setCenter(ap);
+        } catch (Exception e) {
 
+        }
     }
 
     public void setLogged(boolean b) {
@@ -191,6 +197,7 @@ public class MainPageFXMLController implements Initializable {
         loginB.getItems().clear();
         loginB.getItems().addAll(loginMI, registerMI);
         Client.getMainPageStage().setTitle("GUEST");
+        Properties.user = null;
     }
 
     private void login() {

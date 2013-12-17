@@ -59,6 +59,7 @@ public class NotifiableImpl implements NotifiableIF, Serializable {
             @Override
             public void run() {
                 Client.getMainPageController().setLogged(false);
+                Properties.user = null;
             }
         });
 

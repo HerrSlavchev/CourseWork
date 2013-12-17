@@ -23,7 +23,8 @@
     <TextField id="sNameTF" fx:id="lNameTF" layoutX="161.0" layoutY="175.0" prefWidth="200.0" />
     <PasswordField fx:id="passwordTF" layoutX="161.0" layoutY="59.0" prefWidth="200.0" promptText="Choose a password" />
     <PasswordField fx:id="confirmTF" layoutX="161.0" layoutY="87.0" prefWidth="200.0" promptText="Repeat password" />
-    <Button layoutX="163.0" layoutY="394.0" mnemonicParsing="false" onAction="#handleRegistrationAction" text="Register" />
+    <Button id="editB" fx:id="registerB" layoutX="163.0" layoutY="394.0" mnemonicParsing="false" onAction="#handleRegistrationAction" text="Register" />
+    <Button fx:id="editB" layoutX="261.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleEditAction" text="Edit" />
   </children>
   <stylesheets>
     <URL value="@registrationformfxml.css" />
