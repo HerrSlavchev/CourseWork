@@ -7,7 +7,8 @@
 package dto.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
+
 
 /**
  *
@@ -23,8 +24,8 @@ public abstract class PersistedDTO implements Serializable {
     
     private int ID = 0;
     //most entities are expected to have these fields also
-    private Date timeIns;
-    private Date timeUpd;
+    private Timestamp timeIns;
+    private Timestamp timeUpd;
     private User userIns;
     private User userUpd;
     
@@ -32,7 +33,7 @@ public abstract class PersistedDTO implements Serializable {
         this.ID = ID;
     }
     
-    public PersistedDTO(int ID, Date timeIns, Date timeUpd, User userIns, User userUpd){
+    public PersistedDTO(int ID, Timestamp timeIns, Timestamp timeUpd, User userIns, User userUpd){
         this.ID = ID;
         this.timeIns = timeIns;
         this.timeUpd = timeUpd;
@@ -44,11 +45,11 @@ public abstract class PersistedDTO implements Serializable {
         return this.ID;
     }
     
-    public Date getTimeIns(){
+    public Timestamp getTimeIns(){
         return timeIns;
     }
     
-    public Date getTimeUpd(){
+    public Timestamp getTimeUpd(){
         return timeUpd;
     }
     

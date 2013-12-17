@@ -17,6 +17,8 @@ public enum Role {
     GUEST("Guest");
     
     private String name;
+    private static final long serialVersionUID = 1L;    
+
 
     Role(String name) {
         this.name = name;

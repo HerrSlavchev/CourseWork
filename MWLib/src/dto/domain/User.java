@@ -6,7 +6,7 @@
 package dto.domain;
 
 import dto.rolemanagement.Role;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -29,7 +29,7 @@ public class User extends PersistedDTO {
     public List<Event> events;
     public List<Conversation> conversations;
 
-    public User(int ID, Date timeIns, Date timeUpd, User userUpd) {
+    public User(int ID, Timestamp timeIns, Timestamp timeUpd, User userUpd) {
         super(ID, timeIns, timeUpd, null, userUpd);
     }
     

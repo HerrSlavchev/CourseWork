@@ -6,7 +6,7 @@
 
 package dto.domain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public class Publication extends PersistedDTO{
     public Publication parentPublication;
     public Event event;
     
-    public Publication(int ID, Date timeIns, Date timeUpd, User userIns, User userUpd) {
+    public Publication(int ID, Timestamp timeIns, Timestamp timeUpd, User userIns, User userUpd) {
         super(ID, timeIns, timeUpd, userIns, userUpd);
     }
     

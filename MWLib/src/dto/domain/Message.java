@@ -5,8 +5,7 @@
  */
 package dto.domain;
 
-import java.util.Date;
-import java.util.List;
+import java.sql.Timestamp;
 
 /**
  *
@@ -19,7 +18,7 @@ public class Message extends PersistedDTO {
     //extrinsic
     public Conversation conversation;
     
-    public Message(int ID, Date timeIns, Date timeUpd, User userIns, User userUpd) {
+    public Message(int ID, Timestamp timeIns, Timestamp timeUpd, User userIns, User userUpd) {
         super(ID, timeIns, timeUpd, userIns, userUpd);
     }
 

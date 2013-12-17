@@ -59,7 +59,8 @@ public enum Permission {
     EVENT_DELETE("Delete event"), 
     ;
     private String name;
-
+    private static final long serialVersionUID = 1L;
+    
     Permission(String name) {
         this.name = name;
     }

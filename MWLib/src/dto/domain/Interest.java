@@ -5,7 +5,7 @@
  */
 package dto.domain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ public class Interest extends PersistedDTO {
     public List<User> users;
     public List<Group> groups;
 
-    public Interest(int ID, Date timeIns, Date timeUpd, User userIns, User userUpd) {
+    public Interest(int ID, Timestamp timeIns, Timestamp timeUpd, User userIns, User userUpd) {
         super(ID, timeIns, timeUpd, userIns, userUpd);
     }
 
