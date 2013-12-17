@@ -23,7 +23,7 @@ public class User extends PersistedDTO {
     public String description;
     public Role role;
     //extrinsic
-    public List<Town> towns;
+    public List<Town> towns;    
     public List<Interest> interests;
     public List<Group> groups;
     public List<Event> events;

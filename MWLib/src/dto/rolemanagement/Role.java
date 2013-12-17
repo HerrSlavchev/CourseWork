@@ -11,10 +11,12 @@ package dto.rolemanagement;
  */
 public enum Role {
 
-    ADMIN("Administrator"),
-    MODERATOR("Moderator"),
     USER("User"),
-    GUEST("Guest");
+    MODERATOR("Moderator"),
+    ADMIN("Administrator"),
+    ;
+    
+    
     
     private String name;
     private static final long serialVersionUID = 1L;    
