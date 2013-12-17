@@ -22,6 +22,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,6 +46,10 @@ public class ClientManagerImpl implements ClientManagerIF {
         return Collections.unmodifiableMap(mapIDsToClients);
     }
 
+    public static Integer getID(Session session){
+        return mapCodesToIDs.get(session.getSessionCode());
+    }
+    
     private User login(User user) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, SQLException, Exception {
 
         User u = null;
@@ -70,12 +75,16 @@ public class ClientManagerImpl implements ClientManagerIF {
                 Credentials creds = new Credentials(realPassword, realSalt, realIterations);
                 boolean valid = SecurityUtils.passwordManager.validatePassword(password, creds);
                 if (valid) {
-                    u = new User(ID, null, null, null);
+                    
                     slct = "select "
                             + "u.f_name, "
+                            + "u.s_name, "
                             + "u.l_name, "
                             + "u.e_mail, "
-                            + "u.role "
+                            + "u.description, "
+                            + "u.role, "
+                            + "u.timeins, "
+                            + "u.timeupd "
                             + "from "
                             + "user u "
                             + "where "
@@ -84,10 +93,14 @@ public class ClientManagerImpl implements ClientManagerIF {
                     stmt.setInt(1, ID);
                     rs = stmt.executeQuery();
                     rs.next();
-                    
+                    Timestamp timeins = rs.getTimestamp("timeins");
+                    Timestamp timeupd = rs.getTimestamp("timeupd");
+                    u = new User(ID, timeins, timeupd, null);
                     u.fName = rs.getString("f_name");
+                    u.sName = rs.getString("s_name");
                     u.lName = rs.getString("l_name");
                     u.eMail = rs.getString("e_mail");
+                    u.description = rs.getString("description");
                     int roleIdx = rs.getInt("role");
                     u.role = Role.values()[roleIdx];
                 } else {

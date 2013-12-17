@@ -29,7 +29,6 @@ public class RegionDAImpl implements RegionDAIF {
         List<Region> res = new ArrayList<Region>();
         Exception ex = null;
         try {
-            System.out.println("inserting");
             //TODO
         } catch (Exception exc) {
             ex = exc;
@@ -42,7 +41,6 @@ public class RegionDAImpl implements RegionDAIF {
         List<Region> res = new ArrayList<Region>();
         Exception ex = null;
         try {
-            System.out.println("updating");
             //TODO
         } catch (Exception exc) {
             ex = exc;
@@ -55,7 +53,6 @@ public class RegionDAImpl implements RegionDAIF {
         List<Region> res = new ArrayList<Region>();
         Exception ex = null;
         try {
-            System.out.println("deleting");
             //TODO
         } catch (Exception exc) {
             ex = exc;

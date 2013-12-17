@@ -23,21 +23,26 @@ public class ExceptionProcessor {
     
     
     public static Exception processException(Exception e){
+        Exception exc = null;
         if (e instanceof SQLException){
             SQLException SQLe = (SQLException) e;
             DAOUtils.processSQLException(SQLe);
+            exc = new Exception("Internal server error.");
         } else if (e instanceof IOException) {
             IOException IOe = (IOException) e;
             SecurityUtils.processSecurityException(IOe);
+            exc = new Exception("Internal server error.");
         } else if (e instanceof NoSuchAlgorithmException) {
             NoSuchAlgorithmException NSAe = (NoSuchAlgorithmException) e;
             SecurityUtils.processSecurityException(NSAe);
+            exc = new Exception("Internal server error.");
         } else if (e instanceof InvalidKeySpecException) {
             InvalidKeySpecException invalidKeySpecException = (InvalidKeySpecException) e;
             SecurityUtils.processSecurityException(invalidKeySpecException);
+            exc = new Exception("Internal server error.");
         } else {
-            return e;
+            exc = e;
         }
-        return null;
+        return exc;
     }
 }
