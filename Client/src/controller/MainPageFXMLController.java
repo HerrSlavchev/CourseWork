@@ -17,12 +17,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -43,10 +47,27 @@ public class MainPageFXMLController implements Initializable {
 
     @FXML
     BorderPane mainPane;
-
     @FXML
     MenuButton loginB;
-
+    @FXML
+    Accordion personalAcc;
+    @FXML
+    TitledPane conversationsPane;
+    @FXML
+    VBox conversationsBox;
+    @FXML
+    TitledPane interestsPane;
+    @FXML
+    VBox interestsBox;
+    @FXML
+    TitledPane groupsPane;
+    @FXML
+    VBox groupsBox;
+    @FXML
+    TitledPane eventsPane;
+    @FXML
+    VBox eventsBox;
+    
     private ImageView loggedIV;
     private ImageView guestIV;
     private MenuItem loginMI;
@@ -59,6 +80,9 @@ public class MainPageFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        //Client.getMainPageStage().setTitle("GUEST");
+        
         loggedIV = ImageViewFactory.getImageView("user_64_in.png", loginB.getMinHeight());
         guestIV = ImageViewFactory.getImageView("user_64.png", loginB.getMinHeight());
         loginB.setGraphic(guestIV);
@@ -93,6 +117,8 @@ public class MainPageFXMLController implements Initializable {
 
         loginB.getItems().clear();
         loginB.getItems().addAll(loginMI, registerMI);
+        
+        personalAcc.setVisible(false);
     }
 
     @FXML
@@ -198,6 +224,8 @@ public class MainPageFXMLController implements Initializable {
         loginB.getItems().addAll(loginMI, registerMI);
         Client.getMainPageStage().setTitle("GUEST");
         Properties.user = null;
+        
+        personalAcc.setVisible(false);
     }
 
     private void login() {
@@ -205,6 +233,8 @@ public class MainPageFXMLController implements Initializable {
         loginB.getItems().clear();
         loginB.getItems().addAll(editMI, logoutMI);
         Client.getMainPageStage().setTitle(Properties.user.lName + ", " + Properties.user.fName);
+        
+        personalAcc.setVisible(true);
     }
 
     @FXML

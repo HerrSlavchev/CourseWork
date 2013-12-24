@@ -8,9 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane disable="false" prefHeight="415.0" prefWidth="481.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.MainPageFXMLController">
+<GridPane disable="false" hgap="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="631.999755859375" prefWidth="701.999755859375" vgap="3.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.MainPageFXMLController">
   <children>
-    <GridPane gridLinesVisible="false" prefHeight="85.0" prefWidth="481.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="0">
+    <GridPane gridLinesVisible="false" hgap="3.0" prefHeight="85.0" prefWidth="481.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
       <children>
         <MenuButton fx:id="loginB" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" disable="false" graphicTextGap="0.0" maxHeight="22.0" maxWidth="51.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" opacity="1.0" prefHeight="22.0" prefWidth="51.0" text="MenuButton" visible="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">
           <items>
@@ -18,27 +18,106 @@
             <MenuItem mnemonicParsing="false" text="Action 2" />
           </items>
         </MenuButton>
-        <Button mnemonicParsing="false" onAction="#handleButton1Action" text="Regions" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+        <Button mnemonicParsing="false" text="Interests" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Button mnemonicParsing="false" text="Groups" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+        <Button mnemonicParsing="false" text="Users" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+        <Button mnemonicParsing="false" text="Categories" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+        <Button mnemonicParsing="false" text="Subcategories" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+        <Button mnemonicParsing="false" onAction="#handleButton1Action" prefWidth="80.00009999999747" text="Regions" GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+        <Button mnemonicParsing="false" text="Towns" GridPane.columnIndex="7" GridPane.rowIndex="0" />
       </children>
       <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="64.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="177.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="54.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="2.0" prefWidth="82.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.0" minWidth="10.0" prefWidth="71.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="0.0" prefWidth="62.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="9.0" prefWidth="95.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="9.0" prefWidth="117.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="9.0" prefWidth="83.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="66.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="301.0" minWidth="10.0" prefWidth="47.0" />
       </columnConstraints>
       <rowConstraints>
-        <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+        <RowConstraints fillHeight="true" maxHeight="47.0" minHeight="10.0" prefHeight="47.0" vgrow="NEVER" />
       </rowConstraints>
     </GridPane>
-    <BorderPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" />
+    <BorderPane fx:id="mainPane" prefHeight="576.0" prefWidth="687.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+      <left>
+        <Accordion fx:id="personalAcc" maxHeight="1.7976931348623157E308" maxWidth="-1.0" minWidth="94.0" prefHeight="576.0" prefWidth="175.00009999999747" rotate="0.0" BorderPane.alignment="TOP_LEFT">
+          <expandedPane>
+            <TitledPane id="eventsPane" fx:id="conversationsPane" animated="false" text="Conversations">
+              <content>
+                <AnchorPane id="Content" maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="172.0">
+                  <children>
+                    <ScrollPane layoutX="-4.0" layoutY="0.0" prefHeight="444.0" prefWidth="178.0">
+                      <content>
+                        <VBox fx:id="conversationsBox" prefHeight="441.0" prefWidth="175.0" />
+                      </content>
+                    </ScrollPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+          </expandedPane>
+          <panes>
+            <fx:reference source="conversationsPane" />
+            <TitledPane id="eventsPane" fx:id="interestsPane" animated="false" text="Interests">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="172.0">
+                  <children>
+                    <ScrollPane layoutX="-4.0" layoutY="0.0" prefHeight="444.0" prefWidth="178.0">
+                      <content>
+                        <VBox fx:id="interestsBox" prefHeight="441.0" prefWidth="172.0" />
+                      </content>
+                    </ScrollPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane id="eventsPane" fx:id="groupsPane" animated="false" text="Groups">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="176.0">
+                  <children>
+                    <ScrollPane layoutX="0.0" layoutY="0.0" prefHeight="444.0" prefWidth="173.0">
+                      <content>
+                        <VBox fx:id="groupsBox" prefHeight="441.0" prefWidth="171.0" />
+                      </content>
+                    </ScrollPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane id="x1" fx:id="eventsPane" animated="false" minWidth="188.0" prefHeight="532.0000999999975" prefWidth="188.0" text="Events">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="193.0">
+                  <children>
+                    <ScrollPane layoutX="1.0" layoutY="0.0" prefHeight="444.0" prefWidth="176.0">
+                      <content>
+                        <VBox fx:id="eventsBox" prefHeight="441.0" prefWidth="170.0" />
+                      </content>
+                    </ScrollPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+          </panes>
+          <BorderPane.margin>
+            <Insets right="5.0" />
+          </BorderPane.margin>
+        </Accordion>
+      </left>
+    </BorderPane>
   </children>
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="535.0" minWidth="8.0" prefWidth="45.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="690.0" minWidth="10.0" prefWidth="643.0" />
   </columnConstraints>
+  <padding>
+    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+  </padding>
   <rowConstraints>
     <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="52.0" valignment="TOP" vgrow="NEVER" />
-    <RowConstraints maxHeight="225.0" minHeight="10.0" prefHeight="225.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="138.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="225.0" minHeight="10.0" prefHeight="225.0" vgrow="ALWAYS" />
+    <RowConstraints maxHeight="339.0" minHeight="10.0" prefHeight="323.0" vgrow="ALWAYS" />
   </rowConstraints>
 </GridPane>

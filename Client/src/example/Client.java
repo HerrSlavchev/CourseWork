@@ -56,6 +56,7 @@ public class Client extends Application {
         Parent root = fl.getRoot();
         mainPageController = (MainPageFXMLController) fl.getController();
         mainPageStage = stage;
+        stage.setTitle("GUEST");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         //mainPageController.setLogged(false);
