@@ -7,7 +7,7 @@ package controller;
 
 import dto.Result;
 import dto.domain.User;
-import example.Client;
+import view.Client;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

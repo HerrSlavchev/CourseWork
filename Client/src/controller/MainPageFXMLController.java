@@ -5,7 +5,7 @@
  */
 package controller;
 
-import example.Client;
+import view.Client;
 import images.ImageViewFactory;
 import java.net.URL;
 import java.rmi.RemoteException;

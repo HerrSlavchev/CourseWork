@@ -8,7 +8,7 @@ package controller;
 import dto.Result;
 import dto.domain.User;
 import dto.session.Session;
-import example.Client;
+import view.Client;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;

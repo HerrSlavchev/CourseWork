@@ -5,7 +5,7 @@
  */
 package services.implementations;
 
-import example.Client;
+import view.Client;
 import java.rmi.server.UnicastRemoteObject;
 import services.client.NotifiableIF;
 import utils.Utils;

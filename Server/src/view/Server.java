@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package example;
+package view;
 
 import dao.ConnectionProvider;
 import javafx.application.Application;

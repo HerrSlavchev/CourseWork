@@ -8,7 +8,7 @@ package services.implementations;
 import dto.domain.Notification;
 import dto.domain.TriggerType;
 import dto.session.Session;
-import example.Client;
+import view.Client;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;

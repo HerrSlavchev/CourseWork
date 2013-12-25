@@ -6,7 +6,7 @@
 package utils;
 
 import controller.ConfirmationFXMLController;
-import example.Client;
+import view.Client;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
