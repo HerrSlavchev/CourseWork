@@ -25,6 +25,7 @@
         <Button mnemonicParsing="false" text="Subcategories" GridPane.columnIndex="5" GridPane.rowIndex="0" />
         <Button mnemonicParsing="false" onAction="#handleButton1Action" prefWidth="80.00009999999747" text="Regions" GridPane.columnIndex="6" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
         <Button mnemonicParsing="false" text="Towns" GridPane.columnIndex="7" GridPane.rowIndex="0" />
+        <Button mnemonicParsing="false" onAction="#handleTestAction" text="Test" GridPane.columnIndex="8" GridPane.rowIndex="0" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="54.0" />
@@ -45,6 +46,23 @@
       <left>
         <Accordion fx:id="personalAcc" maxHeight="1.7976931348623157E308" maxWidth="-1.0" minWidth="94.0" prefHeight="576.0" prefWidth="175.00009999999747" rotate="0.0" BorderPane.alignment="TOP_LEFT">
           <expandedPane>
+            <TitledPane id="x1" fx:id="eventsPane" animated="false" minWidth="188.0" prefHeight="532.0000999999975" prefWidth="188.0" text="Events">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="193.0">
+                  <children>
+                    <ScrollPane layoutX="1.0" layoutY="0.0" prefHeight="444.0" prefWidth="176.0">
+                      <content>
+                        <VBox fx:id="eventsBox" prefHeight="441.0" prefWidth="170.0" />
+                      </content>
+                    </ScrollPane>
+                    <Button layoutX="14.0" layoutY="450.0" mnemonicParsing="false" text="New" />
+                    <Button layoutX="86.0" layoutY="451.0" mnemonicParsing="false" text="View all" />
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+          </expandedPane>
+          <panes>
             <TitledPane id="eventsPane" fx:id="conversationsPane" animated="false" text="Conversations">
               <content>
                 <AnchorPane id="Content" maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="172.0">
@@ -54,13 +72,11 @@
                         <VBox fx:id="conversationsBox" prefHeight="441.0" prefWidth="175.0" />
                       </content>
                     </ScrollPane>
+                    <Button layoutX="14.0" layoutY="450.0" mnemonicParsing="false" text="New" />
                   </children>
                 </AnchorPane>
               </content>
             </TitledPane>
-          </expandedPane>
-          <panes>
-            <fx:reference source="conversationsPane" />
             <TitledPane id="eventsPane" fx:id="interestsPane" animated="false" text="Interests">
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="172.0">
@@ -70,6 +86,8 @@
                         <VBox fx:id="interestsBox" prefHeight="441.0" prefWidth="172.0" />
                       </content>
                     </ScrollPane>
+                    <Button layoutX="14.0" layoutY="450.0" mnemonicParsing="false" text="New" />
+                    <Button layoutX="83.0" layoutY="450.0" mnemonicParsing="false" text="View all" />
                   </children>
                 </AnchorPane>
               </content>
@@ -83,23 +101,13 @@
                         <VBox fx:id="groupsBox" prefHeight="441.0" prefWidth="171.0" />
                       </content>
                     </ScrollPane>
+                    <Button layoutX="14.0" layoutY="450.0" mnemonicParsing="false" text="New" />
+                    <Button layoutX="87.0" layoutY="450.0" mnemonicParsing="false" text="View all" />
                   </children>
                 </AnchorPane>
               </content>
             </TitledPane>
-            <TitledPane id="x1" fx:id="eventsPane" animated="false" minWidth="188.0" prefHeight="532.0000999999975" prefWidth="188.0" text="Events">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="193.0">
-                  <children>
-                    <ScrollPane layoutX="1.0" layoutY="0.0" prefHeight="444.0" prefWidth="176.0">
-                      <content>
-                        <VBox fx:id="eventsBox" prefHeight="441.0" prefWidth="170.0" />
-                      </content>
-                    </ScrollPane>
-                  </children>
-                </AnchorPane>
-              </content>
-            </TitledPane>
+            <fx:reference source="eventsPane" />
           </panes>
           <BorderPane.margin>
             <Insets right="5.0" />

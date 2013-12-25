@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dto.filters.UserFilter;
 import view.Client;
 import images.ImageViewFactory;
 import java.net.URL;
@@ -35,6 +36,7 @@ import services.BindingConsts;
 import services.RemoteServices;
 import services.implementations.ServiceExposer;
 import services.server.ClientManagerIF;
+import services.server.UserDAIF;
 import utils.ConfirmationDelegatorIF;
 import utils.Utils;
 
@@ -121,6 +123,23 @@ public class MainPageFXMLController implements Initializable {
         personalAcc.setVisible(false);
     }
 
+    @FXML
+    private void handleTestAction(ActionEvent event) {
+        try {
+            UserDAIF intf = (UserDAIF) RemoteServices.getStub(BindingConsts.USER_DA);
+            UserFilter fil = new UserFilter();
+            fil.fetchConversations = true;
+            fil.fetchEvents = true;
+            fil.fetchFullPersonalData = true;
+            fil.fetchGroups = true;
+            fil.fetchInterests = true;
+            fil.fetchTowns = true;
+            intf.fetchUsers(fil);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     @FXML
     private void handleButton1Action(ActionEvent event) {
         try {
