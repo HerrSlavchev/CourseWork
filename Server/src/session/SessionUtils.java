@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package security;
+package session;
 
 /**
- * Centralized exposer of security interface implementations.
+  * Centralized exposer of session interface implementations.
  * All implementations should have protected creational methods,
  * thus forcing users of the framework to imply good programming practices.
  * Should one implementation be changed by another, by design, the only needed
@@ -15,11 +15,7 @@ package security;
  * Later interface-implementation configuration can be externalized to a props file.
  * @author Herr_Slavchev
  */
-public class SecurityUtils {
+public class SessionUtils {
     
-    public static final PasswordManagerIF passwordManager = PasswordManagerPBKDF2.getInstance();
-    
-    public static void processSecurityException(Exception e){
-        e.printStackTrace();
-    }
+    public static final SessionCodeProviderIF sessionCodeProvider = BasicSessionCodeProvider.getInstance();
 }

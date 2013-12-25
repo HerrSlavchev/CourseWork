@@ -18,7 +18,6 @@ import session.SessionCodeProviderIF;
  */
 public class DAOUtils {
 
-    public static final SessionCodeProviderIF sessionCodeProvider = BasicSessionCodeProvider.getInstance();
     public static final int MAX_BATCH_SIZE = 1000;
     
     public static void releaseRes(Connection conn, Statement stmt, ResultSet rs) throws SQLException {

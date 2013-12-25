@@ -29,7 +29,7 @@ public class BasicSessionCodeProvider implements SessionCodeProviderIF{
         codePool = new ArrayDeque<String>(MAX_POOL_SIZE);
     }
     
-    public static BasicSessionCodeProvider getInstance(){
+    protected static BasicSessionCodeProvider getInstance(){
         if (instance == null){
             instance = new BasicSessionCodeProvider();
         }

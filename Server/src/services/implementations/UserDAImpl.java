@@ -137,11 +137,11 @@ public class UserDAImpl implements UserDAIF {
         ResultSet rs = null;
         User ownUser = null;
         
-        String isAllowed = "SELECT EXISTS (SELECT 1 FROM "
+        final String isAllowed = "SELECT EXISTS (SELECT 1 FROM "
                 + "user u "
                 + "WHERE id = ? "
                 + "AND role = ?)";
-        String updateUser = "UPDATE user SET "
+        final String updateUser = "UPDATE user SET "
                 + "f_name = ?, "
                 + "s_name = ?, "
                 + "l_name = ?, "
@@ -151,7 +151,7 @@ public class UserDAImpl implements UserDAIF {
                 + "WHERE "
                 + "id = ? "
                 + "AND timeupd = ?";
-        String fetchOwnUserDetails = "SELECT "
+        final String fetchOwnUserDetails = "SELECT "
                 + "u.f_name, "
                 + "u.s_name, "
                 + "u.l_name, "

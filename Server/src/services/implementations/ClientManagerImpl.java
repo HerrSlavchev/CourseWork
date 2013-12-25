@@ -32,6 +32,7 @@ import security.Credentials;
 import security.SecurityUtils;
 import services.client.NotifiableIF;
 import services.server.ClientManagerIF;
+import session.SessionUtils;
 
 /**
  *
@@ -148,11 +149,11 @@ public class ClientManagerImpl implements ClientManagerIF {
             String oldSessionCode = old.getSessionCode();
             mapCodesToIDs.remove(oldSessionCode);
             mapIDsToClients.remove(userID);
-            DAOUtils.sessionCodeProvider.releaseSessionCode(oldSessionCode);
+            SessionUtils.sessionCodeProvider.releaseSessionCode(oldSessionCode);
         }
         
         
-        String sessionCode = DAOUtils.sessionCodeProvider.getSessionCode();
+        String sessionCode = SessionUtils.sessionCodeProvider.getSessionCode();
         mapCodesToIDs.put(sessionCode, userID);
         mapIDsToClients.put(userID, cli);
         cli.setSessionCode(sessionCode);
@@ -173,7 +174,7 @@ public class ClientManagerImpl implements ClientManagerIF {
             return;
         }
         
-        DAOUtils.sessionCodeProvider.releaseSessionCode(sessionCode);
+        SessionUtils.sessionCodeProvider.releaseSessionCode(sessionCode);
         
         cli.logout();
     }

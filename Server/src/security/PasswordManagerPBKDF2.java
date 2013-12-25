@@ -34,7 +34,10 @@ public class PasswordManagerPBKDF2 implements PasswordManagerIF {
     private PasswordManagerPBKDF2() {
     }
 
-    public static PasswordManagerPBKDF2 getInstance() {
+    /* You can obtain instance outside the package only 
+    * via the SecurityUtils class
+    */
+    protected static PasswordManagerPBKDF2 getInstance() {
         if (instance == null) {
             instance = new PasswordManagerPBKDF2();
         }
