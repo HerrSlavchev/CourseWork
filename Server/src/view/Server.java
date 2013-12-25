@@ -34,7 +34,7 @@ public class Server extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
-        
+        stage.setTitle("Server control");
         stage.setScene(scene);
         stage.show();
     }
