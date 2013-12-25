@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class UserFilter implements Serializable{
     
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;    
     
     public List<Integer> ids = new ArrayList<Integer>();
     public List<Town> towns = new ArrayList<Town>();
@@ -29,6 +29,12 @@ public class UserFilter implements Serializable{
     public List<Interest> interests = new ArrayList<Interest>();
     public List<Event> events = new ArrayList<Event>();
     public List<Conversation> conversations = new ArrayList<Conversation>();
+    
+    public String fName = "";
+    public String sName = "";
+    public String lName = "";
+    
+    public boolean fetchFullPersonalData = false;
     
     public boolean fetchTowns = false;
     public boolean fetchGroups = false;
