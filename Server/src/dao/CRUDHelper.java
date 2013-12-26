@@ -5,9 +5,6 @@
  */
 package dao;
 
-import dao.ConnectionProvider;
-import dao.DAOUtils;
-import dto.Result;
 import dto.domain.Group;
 import dto.domain.PersistedDTO;
 import dto.domain.User;
@@ -33,10 +30,11 @@ public abstract class CRUDHelper<E extends PersistedDTO> {
     private PreparedStatement stmt;
     private ResultSet rs;
 
-    private Session session;
+    private final Session session;
     private Integer ID_user;
-    private List<E> upd;
+    private final List<E> upd;
 
+    private List<Role> roles;
     private boolean checkRights = true;
     private boolean checkSession = true;
 
@@ -49,8 +47,13 @@ public abstract class CRUDHelper<E extends PersistedDTO> {
     }
 
     public CRUDHelper(Session session, List<E> upd) {
+        this(session, upd, null);
+    }
+
+    public CRUDHelper(Session session, List<E> upd, List<Role> roles) {
         this.session = session;
         this.upd = upd;
+        this.roles = roles;
     }
 
     private void validateSession() throws Exception {
@@ -67,31 +70,66 @@ public abstract class CRUDHelper<E extends PersistedDTO> {
 
     private void validateRights() throws Exception {
 
-        String isAllowed = "SELECT EXISTS (SELECT 1 FROM "
-                + "user u "
-                + "WHERE u.id = ? "
-                + "AND u.role = ?)";
-        stmt = conn.prepareStatement(isAllowed);
-        stmt.setInt(1, ID_user);
-        stmt.setInt(2, Role.ADMIN.ordinal());
-
+        String isAllowed = DAOUtils.generateStmt(
+                "SELECT EXISTS (SELECT 1 FROM ",
+                "user u ",
+                "WHERE u.id = ? ",
+                "AND u.role = ?)");
         if (upd.size() == 1) { //editing something we have created
             PersistedDTO obj = upd.get(0);
-            int oid = obj instanceof User ? obj.getID() : obj.getUserIns().getID();
+            int oid = -1;
+            if (obj instanceof User) {
+                oid = obj.getID();
+            } else {
+                User userIns = obj.getUserIns();
+                if (userIns != null) {
+                    oid = userIns.getID();
+                }
+            }
             if (ID_user.equals(oid)) {
                 return;
             }
             if (obj instanceof Group) { //groups have moderators, who also can modify things
-                isAllowed = "SELECT EXISTS (SELECT 1 FROM "
-                        + "user u "
-                        + "LEFT OUTER JOIN igroup_user igu "
-                        + "ON (igu.ID_user = u.ID) "
-                        + "WHERE u.id = ? "
-                        + "AND (u.role = ? "
-                        + "OR igu.role = 1) "
-                        + ")";
+                isAllowed = DAOUtils.generateStmt(
+                        "SELECT EXISTS (SELECT 1 FROM ",
+                        "user u ",
+                        "LEFT OUTER JOIN igroup_user igu ",
+                        "ON (igu.ID_user = u.ID) ",
+                        "WHERE u.id = ? ",
+                        "AND (u.role = ? ",
+                        "OR igu.role = 1) ",
+                        ")");
             }
         }
+
+        stmt = conn.prepareStatement(isAllowed);
+        stmt.setInt(1, ID_user);
+        stmt.setInt(2, Role.ADMIN.ordinal());
+
+        rs = stmt.executeQuery();
+        if (rs.getFetchSize() == 0) {
+            throw new Exception("You do not have sufficient rights for this action.");
+        }
+    }
+
+    private void validateRole() throws Exception {
+        StringBuilder sb = new StringBuilder(8);
+        sb.append("(");
+        for (Role r : roles) {
+            sb.append(r.ordinal());
+            sb.append(", ");
+        }
+        sb.append(")");
+        String vals = sb.toString();
+        vals = vals.replace(", )", ")");
+
+        String isAllowed = DAOUtils.generateStmt(
+                "SELECT EXISTS (SELECT 1 FROM ",
+                "user u ",
+                "WHERE u.id = ? ",
+                "AND u.role IN" + vals + " )");
+        stmt = conn.prepareStatement(isAllowed);
+        stmt.setInt(1, ID_user);
 
         rs = stmt.executeQuery();
         if (rs.getFetchSize() == 0) {
@@ -106,7 +144,11 @@ public abstract class CRUDHelper<E extends PersistedDTO> {
             if (checkSession) {
                 validateSession();
             } else if (checkRights) {
-                validateRights();
+                if (roles != null && roles.size() > 0) {
+                    validateRole();
+                } else {
+                    validateRights();
+                }
             }
 
             runQueries(conn, stmt, rs);
@@ -131,6 +173,5 @@ public abstract class CRUDHelper<E extends PersistedDTO> {
         return extd;
     }
 
-    
     protected abstract void runQueries(Connection conn, PreparedStatement stmt, ResultSet rs) throws Exception;
 }
