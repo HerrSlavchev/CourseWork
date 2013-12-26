@@ -131,5 +131,6 @@ public abstract class CRUDHelper<E extends PersistedDTO> {
         return extd;
     }
 
+    
     protected abstract void runQueries(Connection conn, PreparedStatement stmt, ResultSet rs) throws Exception;
 }

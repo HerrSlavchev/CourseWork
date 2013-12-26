@@ -5,10 +5,12 @@
  */
 package dao;
 
+import dto.domain.PersistedDTO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 /**
  *
@@ -46,5 +48,27 @@ public class DAOUtils {
             }
         }
         return true;
+    }
+    
+    public static String generateInClause(List<PersistedDTO> lst) {
+        StringBuilder sb = new StringBuilder(256);
+        sb.append("(");
+        for (PersistedDTO dto : lst){
+            sb.append(dto.getID());
+            sb.append(", ");
+        }
+        sb.append(")");
+        String all = sb.toString();
+        String fixed = all.replace(", )", ")");
+        return fixed;
+    }
+
+    public static String generateStmt(String... stmts){
+        StringBuilder sb = new StringBuilder(256);
+        for(String stmt : stmts){
+            sb.append(stmt);
+        }
+        String all = sb.toString();
+        return all;
     }
 }

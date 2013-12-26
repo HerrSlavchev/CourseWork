@@ -45,12 +45,7 @@ public class UserDAImpl implements UserDAIF {
                 + "(f_name, s_name, l_name, e_mail, description, password, iterations, salt) VALUES"
                 + "(?, ?, ?, ?, ?, ?, ?, ?)";
 
-        /* Obsolete, delegated to CRUDHelper
-         Connection conn = null;
-         PreparedStatement stmt = null;*/
         try {
-            /*conn = ConnectionProvider.getConnection();
-             conn.setAutoCommit(false);*/
             CRUDHelper helper = new CRUDHelper<User>(session, ins) {
 
                 @Override
@@ -112,42 +107,16 @@ public class UserDAImpl implements UserDAIF {
         List<User> lst = new ArrayList<>();
         Exception exc = null;
 
-        /* Obsolete, delegated to CRUDHelper
-         if (session == null) {
-         exc = new Exception("Failed to validate the session. Please login.");
-         return new Result(null, exc);
-         }
-
-         Integer id = ClientManagerImpl.getID(session);
-         if (id == null) {
-         exc = new Exception("Failed to validate the session. Please login.");
-         return new Result(null, exc);
-         }
-
-         //check if we are trying to modify our own account
-         boolean idMatch = upd.size() == 1 && id.equals(upd.get(0).getID());
-        
-         Connection conn = null;
-         PreparedStatement stmt = null;
-         ResultSet rs = null;
-         User ownUser = null;
-        
-        
-         final String isAllowed = "SELECT EXISTS (SELECT 1 FROM "
-         + "user u "
-         + "WHERE id = ? "
-         + "AND role = ?)";
-         */
-        final String updateUser = "UPDATE user SET "
-                + "f_name = ?, "
-                + "s_name = ?, "
-                + "l_name = ?, "
-                + "role = ?, "
-                + "description = ? "
-                + "WHERE "
-                + "id = ? "
-                + "AND timeupd = ?";
-
+        final String updateUser = DAOUtils.generateStmt(
+                "UPDATE user SET ",
+                "f_name = ?, ",
+                "s_name = ?, ",
+                "l_name = ?, ",
+                "role = ?, ",
+                "description = ? ",
+                "WHERE ",
+                "id = ? ",
+                "AND timeupd = ?");
         try {
 
             CRUDHelper helper = new CRUDHelper<User>(session, upd) {
@@ -214,53 +183,54 @@ public class UserDAImpl implements UserDAIF {
         String fetchTowns = "";
         String joinTowns = "";
         if (filter.fetchTowns) {
-            fetchTowns = ", t.ID, t.name";
+            fetchTowns = ", t.ID AS t_ID, t.name AS t_name";
             joinTowns = " LEFT OUTER JOIN town_user tu ON(tu.ID_user = u.ID) " +
                         "LEFT OUTER JOIN town t ON(t.ID = tu.ID_town)";
         }
         String fetchGroups = "";
         String joinGroups = "";
         if (filter.fetchGroups) {
-            fetchGroups = ", ig.ID, ig.name";
+            fetchGroups = ", ig.ID AS ig_ID, ig.name AS ig_name";
             joinGroups = " LEFT OUTER JOIN igroup_user igu ON(igu.ID_user = u.ID) " +
                         "LEFT OUTER JOIN igroup ig ON(ig.ID = igu.ID_igroup)";
         }
         String fetchInterests = "";
         String joinInterests = "";
         if (filter.fetchInterests) {
-            fetchInterests = ", i.ID, i.name";
+            fetchInterests = ", i.ID AS i_ID, i.name AS i_name";
             joinInterests = " LEFT OUTER JOIN interest_user iu ON(iu.ID_user = u.ID) " +
                         "LEFT OUTER JOIN interest i ON(i.ID = iu.ID_interest)";
         }
         String fetchEvents = "";
         String joinEvents = "";
         if (filter.fetchEvents) {
-            fetchEvents = ", e.ID, e.name";
+            fetchEvents = ", e.ID AS e_ID, e.name AS e_name";
             joinEvents = " LEFT OUTER JOIN event_user eu ON(eu.ID_user = u.ID) " +
                         "LEFT OUTER JOIN event e ON(e.ID = eu.ID_event)";
         }
         String fetchConversations = "";
         String joinConversations = "";
         if (filter.fetchConversations) {
-            fetchConversations = ", c.ID, c.topic";
+            fetchConversations = ", c.ID AS c_ID, c.topic AS c_topic";
             joinConversations = " LEFT OUTER JOIN conversation_user cu ON(cu.ID_user = u.ID) " +
                         "LEFT OUTER JOIN conversation c ON(c.ID = cu.ID_conversation)";
         }
         
-        final String slct = "SELECT "
-                + "u.ID, u.f_name, u.s_name, u.l_name, u.role, u.e_mail, u.timeins, u.timeupd, u.ID_userupd"
-                + fetchFullPersonal
-                + fetchTowns
-                + fetchGroups
-                + fetchInterests
-                + fetchEvents
-                + fetchConversations
-                + " FROM user u "
-                + joinTowns
-                + joinGroups
-                + joinInterests
-                + joinEvents
-                + joinConversations;
+        final String slct = DAOUtils.generateStmt(
+                "SELECT ",
+                "u.ID, u.f_name, u.s_name, u.l_name, u.role, u.e_mail, u.timeins, u.timeupd, u.ID_userupd",
+                fetchFullPersonal,
+                fetchTowns,
+                fetchGroups,
+                fetchInterests,
+                fetchEvents,
+                fetchConversations,
+                " FROM user u",
+                joinTowns,
+                joinGroups,
+                joinInterests,
+                joinEvents,
+                joinConversations);
                 
         try {
         CRUDHelper<User> helper = new CRUDHelper<User>(null, lst) {
