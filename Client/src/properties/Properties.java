@@ -14,8 +14,8 @@ import dto.session.Session;
  */
 public class Properties {
 
-    private static Session session;
-    public static User user;
+    private static Session session = null;
+    public static User user = null;
     
     public static void setSession(Session session) {
         if (Properties.session != null) {

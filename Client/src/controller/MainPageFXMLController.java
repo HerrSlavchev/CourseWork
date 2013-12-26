@@ -19,14 +19,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -34,7 +33,6 @@ import javafx.stage.StageStyle;
 import properties.Properties;
 import services.BindingConsts;
 import services.RemoteServices;
-import services.implementations.ServiceExposer;
 import services.server.ClientManagerIF;
 import services.server.UserDAIF;
 import utils.ConfirmationDelegatorIF;
@@ -45,7 +43,7 @@ import utils.Utils;
  *
  * @author root
  */
-public class MainPageFXMLController implements Initializable {
+public class MainPageFXMLController implements Initializable, SessionAwareIF {
 
     @FXML
     BorderPane mainPane;
@@ -69,7 +67,9 @@ public class MainPageFXMLController implements Initializable {
     TitledPane eventsPane;
     @FXML
     VBox eventsBox;
-    
+
+    private SessionAwareIF centerController;
+
     private ImageView loggedIV;
     private ImageView guestIV;
     private MenuItem loginMI;
@@ -82,9 +82,8 @@ public class MainPageFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         //Client.getMainPageStage().setTitle("GUEST");
-        
         loggedIV = ImageViewFactory.getImageView("user_64_in.png", loginB.getMinHeight());
         guestIV = ImageViewFactory.getImageView("user_64.png", loginB.getMinHeight());
         loginB.setGraphic(guestIV);
@@ -109,7 +108,7 @@ public class MainPageFXMLController implements Initializable {
                 handleEditAction();
             }
         });
-        
+
         logoutMI = new MenuItem("Logout");
         logoutMI.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
@@ -119,10 +118,50 @@ public class MainPageFXMLController implements Initializable {
 
         loginB.getItems().clear();
         loginB.getItems().addAll(loginMI, registerMI);
-        
+
         personalAcc.setVisible(false);
     }
 
+    @FXML
+    private void handleInterestAction(ActionEvent event) {
+       
+    }
+
+    @FXML
+    private void handleGroupAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void handleEventAction(ActionEvent event) {
+
+    }
+    
+    @FXML
+    private void handleUserAction(ActionEvent event) {
+
+    }
+    
+    @FXML
+    private void handleCategoryAction(ActionEvent event) {
+
+    }
+    
+    @FXML
+    private void handleSubCategoryAction(ActionEvent event) {
+
+    }
+    
+    @FXML
+    private void handleRegionAction(ActionEvent event) {
+        setCenterScene("RegionFXML.fxml");
+    }
+    
+    @FXML
+    private void handleTownAction(ActionEvent event) {
+
+    }
+    
     @FXML
     private void handleTestAction(ActionEvent event) {
         try {
@@ -137,30 +176,6 @@ public class MainPageFXMLController implements Initializable {
             intf.fetchUsers(fil);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-    
-    @FXML
-    private void handleButton1Action(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(Client.class.getResource("CategoryFXML.fxml"));
-            AnchorPane ap = (AnchorPane) loader.load();
-            mainPane.setCenter(ap);
-
-        } catch (Exception e) {
-
-        }
-    }
-
-    @FXML
-    private void handleButton2Action(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(Client.class.getResource("RegionFXML.fxml"));
-            AnchorPane ap = (AnchorPane) loader.load();
-            mainPane.setCenter(ap);
-
-        } catch (Exception e) {
-
         }
     }
 
@@ -190,13 +205,7 @@ public class MainPageFXMLController implements Initializable {
     }
 
     private void handleRegisterAction() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Client.class.getResource("RegistrationFormFXML.fxml"));
-            AnchorPane ap = (AnchorPane) loader.load();
-            mainPane.setCenter(ap);
-        } catch (Exception e) {
-
-        }
+        setCenterScene("RegistrationFormFXML.fxml");
     }
 
     private void handleLogoutAction() {
@@ -205,9 +214,9 @@ public class MainPageFXMLController implements Initializable {
             @Override
             public void ok() {
                 try {
-                ClientManagerIF clm = (ClientManagerIF) RemoteServices.getStub(BindingConsts.CLIENT_MANAGER);
-                clm.removeClient(Properties.getSession());
-                } catch (RemoteException re){
+                    ClientManagerIF clm = (ClientManagerIF) RemoteServices.getStub(BindingConsts.CLIENT_MANAGER);
+                    clm.removeClient(Properties.getSession());
+                } catch (RemoteException re) {
                     Utils.showError("Error connecting to server", Client.getMainPageStage());
                 }
             }
@@ -229,31 +238,11 @@ public class MainPageFXMLController implements Initializable {
     }
 
     public void setLogged(boolean b) {
-        if (b) {
-            login();
-        } else {
-            logout();
+        if (false == b) {
+            Properties.killSession();
+            Properties.user = null;
         }
-    }
-
-    private void logout() {
-        Properties.killSession();
-        loginB.setGraphic(guestIV);
-        loginB.getItems().clear();
-        loginB.getItems().addAll(loginMI, registerMI);
-        Client.getMainPageStage().setTitle("GUEST");
-        Properties.user = null;
-        
-        personalAcc.setVisible(false);
-    }
-
-    private void login() {
-        loginB.setGraphic(loggedIV);
-        loginB.getItems().clear();
-        loginB.getItems().addAll(editMI, logoutMI);
-        Client.getMainPageStage().setTitle(Properties.user.lName + ", " + Properties.user.fName);
-        
-        personalAcc.setVisible(true);
+        refreshGUI();
     }
 
     @FXML
@@ -267,9 +256,46 @@ public class MainPageFXMLController implements Initializable {
 
             @Override
             public void cancel() {
-                //no need to do anything
             }
         });
     }
 
+    @Override
+    public void refreshGUI() {
+        if (false == Properties.isLogged()) {
+            loginB.setGraphic(guestIV);
+            loginB.getItems().clear();
+            loginB.getItems().addAll(loginMI, registerMI);
+            Client.getMainPageStage().setTitle("GUEST");
+            personalAcc.setVisible(false);
+        } else {
+            loginB.setGraphic(loggedIV);
+            loginB.getItems().clear();
+            loginB.getItems().addAll(editMI, logoutMI);
+            Client.getMainPageStage().setTitle(Properties.user.lName + ", " + Properties.user.fName);
+            personalAcc.setVisible(true);
+        }
+        if (centerController != null){
+            centerController.refreshGUI();
+        }
+    }
+
+    private void setCenterScene(String fxmlFile) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Client.class.getResource(fxmlFile));
+            Pane pane = (Pane) loader.load();
+            Object obj = loader.getController();
+            if (obj instanceof SessionAwareIF) {
+                SessionAwareIF sessionAwareIF = (SessionAwareIF) obj;
+                centerController = sessionAwareIF;
+                centerController.refreshGUI();
+            } else {
+                centerController = null;
+            }
+            mainPane.setCenter(pane);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

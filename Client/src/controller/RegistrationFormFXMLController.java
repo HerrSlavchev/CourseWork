@@ -91,7 +91,6 @@ public class RegistrationFormFXMLController implements Initializable {
             }
         } catch (Exception e) {
             exc = e;
-            e.printStackTrace();
         }
 
         if (exc != null) {
@@ -113,14 +112,12 @@ public class RegistrationFormFXMLController implements Initializable {
                 exc = res.getException();
             } else {
                 Utils.showMessage("SUCCESS!", "Successful edit!", Client.getMainPageStage());
-                //Properties.user = res.getResult().get(0);
             }
         } catch (Exception e) {
             exc = e;
         }
 
         if (exc != null) {
-            exc.printStackTrace();
             Utils.showError(exc.getMessage(), Client.getMainPageStage());
         }
     }
