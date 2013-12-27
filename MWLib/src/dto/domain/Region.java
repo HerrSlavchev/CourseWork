@@ -5,6 +5,7 @@
  */
 package dto.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,12 @@ public class Region extends PersistedDTO {
 
     public String name;
     //extrinsic
-    public List<Town> towns;
+    public int townCount;
+    public List<Town> towns = new ArrayList<Town>();
+    public int userCount;
+    public List<User> users = new ArrayList<User>();
+    public int eventCount;
+    public List<Event> events = new ArrayList<Event>();
 
     public Region(int ID) {
         super(ID);
@@ -29,4 +35,23 @@ public class Region extends PersistedDTO {
         return towns;
     }
 
+    public int getTownCount() {
+        return townCount;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public int getUserCount() {
+        return userCount;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public int getEventCount() {
+        return eventCount;
+    }
 }

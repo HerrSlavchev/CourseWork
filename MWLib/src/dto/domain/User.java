@@ -29,12 +29,18 @@ public class User extends PersistedDTO {
     public List<Event> events;
     public List<Conversation> conversations;
 
-    public User(int ID, Timestamp timeIns, Timestamp timeUpd, User userUpd) {
-        super(ID, timeIns, timeUpd, null, userUpd);
-    }
+    
     
     public User(int ID){
         super(ID);
+    }
+    
+    public User(int ID, Timestamp timeIns, Timestamp timeUpd) {
+        super(ID, timeIns, timeUpd);
+    }
+    
+    public User(int ID, Timestamp timeIns, Timestamp timeUpd, User userUpd) {
+        super(ID, timeIns, timeUpd, null, userUpd);
     }
 
     public String getFName() {

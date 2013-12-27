@@ -17,7 +17,15 @@ public class Message extends PersistedDTO {
 
     //extrinsic
     public Conversation conversation;
-    
+
+    public Message(int ID) {
+        super(ID);
+    }
+
+    public Message(int ID, Timestamp timeIns, Timestamp timeUpd) {
+        super(ID, timeIns, timeUpd);
+    }
+
     public Message(int ID, Timestamp timeIns, Timestamp timeUpd, User userIns, User userUpd) {
         super(ID, timeIns, timeUpd, userIns, userUpd);
     }

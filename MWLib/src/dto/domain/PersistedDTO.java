@@ -26,11 +26,18 @@ public abstract class PersistedDTO implements Serializable {
     //most entities are expected to have these fields also
     private Timestamp timeIns;
     private Timestamp timeUpd;
-    private User userIns;
-    private User userUpd;
+    
+    public  User userIns;
+    public User userUpd;
     
     public PersistedDTO(int ID){
         this.ID = ID;
+    }
+    
+    public PersistedDTO(int ID, Timestamp timeIns, Timestamp timeUpd){
+        this.ID = ID;
+        this.timeIns = timeIns;
+        this.timeUpd = timeUpd;
     }
     
     public PersistedDTO(int ID, Timestamp timeIns, Timestamp timeUpd, User userIns, User userUpd){

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dto.domain;
 
 import java.sql.Timestamp;
@@ -13,37 +12,45 @@ import java.util.List;
  *
  * @author root
  */
-public class Publication extends PersistedDTO{
+public class Publication extends PersistedDTO {
 
     public String text;
-    
+
     //extrinsic
     public List<Publication> children;
     public Group group;
     public Publication parentPublication;
     public Event event;
-    
+
+    public Publication(int ID) {
+        super(ID);
+    }
+
+    public Publication(int ID, Timestamp timeIns, Timestamp timeUpd) {
+        super(ID, timeIns, timeUpd);
+    }
+
     public Publication(int ID, Timestamp timeIns, Timestamp timeUpd, User userIns, User userUpd) {
         super(ID, timeIns, timeUpd, userIns, userUpd);
     }
-    
-    public String getText(){
+
+    public String getText() {
         return text;
     }
-    
-    public List<Publication> getChilder(){
+
+    public List<Publication> getChilder() {
         return children;
     }
-    
-    public Group getGroup(){
+
+    public Group getGroup() {
         return group;
     }
-    
-    public Publication getParentPublication(){
+
+    public Publication getParentPublication() {
         return parentPublication;
     }
-    
-    public Event getEvent(){
+
+    public Event getEvent() {
         return event;
     }
 }

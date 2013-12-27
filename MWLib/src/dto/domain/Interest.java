@@ -22,6 +22,14 @@ public class Interest extends PersistedDTO {
     public List<User> users;
     public List<Group> groups;
 
+    public Interest(int ID) {
+        super(ID);
+    }
+
+    public Interest(int ID, Timestamp timeIns, Timestamp timeUpd) {
+        super(ID, timeIns, timeUpd);
+    }
+
     public Interest(int ID, Timestamp timeIns, Timestamp timeUpd, User userIns, User userUpd) {
         super(ID, timeIns, timeUpd, userIns, userUpd);
     }

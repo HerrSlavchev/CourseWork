@@ -22,6 +22,14 @@ public class Event extends Publication {
     public List<User> users;
     public List<Town> towns;
 
+    public Event(int ID) {
+        super(ID);
+    }
+
+    public Event(int ID, Timestamp timeIns, Timestamp timeUpd) {
+        super(ID, timeIns, timeUpd);
+    }
+
     public Event(int ID, Timestamp timeIns, Timestamp timeUpd, User userIns, User userUpd) {
         super(ID, timeIns, timeUpd, userIns, userUpd);
     }

@@ -6,6 +6,7 @@
 
 package dto.domain;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -22,6 +23,14 @@ public class Conversation extends PersistedDTO{
     
     public Conversation(int ID) {
         super(ID);
+    }
+    
+    public Conversation(int ID, Timestamp timeIns, Timestamp timeUpd){
+        super(ID, timeIns, timeUpd);
+    }
+    
+    public Conversation(int ID, Timestamp timeIns, Timestamp timeUpd, User userIns, User userUpd) {
+        super(ID, timeIns, timeUpd, userIns, userUpd);
     }
     
     public String getTopic(){

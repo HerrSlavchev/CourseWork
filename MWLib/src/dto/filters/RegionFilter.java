@@ -6,7 +6,13 @@
 
 package dto.filters;
 
+import dto.domain.Event;
+
+import dto.domain.Town;
+import dto.domain.User;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,4 +22,15 @@ public class RegionFilter implements Serializable{
     
     private static final long serialVersionUID = 1L;
     
+    public List<Integer> ids = new ArrayList<Integer>();
+    public String name = "";
+    
+    public List<Town> towns = new ArrayList<Town>();
+    public List<Event> events = new ArrayList<Event>();
+    public List<User> users = new ArrayList<User>();
+    
+    
+    public boolean fetchTowns = false;
+    public boolean fetchEvents = false;
+    public boolean fetchUsers = false;
 }

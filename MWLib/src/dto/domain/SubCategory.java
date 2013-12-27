@@ -6,6 +6,7 @@
 
 package dto.domain;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
