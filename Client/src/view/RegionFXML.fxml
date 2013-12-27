@@ -8,9 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane prefHeight="519.0" prefWidth="631.999977929685" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.RegionFXMLController">
+<GridPane prefHeight="519.0000999999975" prefWidth="663.999977929685" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.RegionFXMLController">
   <children>
-    <TableView fx:id="table" editable="false" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="false" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="0" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+    <TableView fx:id="table" editable="false" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="0" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
       <columns>
         <TableColumn prefWidth="75.0" text="Column X" />
         <TableColumn prefWidth="75.0" text="Column X" />
@@ -39,8 +39,8 @@
     </HBox>
   </children>
   <columnConstraints>
-    <ColumnConstraints hgrow="NEVER" maxWidth="309.0" minWidth="10.0" prefWidth="200.0" />
-    <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="-1.0" />
+    <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="366.0" />
+    <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="265.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="153.0" minHeight="10.0" prefHeight="139.0" vgrow="SOMETIMES" />

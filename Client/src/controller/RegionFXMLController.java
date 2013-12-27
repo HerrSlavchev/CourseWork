@@ -8,6 +8,7 @@ package controller;
 import dto.Result;
 import dto.domain.Region;
 import dto.domain.User;
+import dto.filters.RegionFilter;
 import dto.rolemanagement.Role;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,8 +20,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import properties.Properties;
 import services.BindingConsts;
 import services.RemoteServices;
@@ -48,6 +51,8 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
     @FXML
     TextField name;
 
+    RegionDAIF stub = (RegionDAIF) RemoteServices.getStub(BindingConsts.REGION_DA);
+
     private ObservableList<Region> data = FXCollections.observableArrayList();
     private Region currentItem;
 
@@ -56,7 +61,45 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        
+        final String[] colNames = {
+            "Name",
+            "Towns",
+            "Users",
+            "Events"
+        };
+        
+        final String[] fields = {
+            "name",
+            "townCount",
+            "userCount",
+            "eventCount"
+        };
+        
+        final double[] widths = {
+            3,
+            1,
+            1,
+            1
+        };
+        final Class[] propTypes = {
+            String.class,
+            Integer.class,
+            Integer.class,
+            Integer.class
+        };
+        
+        
+        
+        ControllerUtils.setUpTable(table, colNames, fields, widths);
+        ControllerUtils.setUpTable(table, colNames, fields, widths);
+        table.setItems(data);
+        try {
+            refreshData();
+        } catch(Throwable exc){
+            Utils.showError(exc.getMessage(), Client.getMainPageStage());
+        }
     }
 
     private boolean checkInformation(Region reg) {
@@ -92,19 +135,18 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
             lst.add(reg);
             Result<Region> res = stub.insertRegion(lst, Properties.getSession());
             exc = res.getException();
-        } catch (Exception e) {
+            refreshData();
+        } catch (Throwable e) {
             exc = e;
         }
         if (exc != null) {
             Utils.showError(exc.getMessage(), Client.getMainPageStage());
-        } else {
-            Utils.showMessage("SUCCESS!", "Successful action!", Client.getMainPageStage());
         }
     }
 
     @FXML
     private void handleUpdateAction(ActionEvent event) {
-        RegionDAIF stub = (RegionDAIF) RemoteServices.getStub(BindingConsts.REGION_DA);
+
         Throwable exc = null;
         try {
             Region reg = getFromForm();
@@ -115,7 +157,8 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
             lst.add(reg);
             Result<Region> res = stub.updateRegion(lst, Properties.getSession());
             exc = res.getException();
-        } catch (Exception e) {
+            refreshData();
+        } catch (Throwable e) {
             exc = e;
         }
         if (exc != null) {
@@ -145,6 +188,17 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
         clearButton.setVisible(isAdmin);
 
         name.setEditable(isAdmin);
+    }
 
+    private void refreshData() throws Throwable {
+        Result<Region> res = stub.fetchRegions(new RegionFilter());
+        if (res.getException() != null) {
+            throw res.getException();
+        }
+        data.clear();
+        if (res.getResult() != null) {
+            data.addAll(res.getResult());
+        }
+        handleClearAction(null);
     }
 }
