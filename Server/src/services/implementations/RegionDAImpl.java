@@ -8,19 +8,21 @@ package services.implementations;
 import dao.CRUDHelper;
 import dao.DAOUtils;
 import dto.Result;
-import dto.domain.Notification;
-import dto.domain.TriggerType;
+import dto.domain.Event;
 import dto.domain.Region;
+import dto.domain.Town;
 import dto.domain.User;
 import dto.filters.RegionFilter;
 import dto.session.Session;
+import exceptions.ExceptionProcessor;
 import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import services.client.NotifiableIF;
+import java.util.Map;
 import services.server.RegionDAIF;
 
 /**
@@ -141,29 +143,85 @@ public class RegionDAImpl implements RegionDAIF {
 
     @Override
     public Result<Region> fetchRegions(RegionFilter filter) {
-        List<Region> res = new ArrayList<Region>();
-        Exception ex = null;
-        try {
-            //WARNING
-            //System.out.println("fetching");
-            int rand = (int) (5 * Math.random() + 30);
-            for (int i = 0; i < rand; i++) {
-                Region r = new Region(i);
-                r.name = "huc " + i;
-                res.add(r);
-            }
-            /*for (NotifiableIF ntf : ClientManagerImpl.getClients().values()){
-             int idx = (int) (Math.random() * NotificationType.values().length);
-             Notification info = new Notification(0, NotificationType.values()[idx], null);
-             List<Notification> news = new ArrayList<Notification>();
-             news.add(info);
-             ntf.acceptNotifications(news);
-             }*/
-            //TODO
-        } catch (Exception exc) {
-            ex = exc;
+        Result<Region> res = null;
+        final List<Region> lst = new ArrayList<>();
+        Exception exc = null;
+
+        String fetchTown = "";
+        String joinTowns = " LEFT OUTER JOIN town t ON(t.ID_region = r.ID)";
+        if (filter.fetchTowns) {
+            fetchTown = DAOUtils.fetchTown;
         }
-        return new Result(res, ex);
+        String fetchUser = "";
+        String joinTownUser = " LEFT OUTER JOIN town_user tu ON (tu.ID_town = t.ID)";
+        String joinUsers = " LEFT OUTER JOIN user u ON (tu.ID_user = u.ID)";
+        if (filter.fetchUsers) {
+            fetchUser = DAOUtils.fetchUser;
+        }
+        String fetchEvent = "";
+        String joinEventTown = " LEFT OUTER JOIN town_event te ON (te.ID_town = t.ID)";
+        String joinEvents = " LEFT OUTER JOIN event e ON (te.ID_event = e.ID)";
+        if (filter.fetchEvents) {
+            fetchEvent = DAOUtils.fetchEvent;
+        }
+        final String slct = DAOUtils.generateStmt(
+                "SELECT ",
+                DAOUtils.fetchRegion.replaceFirst(",", ""),
+                ", COUNT(t.ID) AS t_count, COUNT(u.ID) AS u_count, COUNT(e.ID) AS e_count",
+                fetchTown,
+                fetchUser,
+                fetchEvent,
+                " FROM region r",
+                joinTowns,
+                joinTownUser,
+                joinUsers,
+                joinEventTown,
+                joinEvents,
+                " GROUP BY(r.ID)"
+        );
+        try {
+            CRUDHelper<Region> helper = new CRUDHelper<Region>(null, null) {
+
+                @Override
+                protected void runQueries(Connection conn, PreparedStatement stmt, ResultSet rs) throws Exception {
+                    stmt = conn.prepareStatement(slct);
+                    rs = stmt.executeQuery();
+
+                    Map<Integer, Region> map = new HashMap<>();
+                    while (rs.next()) {
+                        Region curr = DAOUtils.getRegion(rs);
+                        Region old = map.get(curr.getID());
+                        if (old == null) {
+                            curr.eventCount = rs.getInt("e_count");
+                            curr.townCount = rs.getInt("t_count");
+                            curr.userCount = rs.getInt("u_count");
+                            old = curr;
+                            map.put(old.getID(), old);
+                        }
+                        Town t = DAOUtils.getTown(rs);
+                        if (t != null) {
+                            old.towns.add(t);
+                        }
+                        Event e = DAOUtils.getEvent(rs);
+                        if (e != null) {
+                            old.events.add(e);
+                        }
+                        User u = DAOUtils.getUser(rs);
+                        if (u != null) {
+                            old.users.add(u);
+                        }
+                    }
+                    
+                    lst.addAll(map.values());
+                }
+            };
+            helper.setSessionCheck(false);
+            helper.setRightsCheck(false);
+            helper.performCUD();
+        } catch (Exception e) {
+            exc = ExceptionProcessor.processException(e);
+        }
+        return new Result(lst, exc);
     }
 
 }

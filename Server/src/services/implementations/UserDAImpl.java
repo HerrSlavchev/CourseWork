@@ -180,11 +180,11 @@ public class UserDAImpl implements UserDAIF {
         if (filter.fetchFullPersonalData) {
             fetchFullPersonal = ", u.description";
         }
-        String fetchTowns = "";
-        String joinTowns = "";
+        String fetchTown = "";
+        String joinTown = "";
         if (filter.fetchTowns) {
-            fetchTowns = ", t.ID AS t_ID, t.name AS t_name";
-            joinTowns = " LEFT OUTER JOIN town_user tu ON(tu.ID_user = u.ID) " +
+            fetchTown = DAOUtils.fetchTown;
+            joinTown = " LEFT OUTER JOIN town_user tu ON(tu.ID_user = u.ID) " +
                         "LEFT OUTER JOIN town t ON(t.ID = tu.ID_town)";
         }
         String fetchGroups = "";
@@ -220,20 +220,20 @@ public class UserDAImpl implements UserDAIF {
                 "SELECT ",
                 "u.ID, u.f_name, u.s_name, u.l_name, u.role, u.e_mail, u.timeins, u.timeupd, u.ID_userupd",
                 fetchFullPersonal,
-                fetchTowns,
+                fetchTown,
                 fetchGroups,
                 fetchInterests,
                 fetchEvents,
                 fetchConversations,
                 " FROM user u",
-                joinTowns,
+                joinTown,
                 joinGroups,
                 joinInterests,
                 joinEvents,
                 joinConversations);
                 
         try {
-        CRUDHelper<User> helper = new CRUDHelper<User>(null, lst) {
+        CRUDHelper<User> helper = new CRUDHelper<User>(null, null) {
             
             @Override
             protected void runQueries(Connection conn, PreparedStatement stmt, ResultSet rs) throws Exception {
@@ -242,6 +242,7 @@ public class UserDAImpl implements UserDAIF {
                 for (int i = 1; i < rs.getMetaData().getColumnCount(); i++){
                     System.out.println(rs.getMetaData().getColumnLabel(i) + "|" + rs.getMetaData().getColumnName(i));
                 }
+                
             }
         };
         helper.setSessionCheck(false);
