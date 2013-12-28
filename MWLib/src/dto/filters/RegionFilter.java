@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dto.filters;
 
 import dto.domain.Event;
@@ -18,19 +17,45 @@ import java.util.List;
  *
  * @author root
  */
-public class RegionFilter implements Serializable{
-    
+public class RegionFilter extends AbstractFilter {
+
     private static final long serialVersionUID = 1L;
-    
-    public List<Integer> ids = new ArrayList<Integer>();
+
     public String name = "";
-    
+
     public List<Town> towns = new ArrayList<Town>();
     public List<Event> events = new ArrayList<Event>();
     public List<User> users = new ArrayList<User>();
-    
-    
+
     public boolean fetchTowns = false;
     public boolean fetchEvents = false;
     public boolean fetchUsers = false;
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Town> getTowns() {
+        return towns;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public boolean fetchTowns() {
+        return fetchTowns;
+    }
+
+    public boolean fetchEvents() {
+        return fetchEvents;
+    }
+    
+    public boolean fetchUsers() {
+        return fetchUsers;
+    }
 }
