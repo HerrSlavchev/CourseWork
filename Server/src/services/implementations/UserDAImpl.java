@@ -7,6 +7,7 @@ package services.implementations;
 
 import dao.CRUDHelper;
 import dao.DAOUtils;
+import dao.FilterUtils;
 import dto.Result;
 import dto.domain.User;
 import dto.filters.UserFilter;
@@ -178,47 +179,47 @@ public class UserDAImpl implements UserDAIF {
 
         String fetchFullPersonal = "";
         if (filter.fetchFullPersonalData) {
-            fetchFullPersonal = ", u.description";
+            fetchFullPersonal = ", u.s_name AS u_s_name, u.role AS u_role, u.timeins AS u_timeins, u.ID_userupd, u.description AS u_description";
         }
         String fetchTown = "";
         String joinTown = "";
         if (filter.fetchTowns) {
-            fetchTown = DAOUtils.fetchTown;
+            fetchTown = FilterUtils.fetchTown;
             joinTown = " LEFT OUTER JOIN town_user tu ON(tu.ID_user = u.ID) " +
                         "LEFT OUTER JOIN town t ON(t.ID = tu.ID_town)";
         }
         String fetchGroups = "";
         String joinGroups = "";
         if (filter.fetchGroups) {
-            fetchGroups = ", ig.ID AS ig_ID, ig.name AS ig_name";
+            fetchGroups = FilterUtils.fetchGroup;
             joinGroups = " LEFT OUTER JOIN igroup_user igu ON(igu.ID_user = u.ID) " +
                         "LEFT OUTER JOIN igroup ig ON(ig.ID = igu.ID_igroup)";
         }
         String fetchInterests = "";
         String joinInterests = "";
         if (filter.fetchInterests) {
-            fetchInterests = ", i.ID AS i_ID, i.name AS i_name";
+            fetchInterests = FilterUtils.fetchInterest;
             joinInterests = " LEFT OUTER JOIN interest_user iu ON(iu.ID_user = u.ID) " +
                         "LEFT OUTER JOIN interest i ON(i.ID = iu.ID_interest)";
         }
         String fetchEvents = "";
         String joinEvents = "";
         if (filter.fetchEvents) {
-            fetchEvents = ", e.ID AS e_ID, e.name AS e_name";
+            fetchEvents = FilterUtils.fetchEvent;
             joinEvents = " LEFT OUTER JOIN event_user eu ON(eu.ID_user = u.ID) " +
                         "LEFT OUTER JOIN event e ON(e.ID = eu.ID_event)";
         }
         String fetchConversations = "";
         String joinConversations = "";
         if (filter.fetchConversations) {
-            fetchConversations = ", c.ID AS c_ID, c.topic AS c_topic";
+            fetchConversations = FilterUtils.fetchConversation;
             joinConversations = " LEFT OUTER JOIN conversation_user cu ON(cu.ID_user = u.ID) " +
                         "LEFT OUTER JOIN conversation c ON(c.ID = cu.ID_conversation)";
         }
         
         final String slct = DAOUtils.generateStmt(
                 "SELECT ",
-                "u.ID, u.f_name, u.s_name, u.l_name, u.role, u.e_mail, u.timeins, u.timeupd, u.ID_userupd",
+                FilterUtils.fetchUser.replaceFirst(", ", ""),
                 fetchFullPersonal,
                 fetchTown,
                 fetchGroups,
