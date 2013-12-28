@@ -19,14 +19,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ControllerUtils {
 
     public static void setUpTable(TableView table, String[] colNames, String[] fields, double[] widths) {
-        
+
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        
+
         double sum = 0;
-        for (double d : widths){
+        for (double d : widths) {
             sum += d;
         }
-        
+
         double rem = 1;
         double rat = 0;
         TableColumn[] cols = new TableColumn[colNames.length];
@@ -36,14 +36,17 @@ public class ControllerUtils {
                     new PropertyValueFactory(fields[i])
             );
             double d = widths[i];
-            rat = d/sum;
+            rat = d / sum;
             rem -= rat;
-            
+
             col.prefWidthProperty().bind(table.widthProperty().multiply(rat));
             cols[i] = col;
         }
-        rem += rat;
-        cols[cols.length - 1].prefWidthProperty().bind(table.widthProperty().multiply(rem*0.9));
+
+        if (widths.length > 1) {
+            rem += rat;
+            cols[cols.length - 1].prefWidthProperty().bind(table.widthProperty().multiply(rem * 0.9));
+        }
         
         table.getColumns().clear();
         table.getColumns().addAll(cols);
