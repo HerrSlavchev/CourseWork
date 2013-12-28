@@ -19,8 +19,6 @@ import java.util.List;
  */
 public class RegionFilter extends AbstractFilter {
 
-    private static final long serialVersionUID = 1L;
-
     public String name = "";
 
     public List<Town> towns = new ArrayList<Town>();

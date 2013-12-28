@@ -21,8 +21,6 @@ import java.util.List;
  */
 public class UserFilter extends AbstractFilter {
 
-    private static final long serialVersionUID = 1L;
-
     //lists
     public List<Town> towns = new ArrayList<Town>();
     public List<Group> groups = new ArrayList<Group>();
