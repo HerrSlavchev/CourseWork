@@ -6,7 +6,6 @@
 
 package dao;
 
-import dto.domain.Category;
 import dto.domain.PersistedDTO;
 import dto.filters.AbstractFilter;
 import dto.filters.RegionFilter;
@@ -58,7 +57,9 @@ public class FilterUtils {
             } else if (af instanceof UserFilter){
                 tbl = USER;
             }
-            sb.append(" " + tbl + ".ID IN");
+            sb.append(" ");
+            sb.append(tbl);
+            sb.append(".ID IN");
             sb.append("(");
             for (Integer i : ids) {
                 sb.append(i);
@@ -111,11 +112,13 @@ public class FilterUtils {
      * @return - an empty string if the list is null or empty OR a string in the form " tbl.ID IN (id1, id2, id3, .., idx)"
      */
     public static String generateInClause(List<? extends PersistedDTO> lst, String tbl) {
-        if (lst == null || lst.size() == 0) {
+        if (lst == null || lst.isEmpty()) {
             return "";
         }
         StringBuilder sb = new StringBuilder(256);
-        sb.append(" " + tbl + ".ID IN");
+        sb.append(" ");
+        sb.append(tbl);
+        sb.append(".ID IN");
         sb.append("(");
         for (PersistedDTO dto : lst) {
             sb.append(dto.getID());
