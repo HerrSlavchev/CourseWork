@@ -133,12 +133,12 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
             }
         }
     }
-    
+
     //###=SESSION AWARENESS=###
     @Override
     //sets visibility/editability of controllers according to user and session properties
     public void refreshGUI() {
-        
+
         //check for role
         boolean isAdmin = SessionProperties.hasRole(Role.ADMIN);
 
@@ -157,7 +157,7 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
     private void handleClearAction(ActionEvent event) {
         setCurrentItem(null);
     }
-    
+
     //run some checks to validate a prepared object
     private boolean checkInput(Region input) {
         for (Region cmp : data) {
@@ -216,7 +216,11 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
             if (exc != null) {
                 Utils.showError(exc.getMessage(), Client.getMainPageStage());
             } else {
-                setCurrentItem(resItem);
+                //setCurrentItem(resItem);
+                name.setText(currentItem.name);
+                tCount.setText("" + currentItem.townCount);
+                uCount.setText("" + currentItem.userCount);
+                eCount.setText("" + currentItem.eventCount);
                 prepareDetailsTable();
             }
         }
