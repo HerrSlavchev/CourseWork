@@ -16,7 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import properties.Properties;
+import properties.SessionProperties;
 import services.BindingConsts;
 import services.RemoteServices;
 import services.client.NotifiableIF;
@@ -69,7 +69,7 @@ public class LoginDialogFXMLController implements Initializable {
     }
 
     private void successfulLogin(User user){
-        Properties.user = user;
+        SessionProperties.user = user;
         Client.getMainPageController().setLogged(true);
         stage.close();
     }

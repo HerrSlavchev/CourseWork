@@ -20,7 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import properties.Properties;
+import properties.SessionProperties;
 import services.BindingConsts;
 import services.RemoteServices;
 import services.server.UserDAIF;
@@ -58,7 +58,7 @@ public class RegistrationFormFXMLController implements Initializable {
         User tmp = new User(0);
         
         //if editing, take some info from logged in user
-        User u = Properties.user;
+        User u = SessionProperties.user;
         if (u != null) {
             tmp = new User(u.getID(), u.getTimeIns(), u.getTimeUpd(), null);
             tmp.role = u.role;
@@ -83,7 +83,7 @@ public class RegistrationFormFXMLController implements Initializable {
             User u = readFromForm();
             List<User> lst = new ArrayList();
             lst.add(u);
-            Result<User> res = stub.insertUser(lst, Properties.getSession());
+            Result<User> res = stub.insertUser(lst, SessionProperties.getSession());
             if (res.getException() != null) {
                 exc = res.getException();
             } else {
@@ -107,7 +107,7 @@ public class RegistrationFormFXMLController implements Initializable {
             User u = readFromForm();
             List<User> lst = new ArrayList();
             lst.add(u);
-            Result<User> res = stub.updateUser(lst, Properties.getSession());
+            Result<User> res = stub.updateUser(lst, SessionProperties.getSession());
             if (res.getException() != null) {
                 exc = res.getException();
             } else {
@@ -126,8 +126,8 @@ public class RegistrationFormFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Session s = Properties.getSession();
-        User u = Properties.user;
+        Session s = SessionProperties.getSession();
+        User u = SessionProperties.user;
         if (s == null) {
             editB.setVisible(false);
         } else {

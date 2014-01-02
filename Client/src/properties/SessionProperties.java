@@ -6,22 +6,23 @@
 package properties;
 
 import dto.domain.User;
+import dto.rolemanagement.Role;
 import dto.session.Session;
 
 /**
  *
  * @author root
  */
-public class Properties {
+public class SessionProperties {
 
     private static Session session = null;
     public static User user = null;
     
     public static void setSession(Session session) {
-        if (Properties.session != null) {
+        if (SessionProperties.session != null) {
             return;
         }
-        Properties.session = session;
+        SessionProperties.session = session;
     }
 
     public static Session getSession() {
@@ -34,6 +35,10 @@ public class Properties {
 
     public static boolean isLogged() {
         return session != null;
+    }
+    
+    public static boolean hasRole(Role role){
+        return (user != null && user.role.compareTo(role) == 0);
     }
     
 }

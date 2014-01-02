@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
 import javafx.application.Platform;
-import properties.Properties;
+import properties.SessionProperties;
 import services.client.NotifiableIF;
 import utils.Utils;
 
@@ -44,13 +44,13 @@ public class NotifiableImpl implements NotifiableIF, Serializable {
 
     @Override
     public String getSessionCode() throws RemoteException {
-        return Properties.getSession().getSessionCode();
+        return SessionProperties.getSession().getSessionCode();
     }
 
     @Override
     public void setSessionCode(String sessionCode) throws RemoteException {
         Session session = new Session(sessionCode);
-        Properties.setSession(session);
+        SessionProperties.setSession(session);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class NotifiableImpl implements NotifiableIF, Serializable {
             @Override
             public void run() {
                 Client.getMainPageController().setLogged(false);
-                Properties.user = null;
+                SessionProperties.user = null;
             }
         });
 

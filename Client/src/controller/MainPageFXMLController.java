@@ -30,7 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import properties.Properties;
+import properties.SessionProperties;
 import services.BindingConsts;
 import services.RemoteServices;
 import services.server.ClientManagerIF;
@@ -215,7 +215,7 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
             public void ok() {
                 try {
                     ClientManagerIF clm = (ClientManagerIF) RemoteServices.getStub(BindingConsts.CLIENT_MANAGER);
-                    clm.removeClient(Properties.getSession());
+                    clm.removeClient(SessionProperties.getSession());
                 } catch (RemoteException re) {
                     Utils.showError("Error connecting to server", Client.getMainPageStage());
                 }
@@ -239,8 +239,8 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
 
     public void setLogged(boolean b) {
         if (false == b) {
-            Properties.killSession();
-            Properties.user = null;
+            SessionProperties.killSession();
+            SessionProperties.user = null;
         }
         refreshGUI();
     }
@@ -262,7 +262,7 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
 
     @Override
     public void refreshGUI() {
-        if (false == Properties.isLogged()) {
+        if (false == SessionProperties.isLogged()) {
             loginB.setGraphic(guestIV);
             loginB.getItems().clear();
             loginB.getItems().addAll(loginMI, registerMI);
@@ -272,7 +272,7 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
             loginB.setGraphic(loggedIV);
             loginB.getItems().clear();
             loginB.getItems().addAll(editMI, logoutMI);
-            Client.getMainPageStage().setTitle(Properties.user.lName + ", " + Properties.user.fName);
+            Client.getMainPageStage().setTitle(SessionProperties.user.lName + ", " + SessionProperties.user.fName);
             personalAcc.setVisible(true);
         }
         if (centerController != null){
