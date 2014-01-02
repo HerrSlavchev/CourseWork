@@ -150,36 +150,37 @@ public class RegionDAImpl implements RegionDAIF {
         Exception exc = null;
 
         String fetchTown = "";
-        String joinTowns = " LEFT OUTER JOIN town t ON(t.ID_region = r.ID)";
+        String joinTowns = " LEFT OUTER JOIN town twn ON(twn.ID_region = reg.ID)";
         if (filter.fetchTowns) {
             fetchTown = FilterUtils.fetchTown;
         }
         String fetchUser = "";
-        String joinTownUser = " LEFT OUTER JOIN town_user tu ON (tu.ID_town = t.ID)";
-        String joinUsers = " LEFT OUTER JOIN user u ON (tu.ID_user = u.ID)";
+        String joinTownUser = " LEFT OUTER JOIN town_user tu ON (tu.ID_town = twn.ID)";
+        String joinUsers = " LEFT OUTER JOIN user usr ON (tu.ID_user = usr.ID)";
         if (filter.fetchUsers) {
             fetchUser = FilterUtils.fetchUser;
         }
         String fetchEvent = "";
-        String joinEventTown = " LEFT OUTER JOIN town_event te ON (te.ID_town = t.ID)";
-        String joinEvents = " LEFT OUTER JOIN event e ON (te.ID_event = e.ID)";
+        String joinEventTown = " LEFT OUTER JOIN town_event te ON (te.ID_town = twn.ID)";
+        String joinEvents = " LEFT OUTER JOIN event evt ON (te.ID_event = evt.ID)";
         if (filter.fetchEvents) {
             fetchEvent = FilterUtils.fetchEvent;
         }
         final String slct = DAOUtils.generateStmt(
                 "SELECT ",
                 FilterUtils.fetchRegion.replaceFirst(",", ""),
-                ", COUNT(t.ID) AS t_count, COUNT(u.ID) AS u_count, COUNT(e.ID) AS e_count",
+                ", COUNT(twn.ID) AS t_count, COUNT(usr.ID) AS u_count, COUNT(evt.ID) AS e_count",
                 fetchTown,
                 fetchUser,
                 fetchEvent,
-                " FROM region r",
+                " FROM region " + FilterUtils.REGION,
                 joinTowns,
                 joinTownUser,
                 joinUsers,
                 joinEventTown,
                 joinEvents,
-                " GROUP BY(r.ID)"
+                FilterUtils.prepareWHERE(filter),
+                " GROUP BY(reg.ID)"
         );
         try {
             CRUDHelper<Region> helper = new CRUDHelper<Region>(null, null) {

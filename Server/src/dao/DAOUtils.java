@@ -5,25 +5,10 @@
  */
 package dao;
 
-import dto.domain.Category;
-import dto.domain.Conversation;
-import dto.domain.Event;
-import dto.domain.Group;
-import dto.domain.Interest;
-import dto.domain.Message;
-import dto.domain.PersistedDTO;
-import dto.domain.Publication;
-import dto.domain.Region;
-import dto.domain.SubCategory;
-import dto.domain.Town;
-import dto.domain.User;
-import dto.rolemanagement.Role;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.util.List;
 
 /**
  * Experimental : configuration constants and methods to generate SQL,
