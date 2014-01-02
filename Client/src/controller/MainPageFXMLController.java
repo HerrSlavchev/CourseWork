@@ -159,7 +159,7 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
     
     @FXML
     private void handleTownAction(ActionEvent event) {
-
+        setCenterScene("TownFXML.fxml");
     }
     
     @FXML

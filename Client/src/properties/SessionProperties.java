@@ -5,6 +5,7 @@
  */
 package properties;
 
+import dto.domain.PersistedDTO;
 import dto.domain.User;
 import dto.rolemanagement.Role;
 import dto.session.Session;
@@ -41,4 +42,11 @@ public class SessionProperties {
         return (user != null && user.role.compareTo(role) == 0);
     }
     
+    public static boolean isOwner(PersistedDTO dto){
+        User userIns = dto.userIns;
+        if (user == null || userIns == null){
+            return false;
+        }
+        return userIns.getID() == user.getID();
+    }
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane prefHeight="531.0" prefWidth="738.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.TownFXMLController">
+  <children>
+    <TableView fx:id="table" editable="false" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+      <columns>
+        <TableColumn prefWidth="75.0" text="Column X" />
+        <TableColumn prefWidth="75.0" text="Column X" />
+      </columns>
+      <GridPane.margin>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" fx:id="x1" />
+      </GridPane.margin>
+    </TableView>
+    <AnchorPane prefHeight="473.0" prefWidth="298.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.margin="$x1" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+      <children>
+        <Label layoutX="17.0" layoutY="69.0" text="Name" />
+        <TextField fx:id="name" layoutX="58.0" layoutY="66.0" prefWidth="170.0" />
+        <ChoiceBox fx:id="choiceBoxReg" layoutX="58.0" layoutY="25.0" prefWidth="170.0">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Item 1" />
+              <String fx:value="Item 2" />
+              <String fx:value="Item 3" />
+            </FXCollections>
+          </items>
+        </ChoiceBox>
+        <Label layoutX="14.0" layoutY="28.0" text="Region" />
+      </children>
+    </AnchorPane>
+    <HBox prefHeight="22.0" prefWidth="298.0000999999975" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.margin="$x1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
+      <children>
+        <Button fx:id="insertButton" mnemonicParsing="false" onAction="#handleInsertAction" text="Insert" HBox.hgrow="NEVER" />
+        <Button fx:id="updateButton" mnemonicParsing="false" onAction="#handleUpdateAction" text="Update" HBox.hgrow="NEVER" />
+        <Pane minWidth="5.0" prefHeight="22.0" prefWidth="5.0" HBox.hgrow="ALWAYS" />
+        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClearAction" text="Clear" HBox.hgrow="NEVER">
+          <HBox.margin>
+            <Insets right="15.0" />
+          </HBox.margin>
+        </Button>
+      </children>
+    </HBox>
+    <Label prefHeight="24.0" prefWidth="68.0" text="TOWNS" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <font>
+        <Font size="18.0" />
+      </font>
+    </Label>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="429.0" />
+    <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="252.0" />
+  </columnConstraints>
+  <padding>
+    <Insets bottom="5.0" top="5.0" />
+  </padding>
+  <rowConstraints>
+    <RowConstraints maxHeight="-1.0" minHeight="-1.0" prefHeight="-1.0" vgrow="NEVER" />
+    <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="172.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="321.0" vgrow="ALWAYS" />
+    <RowConstraints maxHeight="152.0" minHeight="0.0" prefHeight="0.0" vgrow="NEVER" />
+  </rowConstraints>
+</GridPane>

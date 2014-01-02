@@ -166,6 +166,12 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
                 return false;
             }
         }
+        
+        if(input.name.isEmpty()){
+            Utils.showError("Name cannot be empty!", Client.getMainPageStage());
+                return false;
+        }
+        
         return true;
     }
 
@@ -216,8 +222,11 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
             if (exc != null) {
                 Utils.showError(exc.getMessage(), Client.getMainPageStage());
             } else {
-                //setCurrentItem(resItem);
+                //set currentItem
+                currentItem = resItem;
+                //show info
                 name.setText(currentItem.name);
+                //extras
                 tCount.setText("" + currentItem.townCount);
                 uCount.setText("" + currentItem.userCount);
                 eCount.setText("" + currentItem.eventCount);
@@ -234,6 +243,8 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
         if (currentItem != null) {
             id = currentItem.getID();
         }
+        //same with timeupd when exists
+        
         Region reg = new Region(id);
 
         //II: read data from input controls
@@ -254,17 +265,18 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
         if (res.getException() != null) {
             throw res.getException();
         }
+        
         data.clear();
         if (res.getResult() != null) {
             data.addAll(res.getResult());
         }
-        setCurrentItem(null);
+        
+        handleClearAction(null);
     }
 
     @FXML
     //Create
     private void handleInsertAction(ActionEvent event) {
-        RegionDAIF stub = (RegionDAIF) RemoteServices.getStub(BindingConsts.REGION_DA);
         Throwable exc = null;
         try {
             //I: read input
@@ -272,6 +284,7 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
             if (reg == null) {
                 return;
             }
+            
             //II: if ok, continue and wrap it for RMI
             List<Region> lst = new ArrayList<Region>();
             lst.add(reg);
@@ -311,6 +324,7 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
         } catch (Throwable e) {
             exc = e;
         }
+        
         if (exc != null) {
             Utils.showError(exc.getMessage(), Client.getMainPageStage());
         }
