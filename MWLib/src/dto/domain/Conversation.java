@@ -45,4 +45,8 @@ public class Conversation extends PersistedDTO{
         return messages;
     }
     
+    @Override
+    public String toString(){
+        return topic;
+    }
 }

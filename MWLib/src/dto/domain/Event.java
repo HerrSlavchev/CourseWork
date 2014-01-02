@@ -53,4 +53,9 @@ public class Event extends Publication {
     public List<Town> getTowns() {
         return towns;
     }
+    
+    @Override
+    public String toString(){
+        return name;
+    }
 }

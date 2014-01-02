@@ -54,4 +54,9 @@ public class Region extends PersistedDTO {
     public int getEventCount() {
         return eventCount;
     }
+    
+    @Override
+    public String toString(){
+        return name;
+    }
 }

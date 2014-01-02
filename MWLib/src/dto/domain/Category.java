@@ -49,4 +49,9 @@ public class Category extends PersistedDTO {
     public List<Interest> getInterests() {
         return interests;
     }
+    
+    @Override
+    public String toString(){
+        return name;
+    }
 }

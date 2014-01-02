@@ -50,4 +50,9 @@ public class Town extends PersistedDTO {
     public int getEventCount() {
         return eventCount;
     }
+    
+    @Override
+    public String toString(){
+        return name;
+    }
 }

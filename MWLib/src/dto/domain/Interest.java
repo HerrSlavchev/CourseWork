@@ -57,4 +57,9 @@ public class Interest extends PersistedDTO {
     public List<Group> getGroups() {
         return groups;
     }
+    
+    @Override
+    public String toString(){
+        return name;
+    }
 }

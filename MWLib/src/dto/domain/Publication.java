@@ -53,4 +53,14 @@ public class Publication extends PersistedDTO {
     public Event getEvent() {
         return event;
     }
+    
+    @Override
+    public String toString(){
+        int len = text.length();
+        String txt = text;
+        if (len > 20){
+            txt = text.substring(0, 17) + "...";
+        }
+        return txt;
+    }
 }

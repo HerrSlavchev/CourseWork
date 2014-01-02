@@ -46,4 +46,9 @@ public class SubCategory extends PersistedDTO{
     public List<Interest> getInterests(){
         return interests;
     }
+    
+    @Override
+    public String toString(){
+        return name;
+    }
 }

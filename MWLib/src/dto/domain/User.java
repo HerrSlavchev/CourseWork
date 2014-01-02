@@ -90,4 +90,9 @@ public class User extends PersistedDTO {
     public List<Conversation> getConversations() {
         return conversations;
     }
+    
+    @Override
+    public String toString(){
+        return lName + ", " + sName;
+    }
 }
