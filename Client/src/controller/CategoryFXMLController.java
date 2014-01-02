@@ -229,7 +229,7 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
 
         //II: read data from input controls
         cat.name = name.getText();
-
+        cat.description = descriptionArea.getText();
         //III: validate inputs
         if (false == checkInput(cat)) {
             return null;

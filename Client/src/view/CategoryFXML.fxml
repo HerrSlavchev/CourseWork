@@ -40,7 +40,7 @@
         </Button>
       </children>
     </HBox>
-    <Label prefHeight="24.0" prefWidth="108.0" text="CATEGORIES" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="135.0" text="CATEGORIES" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
       <font>
         <Font size="18.0" />
       </font>
