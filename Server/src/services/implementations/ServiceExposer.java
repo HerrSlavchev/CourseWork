@@ -46,6 +46,7 @@ public class ServiceExposer {
         register(new ClientManagerImpl(), BindingConsts.CLIENT_MANAGER);
         register(new UserDAImpl(), BindingConsts.USER_DA);
         register(new RegionDAImpl(), BindingConsts.REGION_DA);
+        register(new TownDAImpl(), BindingConsts.TOWN_DA);
         
         
         

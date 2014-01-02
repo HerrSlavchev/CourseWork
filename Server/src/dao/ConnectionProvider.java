@@ -33,7 +33,7 @@ public class ConnectionProvider {
 
         cpds = new ComboPooledDataSource();
         cpds.setDriverClass("com.mysql.jdbc.Driver");
-        cpds.setJdbcUrl("jdbc:mysql://localhost:3306/coursework");
+        cpds.setJdbcUrl("jdbc:mysql://localhost:3307/coursework");
         cpds.setUser("librarian");
         cpds.setPassword("zFOWCHAx2tFcJO9bTUvZuTsfnym9qWQtmjc/rsPih88EkctUQV+X1ynwdc+klxqZ3b07cC6jyX37\n" +
 "7c+nP7uZCQa7M8/oq7u+zeS0sS/K8+wwhBOEBPFN8DqnWT84jjgzl1NPb9VePZGPETzIr3w=");
