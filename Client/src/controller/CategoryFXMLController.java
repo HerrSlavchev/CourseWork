@@ -30,6 +30,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import properties.SessionProperties;
@@ -61,7 +62,7 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
     Button clearButton;
     //==Table for descriptions
     @FXML
-    TitledPane descriptionPane;
+    TextArea descriptionArea;
     //###=COMMON DATA=###
     CategoryDAIF stub = (CategoryDAIF) RemoteServices.getStub(BindingConsts.CATEGORY_DA);
     private ObservableList<Category> data = FXCollections.observableArrayList();
@@ -121,7 +122,7 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
     }    
     
     private void prepareControls() throws Throwable {
-        descriptionPane.setText(dataCategory.toString());
+        descriptionArea.setText(dataCategory.toString());
 
         CategoryDAIF regStub = (CategoryDAIF) RemoteServices.getStub(BindingConsts.CATEGORY_DA);
         Result<Category> res = regStub.fetchCategories(new CategoryFilter());
@@ -151,7 +152,7 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
 
         //enable/disable inputs
         name.setEditable(isAdmin);
-        descriptionPane.setDisable(!isAdmin);
+        descriptionArea.setDisable(!isAdmin);
     }
     
     //###=COMMON METHODS=###
@@ -187,7 +188,7 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
         if (currentItem == null) {
             //reset info
             name.setText("");
-            descriptionPane.setText("");
+            descriptionArea.setText("");
             
         } else {
             Throwable exc = null;
@@ -226,7 +227,7 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
                 currentItem = resItem;
                 //show info
                 name.setText(currentItem.name);
-                descriptionPane.setText(currentItem.description);
+                descriptionArea.setText(currentItem.description);
             }
         }
     }
