@@ -12,4 +12,6 @@ package dto.filters;
  */
 public class TownFilter extends AbstractFilter{
     
+    public boolean fetchEvents = false;
+    public boolean fetchUsers = false;
 }

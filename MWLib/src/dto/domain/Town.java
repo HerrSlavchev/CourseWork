@@ -17,8 +17,11 @@ public class Town extends PersistedDTO {
     
     //extrinsic
     public Region region;
+    public int userCount;
     public List<User> users;
+    public int eventCount;
     public List<Event> events;
+    
     
     public Town(int ID) {
         super(ID);
@@ -38,5 +41,13 @@ public class Town extends PersistedDTO {
     
     public List<Event> getEvents() {
         return events;
+    }
+    
+    public int getUserCount() {
+        return userCount;
+    }
+    
+    public int getEventCount() {
+        return eventCount;
     }
 }
