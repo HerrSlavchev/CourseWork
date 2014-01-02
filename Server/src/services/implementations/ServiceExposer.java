@@ -47,8 +47,8 @@ public class ServiceExposer {
         register(new UserDAImpl(), BindingConsts.USER_DA);
         register(new RegionDAImpl(), BindingConsts.REGION_DA);
         register(new TownDAImpl(), BindingConsts.TOWN_DA);
-        
-        
+        register(new CategoryDAImpl(), BindingConsts.CATEGORY_DA);
+        register(new SubCategoryDAImpl(), BindingConsts.SUBCATEGORY_DA);
         
         /*
         RegionDAIF regionsIF = new RegionDAImpl(); 
