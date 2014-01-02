@@ -105,8 +105,8 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
             1
         };
 
-        ControllerUtils.setUpTable(table, colNames, fields, widths);
-        ControllerUtils.setUpTable(table, colNames, fields, widths);
+        ControllerUtils.prepareTable(table, colNames, fields, widths);
+        ControllerUtils.prepareTable(table, colNames, fields, widths);
 
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Region>() {
 
@@ -248,7 +248,7 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
         if(detailsData.size() == 0){
             detailsTable.setVisible(false);
         } else {
-            ControllerUtils.setUpTable(detailsTable, colNames, fields, widths);
+            ControllerUtils.prepareTable(detailsTable, colNames, fields, widths);
             detailsTable.setItems(detailsData);
         }
     }

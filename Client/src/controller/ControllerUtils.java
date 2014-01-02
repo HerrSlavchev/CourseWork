@@ -18,7 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class ControllerUtils {
 
-    public static void setUpTable(TableView table, String[] colNames, String[] fields, double[] widths) {
+    public static void prepareTable(TableView table, String[] colNames, String[] fields, double[] widths) {
 
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
