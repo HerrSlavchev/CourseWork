@@ -29,31 +29,4 @@ public class RegionFilter extends AbstractFilter {
     public boolean fetchEvents = false;
     public boolean fetchUsers = false;
 
-    public String getName() {
-        return name;
-    }
-
-    public List<Town> getTowns() {
-        return towns;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public boolean fetchTowns() {
-        return fetchTowns;
-    }
-
-    public boolean fetchEvents() {
-        return fetchEvents;
-    }
-    
-    public boolean fetchUsers() {
-        return fetchUsers;
-    }
 }

@@ -41,43 +41,4 @@ public class UserFilter extends AbstractFilter {
     public String lName = "";
     public boolean fetchFullPersonalData = false;
 
-    public List<Town> getTowns() {
-        return towns;
-    }
-
-    public List<Group> getGroups() {
-        return groups;
-    }
-
-    public List<Interest> getInterests() {
-        return interests;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public List<Conversation> getConversations() {
-        return conversations;
-    }
-
-    public boolean fetchTowns() {
-        return fetchTowns;
-    }
-
-    public boolean fetchGroups() {
-        return fetchGroups;
-    }
-
-    public boolean fetchInterest() {
-        return fetchInterests;
-    }
-
-    public boolean fetchEvents() {
-        return fetchEvents;
-    }
-
-    public boolean fetchConversations() {
-        return fetchConversations;
-    }
 }
