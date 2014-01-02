@@ -66,7 +66,6 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
     //###=COMMON DATA=###
     CategoryDAIF stub = (CategoryDAIF) RemoteServices.getStub(BindingConsts.CATEGORY_DA);
     private ObservableList<Category> data = FXCollections.observableArrayList();
-    private ObservableList<Category> dataCategory = FXCollections.observableArrayList();
     //current selected record, top-level info, eager fetch
     private Category currentItem;
     /**
@@ -120,23 +119,7 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
             }
         }
     }    
-    
-    private void prepareControls() throws Throwable {
-        descriptionArea.setText(dataCategory.toString());
-
-        CategoryDAIF regStub = (CategoryDAIF) RemoteServices.getStub(BindingConsts.CATEGORY_DA);
-        Result<Category> res = regStub.fetchCategories(new CategoryFilter());
-        if (res.getException() != null) {
-            throw res.getException();
-        }
-
-        if (res.getResult() != null) {
-            dataCategory.clear();
-            dataCategory.addAll(res.getResult());
-        }
-
-    }
-    
+        
     //###=SESSION AWARENESS=###
     @Override
     //sets visibility/editability of controllers according to user and session properties
@@ -152,7 +135,7 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
 
         //enable/disable inputs
         name.setEditable(isAdmin);
-        descriptionArea.setDisable(!isAdmin);
+        descriptionArea.setEditable(isAdmin);
     }
     
     //###=COMMON METHODS=###
