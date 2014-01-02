@@ -13,11 +13,14 @@ import java.util.List;
  */
 public class Category extends PersistedDTO {
 
-    
     public String name;
     public String description;
+
     //extrinsic
+    public int subCategoryCount;
     public List<SubCategory> subCategories;
+    public int interestCount;
+    public List<Interest> interests;
 
     public Category(int ID) {
         super(ID);
@@ -31,7 +34,19 @@ public class Category extends PersistedDTO {
         return description;
     }
 
+    public int getSubCategoryCount() {
+        return subCategoryCount;
+    }
+
     public List<SubCategory> getSubCategories() {
         return subCategories;
+    }
+
+    public int getInterestCount() {
+        return interestCount;
+    }
+
+    public List<Interest> getInterests() {
+        return interests;
     }
 }

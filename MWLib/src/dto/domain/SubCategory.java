@@ -20,6 +20,7 @@ public class SubCategory extends PersistedDTO{
     
     //extrinsic
     public Category category;
+    public int interestCount;
     public List<Interest> interests;
     
     public SubCategory(int ID) {
@@ -36,6 +37,10 @@ public class SubCategory extends PersistedDTO{
     
     public Category getCategory(){
         return category;
+    }
+    
+    public int getInterestCount() {
+        return interestCount;
     }
     
     public List<Interest> getInterests(){

@@ -6,11 +6,24 @@
 
 package dto.filters;
 
+import dto.domain.Event;
+import dto.domain.Region;
+import dto.domain.User;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author root
  */
 public class TownFilter extends AbstractFilter{
+    
+    public String name = "";
+    
+    public List<Region> regions = new ArrayList<Region>();
+    public List<Event> events = new ArrayList<Event>();
+    public List<User> users = new ArrayList<User>();
+    
     
     public boolean fetchEvents = false;
     public boolean fetchUsers = false;

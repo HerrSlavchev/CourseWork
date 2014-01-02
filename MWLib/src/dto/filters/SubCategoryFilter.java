@@ -6,10 +6,22 @@
 
 package dto.filters;
 
+import dto.domain.Category;
+import dto.domain.Interest;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author root
  */
 public class SubCategoryFilter extends AbstractFilter{
+    
+    public String name = "";
+    
+    public List<Category> categories = new ArrayList<Category>();
+    public List<Interest> interests = new ArrayList<Interest>();
+    
+    public boolean fetchInterests = false;
     
 }
