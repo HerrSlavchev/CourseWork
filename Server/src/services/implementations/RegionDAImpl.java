@@ -5,6 +5,7 @@
  */
 package services.implementations;
 
+import com.sun.deploy.uitoolkit.impl.awt.OldPluginAWTUtil;
 import dao.CRUDHelper;
 import dao.DAOUtils;
 import dao.FilterUtils;
@@ -149,27 +150,47 @@ public class RegionDAImpl implements RegionDAIF {
         final List<Region> lst = new ArrayList<>();
         Exception exc = null;
 
+        String groupBy = " GROUP BY reg.ID";
+        
         String fetchTown = "";
+        String countTown = ", COUNT(twn.ID) AS t_count";
         String joinTowns = " LEFT OUTER JOIN town twn ON(twn.ID_region = reg.ID)";
         if (filter.fetchTowns) {
+            countTown = ", 0 AS t_count";
             fetchTown = FilterUtils.fetchTown;
+            groupBy += ", twn.ID";
         }
         String fetchUser = "";
+        String countUser = ", COUNT(usr.ID) AS u_count";
         String joinTownUser = " LEFT OUTER JOIN town_user tu ON (tu.ID_town = twn.ID)";
         String joinUsers = " LEFT OUTER JOIN user usr ON (tu.ID_user = usr.ID)";
         if (filter.fetchUsers) {
             fetchUser = FilterUtils.fetchUser;
+            countUser = ", 0 AS u_count";
+            groupBy += ", usr.ID";
         }
         String fetchEvent = "";
+        String countEvent = ", COUNT(evt.ID) AS e_count";
         String joinEventTown = " LEFT OUTER JOIN town_event te ON (te.ID_town = twn.ID)";
         String joinEvents = " LEFT OUTER JOIN event evt ON (te.ID_event = evt.ID)";
         if (filter.fetchEvents) {
             fetchEvent = FilterUtils.fetchEvent;
+            countEvent = ", 0 AS e_count";
+            groupBy += ", evt.ID";
         }
+        
+        //all flags up, dismiss group by clause
+        if(filter.fetchEvents && filter.fetchTowns && filter.fetchUsers){
+            groupBy = "";
+        }
+        
+        
         final String slct = DAOUtils.generateStmt(
                 "SELECT ",
                 FilterUtils.fetchRegion.replaceFirst(",", ""),
-                ", COUNT(twn.ID) AS t_count, COUNT(usr.ID) AS u_count, COUNT(evt.ID) AS e_count",
+                countTown,
+                countUser,
+                countEvent,
                 fetchTown,
                 fetchUser,
                 fetchEvent,
@@ -180,7 +201,7 @@ public class RegionDAImpl implements RegionDAIF {
                 joinEventTown,
                 joinEvents,
                 FilterUtils.prepareWHERE(filter),
-                " GROUP BY(reg.ID)"
+                groupBy
         );
         try {
             CRUDHelper<Region> helper = new CRUDHelper<Region>(null, null) {
@@ -204,14 +225,17 @@ public class RegionDAImpl implements RegionDAIF {
                         Town t = ResultSetInterpreter.getTown(rs);
                         if (t != null) {
                             old.towns.add(t);
+                            old.townCount++;
                         }
                         Event e = ResultSetInterpreter.getEvent(rs);
                         if (e != null) {
                             old.events.add(e);
+                            old.eventCount++;
                         }
                         User u = ResultSetInterpreter.getUser(rs);
                         if (u != null) {
                             old.users.add(u);
+                            old.userCount++;
                         }
                     }
                     

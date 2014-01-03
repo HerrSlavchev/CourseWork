@@ -32,7 +32,10 @@ public class ResultSetInterpreter {
     public static Category getCategory(ResultSet rs) throws SQLException {
         Category cat = null;
         String tbl = FilterUtils.CATEGORY;
-        int id = rs.getInt(tbl + "_ID");
+        Integer id = safeInt(rs, tbl + "_ID");
+        if (id == null || id == 0){
+            return null;
+        }
         cat = new Category(id);
         cat.name = rs.getString(tbl + "_name");
         cat.description = safeStr(rs, tbl + "_description");
@@ -43,7 +46,7 @@ public class ResultSetInterpreter {
         Conversation con = null;
         String tbl = FilterUtils.CONVERSATION;
         Integer id = safeInt(rs, tbl + "_ID");
-        if (id == null) {
+        if (id == null || id == 0) {
             return null;
         }
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
@@ -57,7 +60,7 @@ public class ResultSetInterpreter {
         Event e = null;
         String tbl = FilterUtils.EVENT;
         Integer id = safeInt(rs, tbl + "_ID");
-        if (id == null) {
+        if (id == null || id == 0) {
             return null;
         }
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
@@ -75,7 +78,7 @@ public class ResultSetInterpreter {
         Group ig = null;
         String tbl = FilterUtils.GROUP;
         Integer id = safeInt(rs, tbl + "_ID");
-        if (id == null) {
+        if (id == null || id == 0) {
             return null;
         }
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
@@ -90,7 +93,7 @@ public class ResultSetInterpreter {
         Interest i = null;
         String tbl = FilterUtils.INTEREST;
         Integer id = safeInt(rs, tbl + "_ID");
-        if (id == null) {
+        if (id == null || id == 0) {
             return null;
         }
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
@@ -105,7 +108,7 @@ public class ResultSetInterpreter {
         Message m = null;
         String tbl = FilterUtils.MESSAGE;
         Integer id = safeInt(rs, tbl + "_ID");
-        if (id == null) {
+        if (id == null || id == 0) {
             return null;
         }
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
@@ -119,7 +122,7 @@ public class ResultSetInterpreter {
         Publication p = null;
         String tbl = FilterUtils.PUBLICATION;
         Integer id = safeInt(rs, tbl + "_ID");
-        if (id == null) {
+        if (id == null || id == 0) {
             return null;
         }
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
@@ -134,7 +137,7 @@ public class ResultSetInterpreter {
         Region r = null;
         String tbl = FilterUtils.REGION;
         Integer id = safeInt(rs, tbl + "_ID");
-        if (id == null) {
+        if (id == null || id == 0) {
             return null;
         }
         r = new Region(id);
@@ -147,7 +150,7 @@ public class ResultSetInterpreter {
         SubCategory s = null;
         String tbl = FilterUtils.SUBCATEGORY;
         Integer id = safeInt(rs, tbl + "_ID");
-        if (id == null) {
+        if (id == null || id == 0) {
             return null;
         }
         s = new SubCategory(id);
@@ -161,7 +164,7 @@ public class ResultSetInterpreter {
         Town t = null;
         String tbl = FilterUtils.TOWN;
         Integer id = safeInt(rs, tbl + "_ID");
-        if (id == null) {
+        if (id == null || id == 0) {
             return null;
         }
         t = new Town(id);
@@ -174,7 +177,7 @@ public class ResultSetInterpreter {
         User u = null;
         String tbl = FilterUtils.USER;
         Integer id = safeInt(rs, tbl + "_ID");
-        if (id == null) {
+        if (id == null || id == 0) {
             return null;
         }
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
