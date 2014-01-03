@@ -5,6 +5,7 @@
  */
 package dao;
 
+import dto.domain.Category;
 import dto.domain.Event;
 import dto.domain.Interest;
 import dto.domain.SubCategory;
@@ -13,6 +14,7 @@ import dto.domain.User;
 import dto.filters.AbstractFilter;
 import dto.filters.CategoryFilter;
 import dto.filters.RegionFilter;
+import dto.filters.SubCategoryFilter;
 import dto.filters.TownFilter;
 import java.util.List;
 
@@ -117,6 +119,30 @@ public class FilterDecoratorFactory {
                     return cf.fetchSubCategories;
                 }
 
+                @Override
+                public boolean fetchInterests() {
+                    return cf.fetchInterests;
+                }
+            };
+        } else if (af instanceof SubCategoryFilter){
+            final SubCategoryFilter cf = (SubCategoryFilter) af;
+            fd = new FilterDecorator() {
+
+                @Override
+                public String getName() {
+                    return cf.name;
+                }
+
+                @Override
+                public List<Category> getCategories() {
+                    return cf.categories;
+                }
+
+                @Override
+                public List<Interest> getInterests() {
+                    return cf.interests;
+                }
+              
                 @Override
                 public boolean fetchInterests() {
                     return cf.fetchInterests;
