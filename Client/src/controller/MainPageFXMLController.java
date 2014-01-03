@@ -149,7 +149,7 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
     
     @FXML
     private void handleSubCategoryAction(ActionEvent event) {
-
+        setCenterScene("SubCategoryFXML.fxml");
     }
     
     @FXML
