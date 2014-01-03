@@ -8,16 +8,9 @@ package controller;
 
 import dto.Result;
 import dto.domain.Category;
-import dto.domain.Event;
-import dto.domain.PersistedDTO;
-import dto.domain.Region;
 import dto.domain.SubCategory;
-import dto.domain.Town;
-import dto.domain.User;
 import dto.filters.CategoryFilter;
-import dto.filters.RegionFilter;
 import dto.filters.SubCategoryFilter;
-import dto.filters.TownFilter;
 import dto.rolemanagement.Role;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,18 +25,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import properties.SessionProperties;
 import services.BindingConsts;
 import services.RemoteServices;
 import services.server.CategoryDAIF;
-import services.server.RegionDAIF;
 import services.server.SubCategoryDAIF;
-import services.server.TownDAIF;
 import utils.Utils;
 import view.Client;
 
@@ -87,7 +76,7 @@ public class SubCategoryFXMLController implements Initializable, SessionAwareIF 
         {
             final String[] colNames = {
                 "Name",
-                "Categories",
+                "Category",
                 "Interests"
             };
 
@@ -123,6 +112,7 @@ public class SubCategoryFXMLController implements Initializable, SessionAwareIF 
             table.setItems(data);
             try {
                 refreshData();
+                prepareControls();
             } catch (Throwable exc) {
                 Utils.showError(exc.getMessage(), Client.getMainPageStage());
             }
