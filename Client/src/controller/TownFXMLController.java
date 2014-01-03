@@ -179,7 +179,7 @@ public class TownFXMLController implements Initializable, SessionAwareIF {
         if (currentItem == null) {
             //reset info
             name.setText("");
-
+            choiceBoxReg.getSelectionModel().clearSelection();
         } else {
             Throwable exc = null;
             Town resItem = null;

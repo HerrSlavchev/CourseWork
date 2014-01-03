@@ -132,6 +132,8 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
                 Utils.showError(exc.getMessage(), Client.getMainPageStage());
             }
         }
+        
+        detailsTable.setVisible(false);
     }
 
     //###=SESSION AWARENESS=###
@@ -187,7 +189,8 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
             tCount.setText("N/A");
             uCount.setText("N/A");
             eCount.setText("N/A");
-            detailsMode = DETAILS_NONE;
+            
+            prepareDetailsTable();
         } else {
             Throwable exc = null;
             Region resItem = null;
@@ -437,6 +440,7 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
         } else {
             ControllerUtils.prepareTable(detailsTable, colNames, fields, widths);
             detailsTable.setItems(detailsData);
+            detailsTable.setVisible(true);
         }
     }
 }
