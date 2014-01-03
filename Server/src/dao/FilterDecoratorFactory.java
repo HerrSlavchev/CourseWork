@@ -6,6 +6,8 @@
 package dao;
 
 import dto.domain.Event;
+import dto.domain.Interest;
+import dto.domain.SubCategory;
 import dto.domain.Town;
 import dto.domain.User;
 import dto.filters.AbstractFilter;
@@ -89,6 +91,35 @@ public class FilterDecoratorFactory {
                 @Override
                 public boolean fetchUsers() {
                     return tf.fetchUsers;
+                }
+            };
+        } else if (af instanceof CategoryFilter){
+            final CategoryFilter cf = (CategoryFilter) af;
+            fd = new FilterDecorator() {
+
+                @Override
+                public String getName() {
+                    return cf.name;
+                }
+
+                @Override
+                public List<SubCategory> getSubCategories() {
+                    return cf.subCategories;
+                }
+
+                @Override
+                public List<Interest> getInterests() {
+                    return cf.interests;
+                }
+
+                @Override
+                public boolean fetchSubCategories() {
+                    return cf.fetchSubCategories;
+                }
+
+                @Override
+                public boolean fetchInterests() {
+                    return cf.fetchInterests;
                 }
             };
         }
