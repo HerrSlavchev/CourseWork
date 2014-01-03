@@ -13,6 +13,7 @@ import dto.domain.Town;
 import dto.domain.User;
 import dto.filters.AbstractFilter;
 import dto.filters.CategoryFilter;
+import dto.filters.InterestFilter;
 import dto.filters.RegionFilter;
 import dto.filters.SubCategoryFilter;
 import dto.filters.TownFilter;
@@ -66,7 +67,7 @@ public class FilterDecoratorFactory {
                     return rf.fetchUsers;
                 }
             };
-        } else if(af instanceof TownFilter){
+        } else if (af instanceof TownFilter) {
             final TownFilter tf = (TownFilter) af;
             fd = new FilterDecorator() {
 
@@ -95,7 +96,7 @@ public class FilterDecoratorFactory {
                     return tf.fetchUsers;
                 }
             };
-        } else if (af instanceof CategoryFilter){
+        } else if (af instanceof CategoryFilter) {
             final CategoryFilter cf = (CategoryFilter) af;
             fd = new FilterDecorator() {
 
@@ -124,7 +125,7 @@ public class FilterDecoratorFactory {
                     return cf.fetchInterests;
                 }
             };
-        } else if (af instanceof SubCategoryFilter){
+        } else if (af instanceof SubCategoryFilter) {
             final SubCategoryFilter cf = (SubCategoryFilter) af;
             fd = new FilterDecorator() {
 
@@ -142,10 +143,48 @@ public class FilterDecoratorFactory {
                 public List<Interest> getInterests() {
                     return cf.interests;
                 }
-              
+
                 @Override
                 public boolean fetchInterests() {
                     return cf.fetchInterests;
+                }
+            };
+        } else if (af instanceof InterestFilter) {
+            final InterestFilter inf = (InterestFilter) af;
+            fd = new FilterDecorator() {
+                @Override
+                public String getName() {
+                    return inf.name;
+                }
+
+                @Override
+                public List<Category> getCategories() {
+                    return inf.categories;
+                }
+                
+                @Override
+                public List<SubCategory> getSubCategories() {
+                    return inf.subCategories;
+                }
+                
+                @Override
+                public boolean fetchSubCategories() {
+                    return inf.fetchSubCategories;
+                }
+
+                @Override
+                public boolean fetchCategories() {
+                    return inf.fetchCategories;
+                }
+                
+                @Override
+                public boolean fetchUsers() {
+                    return inf.fetchUsers;
+                }
+                
+                @Override
+                public boolean fetchGroups() {
+                    return inf.fetchGroups;
                 }
             };
         }
