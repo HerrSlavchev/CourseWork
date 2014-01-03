@@ -19,7 +19,11 @@ public class Interest extends PersistedDTO {
     public String description;
     //extrinsic
     public List<Category> categories = new ArrayList<Category>();
+    
     public List<SubCategory> subCategories = new ArrayList<SubCategory>();
+    public List<SubCategory> newSubCategories = new ArrayList<SubCategory>();
+    public List<SubCategory> removedSubCategories = new ArrayList<SubCategory>();
+    
     public List<User> users = new ArrayList<User>();
     public List<Group> groups = new ArrayList<Group>();
 
