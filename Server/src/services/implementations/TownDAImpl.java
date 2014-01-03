@@ -76,9 +76,9 @@ public class TownDAImpl implements TownDAIF {
             };
             helper.performCUD();
         } catch (Exception e) {
-            exc = e;
+            exc = ExceptionProcessor.processException(e);
         }
-
+        
         return new Result(lst, exc);
     }
 
@@ -88,7 +88,7 @@ public class TownDAImpl implements TownDAIF {
         Exception exc = null;
 
         final String update = DAOUtils.generateStmt(
-                "UPDATE region SET ",
+                "UPDATE town SET ",
                 "name = ?, ",
                 "ID_region = ? ",
                 "WHERE ",
@@ -127,8 +127,9 @@ public class TownDAImpl implements TownDAIF {
             };
             helper.performCUD();
         } catch (Exception e) {
-            exc = e;
+            exc = ExceptionProcessor.processException(e);
         }
+        
         return new Result(lst, exc);
     }
 

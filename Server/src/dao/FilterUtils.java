@@ -33,7 +33,7 @@ public class FilterUtils {
     public static final String CONVERSATION = "con";
     public static final String EVENT = "evt";
     public static final String GROUP = "grp";
-    public static final String INTEREST = "int";
+    public static final String INTEREST = "intr";
     public static final String MESSAGE = "msg";
     public static final String PUBLICATION = "pub";
     public static final String REGION = "reg";
