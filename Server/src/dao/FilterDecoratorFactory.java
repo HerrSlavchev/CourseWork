@@ -11,6 +11,7 @@ import dto.domain.User;
 import dto.filters.AbstractFilter;
 import dto.filters.CategoryFilter;
 import dto.filters.RegionFilter;
+import dto.filters.TownFilter;
 import java.util.List;
 
 /**
@@ -55,10 +56,39 @@ public class FilterDecoratorFactory {
                 public boolean fetchTowns() {
                     return rf.fetchTowns;
                 }
-                
+
                 @Override
                 public boolean fetchUsers() {
                     return rf.fetchUsers;
+                }
+            };
+        } else if(af instanceof TownFilter){
+            final TownFilter tf = (TownFilter) af;
+            fd = new FilterDecorator() {
+
+                @Override
+                public String getName() {
+                    return tf.name;
+                }
+
+                @Override
+                public List<User> getUsers() {
+                    return tf.users;
+                }
+
+                @Override
+                public List<Event> getEvents() {
+                    return tf.events;
+                }
+
+                @Override
+                public boolean fetchEvents() {
+                    return tf.fetchEvents;
+                }
+
+                @Override
+                public boolean fetchUsers() {
+                    return tf.fetchUsers;
                 }
             };
         }
