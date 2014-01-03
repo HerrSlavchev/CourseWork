@@ -11,10 +11,13 @@ import dto.domain.Category;
 import dto.domain.Event;
 import dto.domain.PersistedDTO;
 import dto.domain.Region;
+import dto.domain.SubCategory;
 import dto.domain.Town;
 import dto.domain.User;
 import dto.filters.CategoryFilter;
 import dto.filters.RegionFilter;
+import dto.filters.SubCategoryFilter;
+import dto.filters.TownFilter;
 import dto.rolemanagement.Role;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,6 +31,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -38,6 +42,8 @@ import services.BindingConsts;
 import services.RemoteServices;
 import services.server.CategoryDAIF;
 import services.server.RegionDAIF;
+import services.server.SubCategoryDAIF;
+import services.server.TownDAIF;
 import utils.Utils;
 import view.Client;
 
@@ -46,13 +52,15 @@ import view.Client;
  *
  * @author Lubomir
  */
-public class CategoryFXMLController implements Initializable, SessionAwareIF {
-
+public class SubCategoryFXMLController implements Initializable, SessionAwareIF {
+    
     @FXML
     TableView table;
     //==Info/Enput fields
     @FXML
     TextField name;
+    @FXML
+    ChoiceBox<Category> choiceBoxCat;
     //==Buttons
     @FXML
     Button insertButton;
@@ -63,28 +71,29 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
     //==Table for descriptions
     @FXML
     TextArea descriptionArea;
-    //###=COMMON DATA=###
-    CategoryDAIF stub = (CategoryDAIF) RemoteServices.getStub(BindingConsts.CATEGORY_DA);
-    private ObservableList<Category> data = FXCollections.observableArrayList();
+    
+    SubCategoryDAIF stub = (SubCategoryDAIF) RemoteServices.getStub(BindingConsts.SUBCATEGORY_DA);
+    private ObservableList<SubCategory> data = FXCollections.observableArrayList();
+    private ObservableList<Category> dataCategory = FXCollections.observableArrayList();
     //current selected record, top-level info, eager fetch
-    private Category currentItem;
+    private SubCategory currentItem;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         //I: Prepare the main table
         {
             final String[] colNames = {
                 "Name",
-                "Subcategories",
+                "Categories",
                 "Interests"
             };
 
             final String[] fields = {
                 "name",
-                "subCategoryCount",
+                "category",
                 "interestCount"
             };
 
@@ -96,19 +105,19 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
 
             ControllerUtils.prepareTable(table, colNames, fields, widths);
         }
-
+        
         //II: Add listener (when the user clicks on a row, show info about it
         {
-            table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Category>() {
+            table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<SubCategory>() {
 
                 @Override
-                public void changed(ObservableValue<? extends Category> observable,
-                        Category oldValue, Category newValue) {
+                public void changed(ObservableValue<? extends SubCategory> observable,
+                        SubCategory oldValue, SubCategory newValue) {
                     setCurrentItem(newValue);
                 }
             });
         }
-
+        
         //III: Bind data with the table and load data from server
         {
             table.setItems(data);
@@ -118,13 +127,28 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
                 Utils.showError(exc.getMessage(), Client.getMainPageStage());
             }
         }
-    }    
-        
+    }
+    
+    private void prepareControls() throws Throwable {
+        choiceBoxCat.setItems(dataCategory);
+
+        CategoryDAIF regStub = (CategoryDAIF) RemoteServices.getStub(BindingConsts.CATEGORY_DA);
+        Result<Category> res = regStub.fetchCategories(new CategoryFilter());
+        if (res.getException() != null) {
+            throw res.getException();
+        }
+
+        if (res.getResult() != null) {
+            dataCategory.clear();
+            dataCategory.addAll(res.getResult());
+        }
+
+    }
+    
     //###=SESSION AWARENESS=###
     @Override
     //sets visibility/editability of controllers according to user and session properties
     public void refreshGUI() {
-
         //check for role
         boolean isAdmin = SessionProperties.hasRole(Role.ADMIN);
 
@@ -136,6 +160,7 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
         //enable/disable inputs
         name.setEditable(isAdmin);
         descriptionArea.setEditable(isAdmin);
+        choiceBoxCat.setDisable(!isAdmin);
     }
     
     //###=COMMON METHODS=###
@@ -144,15 +169,20 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
     private void handleClearAction(ActionEvent event) {
         setCurrentItem(null);
     }
-
-    private boolean checkInput(Category input) {
+    
+    private boolean checkInput(SubCategory input) {
 
         if (input.name.isEmpty()) {
             Utils.showError("Name cannot be empty!", Client.getMainPageStage());
             return false;
         }
-
-        for (Category cmp : data) {
+        
+        if (input.category == null) {
+            Utils.showError("Must choose region!", Client.getMainPageStage());
+            return false;
+        }
+        
+        for (SubCategory cmp : data) {
             if (cmp.name.equals(input.name)
                     && cmp.getID() != input.getID()) {
                 Utils.showError("The category exists.", Client.getMainPageStage());
@@ -163,35 +193,33 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
         return true;
     }
     
-    //Sets a chosen item as current; pass null to reset
-    private void setCurrentItem(Category category) {
+    private void setCurrentItem(SubCategory subCategory) {
         //I: set currentItem to point to the chosen one
-        currentItem = category;
+        currentItem = subCategory;
 
         if (currentItem == null) {
             //reset info
             name.setText("");
+            choiceBoxCat.getSelectionModel().clearSelection();
             descriptionArea.setText("");
-            
         } else {
             Throwable exc = null;
-            Category resItem = null;
+            SubCategory resItem = null;
             try {
                 //II: prepare filter
-                CategoryFilter filter = new CategoryFilter();
+                SubCategoryFilter filter = new SubCategoryFilter();
                 //pass ID of chosen item
                 filter.ids.add(currentItem.getID());
                 //raise appropriate fetch flags for extra info (if needed)
                 filter.fetchInterests = true;
-                filter.fetchSubCategories = true;
 
                 //III: Fetch info and process result
-                Result<Category> res = stub.fetchCategories(filter);
+                Result<SubCategory> res = stub.fetchSubCategories(filter);
                 //check for errors and mark them
                 exc = res.getException();
                 //if ok, try and mark the fetched item
                 if (exc == null) {
-                    List<Category> lst = res.getResult();
+                    List<SubCategory> lst = res.getResult();
                     if (lst == null || lst.size() == 0) {
                         exc = new Exception("No data found!");
                     } else {
@@ -208,15 +236,22 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
             } else {
                 //set currentItem
                 currentItem = resItem;
+                descriptionArea.setText(currentItem.description);
                 //show info
                 name.setText(currentItem.name);
-                descriptionArea.setText(currentItem.description);
+                for (Category cmp : choiceBoxCat.getItems()) {
+                    //System.out.println(cmp.getID() + "|" + currentItem.region.getID());
+                    if (cmp.getID() == currentItem.category.getID()) {
+                        choiceBoxCat.setValue(cmp);
+                        break;
+                    }
+                }
             }
         }
     }
     
     //prepares an item according to user input and validates it
-    private Category processInput() {
+    private SubCategory processInput() {
 
         //I: if we have a chosen item, copy ID and timeupd (if any) from it
         int id = 0;
@@ -224,33 +259,35 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
             id = currentItem.getID();
         }
         //same with timeupd when exists
-        
-        Category cat = new Category(id);
+
+        SubCategory subCategory = new SubCategory(id);
 
         //II: read data from input controls
-        cat.name = name.getText();
-        cat.description = descriptionArea.getText();
+        subCategory.name = name.getText();
+        subCategory.category = choiceBoxCat.getValue();
+        subCategory.description = descriptionArea.getText();
+
         //III: validate inputs
-        if (false == checkInput(cat)) {
+        if (false == checkInput(subCategory)) {
             return null;
         }
 
-        return cat;
+        return subCategory;
     }
     
     //###=CRU(D) METHODS=###
     //fetch and show info from server
     private void refreshData() throws Throwable {
-        Result<Category> cat = stub.fetchCategories(new CategoryFilter());
-        if (cat.getException() != null) {
-            throw cat.getException();
+        Result<SubCategory> res = stub.fetchSubCategories(new SubCategoryFilter());
+        if (res.getException() != null) {
+            throw res.getException();
         }
-        
+
         data.clear();
-        if (cat.getResult() != null) {
-            data.addAll(cat.getResult());
+        if (res.getResult() != null) {
+            data.addAll(res.getResult());
         }
-        
+
         handleClearAction(null);
     }
     
@@ -260,16 +297,16 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
         Throwable exc = null;
         try {
             //I: read input
-            Category cat = processInput();
-            if (cat == null) {
+            SubCategory subCategory = processInput();
+            if (subCategory == null) {
                 return;
             }
-            
+
             //II: if ok, continue and wrap it for RMI
-            List<Category> lst = new ArrayList<Category>();
-            lst.add(cat);
+            List<SubCategory> lst = new ArrayList<SubCategory>();
+            lst.add(subCategory);
             //III: try to insert it and process result
-            Result<Category> res = stub.insertCategory(lst, SessionProperties.getSession());
+            Result<SubCategory> res = stub.insertSubCategory(lst, SessionProperties.getSession());
             exc = res.getException();
             if (exc == null) {
                 //IV: if ok, refresh data
@@ -290,13 +327,13 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
 
         Throwable exc = null;
         try {
-            Category cat = processInput();
-            if (cat == null) {
+            SubCategory subCategory = processInput();
+            if (subCategory == null) {
                 return;
             }
-            List<Category> lst = new ArrayList<Category>();
-            lst.add(cat);
-            Result<Category> res = stub.updateCategory(lst, SessionProperties.getSession());
+            List<SubCategory> lst = new ArrayList<SubCategory>();
+            lst.add(subCategory);
+            Result<SubCategory> res = stub.updateSubCategory(lst, SessionProperties.getSession());
             exc = res.getException();
             if (exc == null) {
                 refreshData();
@@ -304,11 +341,9 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
         } catch (Throwable e) {
             exc = e;
         }
-        
+
         if (exc != null) {
             Utils.showError(exc.getMessage(), Client.getMainPageStage());
         }
     }
-    
-    
 }
