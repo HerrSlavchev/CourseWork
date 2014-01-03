@@ -6,6 +6,7 @@
 package dto.domain;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,8 +20,8 @@ public class Event extends Publication {
     public Date dateFrom;
     public Date dateTo;
     //extrinsic
-    public List<User> users;
-    public List<Town> towns;
+    public List<User> users = new ArrayList<User>();
+    public List<Town> towns = new ArrayList<Town>();
 
     public Event(int ID) {
         super(ID);

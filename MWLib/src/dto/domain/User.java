@@ -7,6 +7,7 @@ package dto.domain;
 
 import dto.rolemanagement.Role;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,11 +24,11 @@ public class User extends PersistedDTO {
     public String description;
     public Role role;
     //extrinsic
-    public List<Town> towns;    
-    public List<Interest> interests;
-    public List<Group> groups;
-    public List<Event> events;
-    public List<Conversation> conversations;
+    public List<Town> towns = new ArrayList<Town>();    
+    public List<Interest> interests = new ArrayList<Interest>();
+    public List<Group> groups = new ArrayList<Group>();
+    public List<Event> events = new ArrayList<Event>();
+    public List<Conversation> conversations = new ArrayList<Conversation>();
 
     
     

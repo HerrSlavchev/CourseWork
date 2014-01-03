@@ -6,6 +6,7 @@
 package dto.domain;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class Publication extends PersistedDTO {
     public String text;
 
     //extrinsic
-    public List<Publication> children;
+    public List<Publication> children = new ArrayList<Publication>();
     public Group group;
     public Publication parentPublication;
     public Event event;

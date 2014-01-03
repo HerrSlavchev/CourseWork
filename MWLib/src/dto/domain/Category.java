@@ -5,6 +5,7 @@
  */
 package dto.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,9 +19,9 @@ public class Category extends PersistedDTO {
 
     //extrinsic
     public int subCategoryCount;
-    public List<SubCategory> subCategories;
+    public List<SubCategory> subCategories = new ArrayList<SubCategory>();
     public int interestCount;
-    public List<Interest> interests;
+    public List<Interest> interests = new ArrayList<Interest>();
 
     public Category(int ID) {
         super(ID);

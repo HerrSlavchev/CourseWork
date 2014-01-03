@@ -5,6 +5,7 @@
  */
 package dto.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,9 +19,9 @@ public class Town extends PersistedDTO {
     //extrinsic
     public Region region;
     public int userCount;
-    public List<User> users;
+    public List<User> users = new ArrayList<User>();
     public int eventCount;
-    public List<Event> events;
+    public List<Event> events = new ArrayList<Event>();
     
     
     public Town(int ID) {

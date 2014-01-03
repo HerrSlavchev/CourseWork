@@ -6,6 +6,7 @@
 package dto.domain;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,10 +18,10 @@ public class Interest extends PersistedDTO {
     public String name;
     public String description;
     //extrinsic
-    public List<Category> categories;
-    public List<SubCategory> subCategories;
-    public List<User> users;
-    public List<Group> groups;
+    public List<Category> categories = new ArrayList<Category>();
+    public List<SubCategory> subCategories = new ArrayList<SubCategory>();
+    public List<User> users = new ArrayList<User>();
+    public List<Group> groups = new ArrayList<Group>();
 
     public Interest(int ID) {
         super(ID);

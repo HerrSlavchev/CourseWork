@@ -6,6 +6,7 @@
 package dto.domain;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,8 +19,8 @@ public class Group extends PersistedDTO {
     public String description;
     //extrinsic
     public Interest interest;
-    public List<Publication> publications;
-    public List<User> users;
+    public List<Publication> publications = new ArrayList<Publication>();
+    public List<User> users = new ArrayList<User>();
 
     public Group(int ID) {
         super(ID);
