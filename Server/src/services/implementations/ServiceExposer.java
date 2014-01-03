@@ -49,7 +49,7 @@ public class ServiceExposer {
         register(new TownDAImpl(), BindingConsts.TOWN_DA);
         register(new CategoryDAImpl(), BindingConsts.CATEGORY_DA);
         register(new SubCategoryDAImpl(), BindingConsts.SUBCATEGORY_DA);
-        
+        register(new InterestDAImpl(), BindingConsts.INTEREST_DA);
         /*
         RegionDAIF regionsIF = new RegionDAImpl(); 
         RegionDAIF regionsStub = (RegionDAIF) UnicastRemoteObject.exportObject(regionsIF, 0); 

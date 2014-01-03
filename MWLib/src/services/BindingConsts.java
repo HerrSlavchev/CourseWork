@@ -21,6 +21,7 @@ public class BindingConsts {
     //===CLIENT METHODS===
         
     //===SERVER METHODS===
+    public static final String INTEREST_DA = "InterestDA";
     public static final String CATEGORY_DA = "CategoryDA";
     public static final String SUBCATEGORY_DA = "SubCategoryDA";
     public static final String REGION_DA = "RegionDA";
