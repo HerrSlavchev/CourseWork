@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ALWAYS OVERRIDE APPROPRIATE METHODS IN CONCRETE CLASSES!
- *
  * @author root
  */
 public abstract class AbstractFilter implements Serializable {
