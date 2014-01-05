@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dto.domain.Interest;
 import dto.filters.UserFilter;
 import view.Client;
 import images.ImageViewFactory;
@@ -68,7 +69,7 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
     @FXML
     VBox eventsBox;
 
-    private SessionAwareIF centerController;
+    private Initializable centerController;
 
     private ImageView loggedIV;
     private ImageView guestIV;
@@ -124,7 +125,7 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
 
     @FXML
     private void handleInterestAction(ActionEvent event) {
-       
+       setCenterScene("InterestFXML.fxml");
     }
 
     @FXML
@@ -162,23 +163,6 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
         setCenterScene("TownFXML.fxml");
     }
     
-    @FXML
-    private void handleTestAction(ActionEvent event) {
-        try {
-            UserDAIF intf = (UserDAIF) RemoteServices.getStub(BindingConsts.USER_DA);
-            UserFilter fil = new UserFilter();
-            fil.fetchConversations = true;
-            fil.fetchEvents = true;
-            fil.fetchFullPersonalData = true;
-            fil.fetchGroups = true;
-            fil.fetchInterests = true;
-            fil.fetchTowns = true;
-            intf.fetchUsers(fil);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void handleLoginAction() {
         try {
             FXMLLoader loginLoader = new FXMLLoader();
@@ -275,8 +259,8 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
             Client.getMainPageStage().setTitle(SessionProperties.user.lName + ", " + SessionProperties.user.fName);
             personalAcc.setVisible(true);
         }
-        if (centerController != null){
-            centerController.refreshGUI();
+        if (centerController != null && centerController instanceof SessionAwareIF){
+            ((SessionAwareIF) centerController).refreshGUI();
         }
     }
 
@@ -285,15 +269,13 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Client.class.getResource(fxmlFile));
             Pane pane = (Pane) loader.load();
-            Object obj = loader.getController();
-            if (obj instanceof SessionAwareIF) {
-                SessionAwareIF sessionAwareIF = (SessionAwareIF) obj;
-                centerController = sessionAwareIF;
-                centerController.refreshGUI();
-            } else {
-                centerController = null;
-            }
+            
+            centerController = loader.getController();
+            
             mainPane.setCenter(pane);
+            if (centerController instanceof SessionAwareIF){
+                ((SessionAwareIF) centerController).refreshGUI();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

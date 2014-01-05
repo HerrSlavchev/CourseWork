@@ -6,6 +6,9 @@
 package utils;
 
 import controller.ConfirmationFXMLController;
+import controller.TableChoiceFXMLController;
+import dto.domain.PersistedDTO;
+import java.util.List;
 import view.Client;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -75,9 +79,43 @@ public class Utils {
             confirmationController.setStage(dialogStage);
             confirmationController.setInterface(interf);
             confirmationController.setText(text);
-            
+
             dialogStage.setScene(scene);
             dialogStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showTableChoice(String text, Stage owner, List<? extends PersistedDTO> data, String[] colNames, String[] fields,
+            double[] widths, SelectionMode slm, ChoiceDelegatorIF interf) {
+        showTableChoice("Awaiting your choice...", text, owner, data, colNames, fields, widths, slm, interf);
+    }
+
+    public static void showTableChoice(String title, String text, Stage owner, List<? extends PersistedDTO> data, String[] colNames, String[] fields,
+            double[] widths, SelectionMode slm, ChoiceDelegatorIF interf) {
+
+        try {
+            FXMLLoader choiceLoader = new FXMLLoader();
+            choiceLoader.setLocation(Client.class.getResource("TableChoiceFXML.fxml"));
+            choiceLoader.load();
+
+            Parent root = choiceLoader.getRoot();
+            Stage choiceStage = new Stage(StageStyle.DECORATED);
+            choiceStage.setTitle(title);
+            choiceStage.setResizable(false);
+            choiceStage.initModality(Modality.APPLICATION_MODAL);
+            choiceStage.initOwner(owner);
+            Scene scene = new Scene(root);
+
+            TableChoiceFXMLController choiceController = choiceLoader.getController();
+            choiceController.setStage(choiceStage);
+            choiceController.setInterface(interf);
+            choiceController.setText(text);
+            choiceController.prepareTable(colNames, fields, widths, slm);
+            choiceController.setData(data);
+            choiceStage.setScene(scene);
+            choiceStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }

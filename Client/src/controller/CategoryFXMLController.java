@@ -8,13 +8,7 @@ package controller;
 
 import dto.Result;
 import dto.domain.Category;
-import dto.domain.Event;
-import dto.domain.PersistedDTO;
-import dto.domain.Region;
-import dto.domain.Town;
-import dto.domain.User;
 import dto.filters.CategoryFilter;
-import dto.filters.RegionFilter;
 import dto.rolemanagement.Role;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,16 +22,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import properties.SessionProperties;
 import services.BindingConsts;
 import services.RemoteServices;
 import services.server.CategoryDAIF;
-import services.server.RegionDAIF;
 import utils.Utils;
 import view.Client;
 
@@ -184,7 +175,7 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
                 //raise appropriate fetch flags for extra info (if needed)
                 filter.fetchInterests = true;
                 filter.fetchSubCategories = true;
-
+                
                 //III: Fetch info and process result
                 Result<Category> res = stub.fetchCategories(filter);
                 //check for errors and mark them
