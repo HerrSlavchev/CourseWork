@@ -28,4 +28,5 @@ public abstract class AbstractFilter implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public List<Integer> ids = new ArrayList<Integer>();
+    public boolean deepFetch = false;
 }

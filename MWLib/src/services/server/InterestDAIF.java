@@ -8,6 +8,7 @@ package services.server;
 
 import dto.Result;
 import dto.domain.Interest;
+import dto.filters.InterestFilter;
 import dto.session.Session;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -22,5 +23,5 @@ public interface InterestDAIF extends Remote{
     public Result<Interest> insertInterest(List<Interest> ins, Session session) throws RemoteException;
     public Result<Interest> updateInterest(List<Interest> upd, Session session) throws RemoteException;
     public Result<Interest> deleteInterest(List<Interest> del, Session session) throws RemoteException;
-    public Result<Interest> fetchInterests(Interest filter) throws RemoteException;
+    public Result<Interest> fetchInterests(InterestFilter filter) throws RemoteException;
 }

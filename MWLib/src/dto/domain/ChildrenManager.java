@@ -6,6 +6,7 @@
 
 package dto.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -15,7 +16,9 @@ import java.util.List;
  * Experimental : use to omit SQL-redundancies
  * @author root
  */
-public class ChildrenManager<E extends PersistedDTO> {
+public class ChildrenManager<E extends PersistedDTO>  implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
     
     private final List<E> oldChildren = new ArrayList<>();
     private final List<E> newChildren = new ArrayList<>();
@@ -26,7 +29,6 @@ public class ChildrenManager<E extends PersistedDTO> {
     }
     
     public ChildrenManager(){
-        
     }
     
     /**
@@ -57,7 +59,7 @@ public class ChildrenManager<E extends PersistedDTO> {
             removedChildren.remove(old);
             oldChildren.add(old);
         } else {
-            newChildren.add(old);
+            newChildren.add(child);
         }
     }
     
@@ -82,7 +84,12 @@ public class ChildrenManager<E extends PersistedDTO> {
             oldChildren.remove(old);
             removedChildren.add(old);
         } else {
-            newChildren.add(old);
+            for (E cmp : newChildren){
+                if (cmp.getID() == child.getID()){
+                    newChildren.remove(cmp);
+                    break;
+                }
+            }
         }
     }
     
@@ -95,14 +102,39 @@ public class ChildrenManager<E extends PersistedDTO> {
         arr.addAll(newChildren);
         return arr;
     }
+   
+    public List<E> getOldChildren(){
+        return new ArrayList(oldChildren);
+    } 
     
-    /**
-     * 
-     * @return UnmodifiableList with all removed children.
-     */
+    public List<E> getNewChildren(){
+        return new ArrayList(newChildren);
+    } 
+    
     public List<E> getRemovedChildren(){
-        return Collections.unmodifiableList(removedChildren);
+        return new ArrayList(removedChildren);
     }
     
-    
+    /**
+     * Filters a list and returns all items from it that do not belong to the current set of the manager.
+     * @param items
+     * @return 
+     */
+    public List<E> filterList(List<E> items){
+        List<E> filtered = new ArrayList<>();
+        List<E> current = getCurrentChildren();
+        for (E item : items){
+            boolean matched = false;
+            for(E curr : current){
+                if(item.getID() == curr.getID()){
+                    matched = true;
+                    break;
+                }
+            }
+            if (false == matched){
+                filtered.add(item);
+            }
+        }
+        return filtered;
+    }
 }
