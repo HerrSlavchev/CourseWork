@@ -72,7 +72,6 @@ public class CategoryDAImpl implements CategoryDAIF{
                             throw new Exception("Operation failed. Data has been remotely modified.");
                         }
                     }
-
                 }
             };
             helper.performCUD();
@@ -208,7 +207,6 @@ public class CategoryDAImpl implements CategoryDAIF{
             helper.setRightsCheck(false);
             helper.performCUD();
         } catch (Exception e) {
-            e.printStackTrace();
             exc = ExceptionProcessor.processException(e);
         }
         return new Result(lst, exc);
