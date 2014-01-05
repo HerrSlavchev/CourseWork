@@ -23,7 +23,6 @@ import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +53,14 @@ public class InterestDAImpl implements InterestDAIF {
                 "(?, ?)"
         );
 
+        final String insertIU = DAOUtils.generateStmt(
+                "INSERT INTO interest_user",
+                "(ID_interest, ID_user)",
+                " VALUES ",
+                "(?, ?)"
+        );
+        
+        final int userID = ClientManagerImpl.getID(session);
         try {
             CRUDHelper helper = new CRUDHelper<Interest>(session, ins) {
 
@@ -87,6 +94,13 @@ public class InterestDAImpl implements InterestDAIF {
                                     throw new Exception("Operation failed.");
                                 }
                             }
+                            
+                            //automatically bind entity with creating user
+                            stmt = conn.prepareStatement(insertIU);
+                            stmt.setInt(1, autoID);
+                            stmt.setInt(2, userID);
+                            stmt.execute();
+                            
                             autoIDs.add(autoID);
                         }
                     }
@@ -102,8 +116,8 @@ public class InterestDAImpl implements InterestDAIF {
 
     @Override
     public Result<Interest> updateInterest(final List<Interest> upd, Session session) throws RemoteException {
+        
         final List<Category> lst = new ArrayList<>();
-        final List<Integer> autoIDs = new ArrayList<>();
         Exception exc = null;
 
         final String updateIntr = DAOUtils.generateStmt(
