@@ -31,6 +31,9 @@ public class ChildrenManager<E extends PersistedDTO>  implements Serializable{
     public ChildrenManager(){
     }
     
+    public void addOldChild(E child){
+        oldChildren.add(child);
+    }
     /**
      * Checks if the entity was originally among old children.
      * If child was removed from oldChildren, returns it there from removedChildren.

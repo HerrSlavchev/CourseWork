@@ -44,12 +44,12 @@ public class FilterUtils {
      * Commonly used for select statements;
      */
     public static final String fetchCategory = ", tbl.ID AS tbl_ID, tbl.name AS tbl_name".replaceAll("tbl", CATEGORY);
-    public static final String fetchConversation = ", tbl.ID AS tbl_ID, tbl.topic AS tbl_topic, tbl.timeupd AS tbl_timeupd".replaceAll("tbl", CONVERSATION);
-    public static final String fetchEvent = ", tbl.ID AS tbl_ID, tbl.name AS tbl_name, tbl.datefrom AS tbl_datefrom, tbl.dateto AS tbl_dateto, tbl.timeupd AS tbl_timeupd".replaceAll("tbl", EVENT);
-    public static final String fetchGroup = ", tbl.ID AS tbl_ID, tbl.name AS tbl_name, tbl.timeupd AS tbl_timeupd".replaceAll("tbl", CONVERSATION);
-    public static final String fetchInterest = ", tbl.ID AS tbl_ID, tbl.name AS tbl_name, tbl.timeupd AS tbl_timeupd".replaceAll("tbl", INTEREST);
-    public static final String fetchMessage = ", tbl.ID AS tbl_ID, tbl.text AS tbl_text, tbl.timeupd AS tbl_timeupd".replaceAll("tbl", MESSAGE);
-    public static final String fetchPublication = ", tbl.ID AS tbl_ID, tbl.text AS tbl_text, tbl.timeupd AS tbl_timeupd".replaceAll("tbl", PUBLICATION);
+    public static final String fetchConversation = ", tbl.ID AS tbl_ID, tbl.topic AS tbl_topic, tbl.ID_userins AS userins_ID, tbl.timeupd AS tbl_timeupd".replaceAll("tbl", CONVERSATION);
+    public static final String fetchEvent = ", tbl.ID AS tbl_ID, tbl.name AS tbl_name, tbl.datefrom AS tbl_datefrom, tbl.dateto AS tbl_dateto, tbl.ID_userins AS userins_ID, tbl.timeupd AS tbl_timeupd".replaceAll("tbl", EVENT);
+    public static final String fetchGroup = ", tbl.ID AS tbl_ID, tbl.name AS tbl_name, tbl.ID_userins AS userins_ID, tbl.timeupd AS tbl_timeupd".replaceAll("tbl", CONVERSATION);
+    public static final String fetchInterest = ", tbl.ID AS tbl_ID, tbl.name AS tbl_name, tbl.ID_userins AS userins_ID, tbl.timeupd AS tbl_timeupd".replaceAll("tbl", INTEREST);
+    public static final String fetchMessage = ", tbl.ID AS tbl_ID, tbl.text AS tbl_text, tbl.ID_userins AS userins_ID, tbl.timeupd AS tbl_timeupd".replaceAll("tbl", MESSAGE);
+    public static final String fetchPublication = ", tbl.ID AS tbl_ID, tbl.text AS tbl_text, tbl.ID_userins AS userins_ID, tbl.timeupd AS tbl_timeupd".replaceAll("tbl", PUBLICATION);
     public static final String fetchRegion = ", tbl.ID AS tbl_ID, tbl.name AS tbl_name".replaceAll("tbl", REGION);
     public static final String fetchSubcategory = ", tbl.ID AS tbl_ID, tbl.name AS tbl_name".replaceAll("tbl", SUBCATEGORY);
     public static final String fetchTown = ", tbl.ID AS tbl_ID, tbl.name AS tbl_name".replaceAll("tbl", TOWN);

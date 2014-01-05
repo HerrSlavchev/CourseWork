@@ -183,17 +183,43 @@ public class ResultSetInterpreter {
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
         Timestamp timeupd = rs.getTimestamp(tbl + "_timeupd");
         u = new User(id, timeins, timeupd);
-        u.eMail = rs.getString(tbl + "_e_mail");
+        
         u.fName = rs.getString(tbl + "_f_name");
         u.lName = rs.getString(tbl + "_l_name");
-        u.description = safeStr(rs, tbl + "_description");
-
-        u.role = safeRole(rs, tbl + "_role");
-        u.sName = safeStr(rs, tbl + "_s_name");
-
+        
+        return u;
+    }
+    
+    public static User getUserIns(ResultSet rs) throws SQLException {
+        User u = null;
+        String tbl = "userins";
+        Integer id = safeInt(rs, tbl + "_ID");
+        if (id == null || id == 0) {
+            return null;
+        }
+        
+        u = new User(id);
+        u.fName = rs.getString(tbl + "_f_name");
+        u.lName = rs.getString(tbl + "_l_name");
+        
         return u;
     }
 
+    public static User getUserUpd(ResultSet rs) throws SQLException {
+        User u = null;
+        String tbl = "userupd";
+        Integer id = safeInt(rs, tbl + "_ID");
+        if (id == null || id == 0) {
+            return null;
+        }
+        
+        u = new User(id);
+        u.fName = rs.getString(tbl + "_f_name");
+        u.lName = rs.getString(tbl + "_l_name");
+        
+        return u;
+    }
+    
     public static boolean checkColumn(ResultSet rs, String label) {
         int idx = -1;
         try {

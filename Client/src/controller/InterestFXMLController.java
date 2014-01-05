@@ -111,19 +111,20 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
     }
 
     /**
-     * Sets the current item to this object if we are using the screen to show
-     * an existing record;
+     * Load an entity based on the given ID or a new one if ID is 0
      *
-     * @param currentItem - an existing object
+     * @param ID - ID of an existing entity
      */
-    public void setCurrentItem(Interest item) {
+    public void loadItem(int ID) {
         //check if the item 
-        if (item == null || item.getID() == 0) {
+        if (ID == 0) {
             currentItem = new Interest(0);
         } else {
             InterestFilter filter = new InterestFilter();
-            filter.ids.add(item.getID());
-
+            filter.ids.add(ID);
+            filter.deepFetch = true;
+            filter.fetchSubCategories = true;
+            
             Throwable exc = null;
             try {
                 Result<Interest> res = stub.fetchInterests(filter);
@@ -134,6 +135,9 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
                         throw new Exception("No data found!");
                     }
                     currentItem = lst.get(0);
+                    
+                    System.out.println(lst.size());
+                    System.out.println((currentItem.userIns == null) + "|" + (currentItem.userUpd == null));
                 }
             } catch (Exception e) {
                 exc = e;
@@ -212,7 +216,7 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
     @FXML
     //reset input fields
     private void handleClearAction(ActionEvent event) {
-        setCurrentItem(new Interest(0));
+        loadItem(0);
     }
 
     private boolean checkInput(Interest input) {
@@ -274,7 +278,7 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
             exc = res.getException();
             if (exc == null) {
                 //IV: if ok, refresh data
-                currentItem = res.getResult().get(0);
+                loadItem(res.getAutoIDs().get(0));
                 showCurrentItem();
                 refreshGUI();
             }
@@ -306,7 +310,7 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
             exc = res.getException();
             if (exc == null) {
                 //IV: if ok, refresh data
-                currentItem = res.getResult().get(0);
+                loadItem(currentItem.getID());
                 showCurrentItem();
             }
         } catch (Throwable e) {
