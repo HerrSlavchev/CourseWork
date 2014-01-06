@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane prefHeight="529.0" prefWidth="682.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.CategoryFXMLController">
+<GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.99951171875" prefWidth="665.9998779296875" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.CategoryFXMLController">
   <children>
     <TableView fx:id="table" editable="false" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
       <columns>
@@ -20,20 +20,20 @@
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" fx:id="x1" />
       </GridPane.margin>
     </TableView>
-    <AnchorPane prefHeight="473.0" prefWidth="298.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.margin="$x1" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+    <AnchorPane prefHeight="484.0" prefWidth="236.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.margin="$x1" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
       <children>
         <Label layoutX="14.0" layoutY="73.0" text="Name" />
-        <TextField fx:id="name" layoutX="62.0" layoutY="70.0" prefWidth="177.0" />
+        <TextField fx:id="name" layoutX="62.0" layoutY="70.0" prefWidth="171.0" />
         <TextArea fx:id="descriptionArea" layoutX="14.0" layoutY="182.0" prefWidth="219.0" wrapText="true" />
         <Label layoutX="14.0" layoutY="158.0" text="Description" />
       </children>
     </AnchorPane>
     <HBox prefHeight="22.0" prefWidth="298.0000999999975" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.margin="$x1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
       <children>
-        <Button fx:id="insertButton" mnemonicParsing="false" onAction="#handleInsertAction" text="Insert" HBox.hgrow="NEVER" />
-        <Button fx:id="updateButton" mnemonicParsing="false" onAction="#handleUpdateAction" text="Update" HBox.hgrow="NEVER" />
-        <Pane minWidth="5.0" prefHeight="22.0" prefWidth="5.0" HBox.hgrow="ALWAYS" />
-        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClearAction" text="Clear" HBox.hgrow="NEVER">
+        <Button fx:id="insertButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleInsertAction" text="Insert" HBox.hgrow="NEVER" />
+        <Button fx:id="updateButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleUpdateAction" text="Update" HBox.hgrow="NEVER" />
+        <Pane minWidth="5.0" prefHeight="21.0" prefWidth="5.0" HBox.hgrow="ALWAYS" />
+        <Button fx:id="clearButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleClearAction" text="Clear" HBox.hgrow="NEVER">
           <HBox.margin>
             <Insets right="15.0" />
           </HBox.margin>
@@ -48,7 +48,7 @@
   </children>
   <columnConstraints>
     <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="429.0" />
-    <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="252.0" />
+    <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="252.0" />
   </columnConstraints>
   <padding>
     <Insets bottom="5.0" top="5.0" />
