@@ -3,30 +3,47 @@
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="437.0" prefWidth="403.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.RegistrationFormFXMLController">
+<GridPane fx:id="mainPane" prefHeight="512.0" prefWidth="543.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.RegistrationFormFXMLController">
   <children>
-    <Label layoutX="36.0" layoutY="33.0" text="E-mail:" />
-    <Label layoutX="36.0" layoutY="130.0" text="First name:" />
-    <Label layoutX="36.0" layoutY="153.0" text="Surname:" />
-    <Label layoutX="36.0" layoutY="178.0" text="Last Name:" />
-    <Label layoutX="36.0" layoutY="62.0" text="Password:" />
-    <Label layoutX="36.0" layoutY="81.0" prefHeight="33.0" prefWidth="74.0" text="Confirm password:" wrapText="true" />
-    <Label layoutX="36.0" layoutY="218.0" text="Description:" />
-    <TextArea fx:id="descriptionTF" layoutX="161.0" layoutY="218.0" prefWidth="224.0" promptText="Share something about you..." wrapText="true" />
-    <TextField id="e" fx:id="eMailTF" layoutX="161.0" layoutY="30.0" prefWidth="200.0" promptText="Enter your e-mail" />
-    <TextField fx:id="fNameTF" layoutX="161.0" layoutY="127.0" prefWidth="200.0" />
-    <TextField id="lNameTF" fx:id="sNameTF" layoutX="161.0" layoutY="150.0" prefWidth="200.0" />
-    <TextField id="sNameTF" fx:id="lNameTF" layoutX="161.0" layoutY="175.0" prefWidth="200.0" />
-    <PasswordField fx:id="passwordTF" layoutX="161.0" layoutY="59.0" prefWidth="200.0" promptText="Choose a password" />
-    <PasswordField fx:id="confirmTF" layoutX="161.0" layoutY="87.0" prefWidth="200.0" promptText="Repeat password" />
-    <Button id="editB" fx:id="registerB" layoutX="163.0" layoutY="394.0" mnemonicParsing="false" onAction="#handleRegistrationAction" text="Register" />
-    <Button fx:id="editB" layoutX="261.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleEditAction" text="Edit" />
+    <AnchorPane id="AnchorPane" prefHeight="437.0" prefWidth="403.0" styleClass="mainFxmlClass" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="0" GridPane.rowSpan="2">
+      <children>
+        <Label layoutX="36.0" layoutY="33.0" text="E-mail:" />
+        <Label layoutX="36.0" layoutY="130.0" text="First name:" />
+        <Label layoutX="36.0" layoutY="153.0" text="Surname:" />
+        <Label layoutX="36.0" layoutY="178.0" text="Last Name:" />
+        <Label fx:id="passwordL" layoutX="36.0" layoutY="62.0" text="Password:" />
+        <Label fx:id="confirmL" layoutX="36.0" layoutY="81.0" prefHeight="33.0" prefWidth="74.0" text="Confirm password:" wrapText="true" />
+        <Label layoutX="36.0" layoutY="218.0" text="Description:" />
+        <TextArea fx:id="descriptionTF" layoutX="161.0" layoutY="218.0" prefWidth="224.0" promptText="Share something about you..." wrapText="true" />
+        <TextField id="e" fx:id="eMailTF" layoutX="161.0" layoutY="30.0" prefWidth="200.0" promptText="Enter your e-mail" />
+        <TextField fx:id="fNameTF" layoutX="161.0" layoutY="127.0" prefWidth="200.0" />
+        <TextField id="lNameTF" fx:id="sNameTF" layoutX="161.0" layoutY="150.0" prefWidth="200.0" />
+        <TextField id="sNameTF" fx:id="lNameTF" layoutX="161.0" layoutY="175.0" prefWidth="200.0" />
+        <PasswordField fx:id="passwordTF" layoutX="161.0" layoutY="59.0" prefWidth="200.0" promptText="Choose a password" />
+        <PasswordField fx:id="confirmTF" layoutX="161.0" layoutY="87.0" prefWidth="200.0" promptText="Confirm password" />
+      </children>
+      <stylesheets>
+        <URL value="@registrationformfxml.css" />
+      </stylesheets>
+    </AnchorPane>
+    <Button id="editB" fx:id="registerB" mnemonicParsing="false" onAction="#handleRegistrationAction" text="Register" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <Button fx:id="editB" mnemonicParsing="false" onAction="#handleEditAction" text="Edit" GridPane.columnIndex="0" GridPane.rowIndex="2" />
   </children>
-  <stylesheets>
-    <URL value="@registrationformfxml.css" />
-  </stylesheets>
-</AnchorPane>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <padding>
+    <Insets left="5.0" />
+  </padding>
+  <rowConstraints>
+    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="-1.0" prefHeight="30.0" vgrow="NEVER" />
+  </rowConstraints>
+</GridPane>

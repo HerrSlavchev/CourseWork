@@ -43,82 +43,23 @@
         <RowConstraints fillHeight="true" maxHeight="47.0" minHeight="10.0" prefHeight="47.0" vgrow="NEVER" />
       </rowConstraints>
     </GridPane>
-    <BorderPane fx:id="mainPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
-      <left>
-        <Accordion fx:id="personalAcc" maxHeight="1.7976931348623157E308" maxWidth="-1.0" minWidth="94.0" prefHeight="576.0" prefWidth="175.00009999999747" rotate="0.0" BorderPane.alignment="TOP_LEFT">
-          <expandedPane>
-            <TitledPane id="eventsPane" fx:id="interestsPane" animated="false" text="Interests">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="172.0">
-                  <children>
-                    <ScrollPane layoutX="-4.0" layoutY="0.0" prefHeight="444.0" prefWidth="178.0">
-                      <content>
-                        <VBox fx:id="interestsBox" prefHeight="441.0" prefWidth="172.0" />
-                      </content>
-                    </ScrollPane>
-                    <Button layoutX="14.0" layoutY="450.0" mnemonicParsing="false" onAction="#handleNewInterestAction" text="New" />
-                    <Button layoutX="83.0" layoutY="450.0" mnemonicParsing="false" text="View all" />
-                  </children>
-                </AnchorPane>
-              </content>
-            </TitledPane>
-          </expandedPane>
-          <panes>
-            <TitledPane id="eventsPane" fx:id="conversationsPane" animated="false" collapsible="true" text="Conversations">
-              <content>
-                <AnchorPane id="Content" maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="172.0">
-                  <children>
-                    <ScrollPane layoutX="-4.0" layoutY="0.0" prefHeight="444.0" prefWidth="178.0">
-                      <content>
-                        <VBox fx:id="conversationsBox" prefHeight="441.0" prefWidth="175.0" />
-                      </content>
-                    </ScrollPane>
-                    <Button layoutX="14.0" layoutY="450.0" mnemonicParsing="false" text="New" />
-                  </children>
-                </AnchorPane>
-              </content>
-            </TitledPane>
-            <fx:reference source="interestsPane" />
-            <TitledPane id="eventsPane" fx:id="groupsPane" animated="false" text="Groups">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="176.0">
-                  <children>
-                    <ScrollPane layoutX="0.0" layoutY="0.0" prefHeight="444.0" prefWidth="173.0">
-                      <content>
-                        <VBox fx:id="groupsBox" prefHeight="441.0" prefWidth="171.0" />
-                      </content>
-                    </ScrollPane>
-                    <Button layoutX="14.0" layoutY="450.0" mnemonicParsing="false" text="New" />
-                    <Button layoutX="87.0" layoutY="450.0" mnemonicParsing="false" text="View all" />
-                  </children>
-                </AnchorPane>
-              </content>
-            </TitledPane>
-            <TitledPane id="x1" fx:id="eventsPane" animated="false" minWidth="188.0" prefHeight="532.0000999999975" prefWidth="188.0" text="Events">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="193.0">
-                  <children>
-                    <ScrollPane layoutX="1.0" layoutY="0.0" prefHeight="444.0" prefWidth="176.0">
-                      <content>
-                        <VBox fx:id="eventsBox" prefHeight="441.0" prefWidth="170.0" />
-                      </content>
-                    </ScrollPane>
-                    <Button layoutX="14.0" layoutY="450.0" mnemonicParsing="false" text="New" />
-                    <Button layoutX="86.0" layoutY="451.0" mnemonicParsing="false" text="View all" />
-                  </children>
-                </AnchorPane>
-              </content>
-            </TitledPane>
-          </panes>
-          <BorderPane.margin>
-            <Insets right="5.0" />
-          </BorderPane.margin>
-        </Accordion>
-      </left>
-      <GridPane.margin>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </GridPane.margin>
-    </BorderPane>
+    <GridPane prefHeight="519.0" prefWidth="561.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
+      <children>
+        <BorderPane fx:id="mainPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+          <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+          </GridPane.margin>
+        </BorderPane>
+        <VBox fx:id="personalVB" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.hgrow="NEVER" GridPane.rowIndex="0" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" maxWidth="-1.0" minWidth="-1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="-1.0" prefHeight="30.0" vgrow="ALWAYS" />
+      </rowConstraints>
+    </GridPane>
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="8.0" prefWidth="45.0" />

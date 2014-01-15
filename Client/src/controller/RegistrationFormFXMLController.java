@@ -7,7 +7,6 @@ package controller;
 
 import dto.Result;
 import dto.domain.User;
-import dto.session.Session;
 import view.Client;
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,9 +16,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import properties.SessionProperties;
 import services.BindingConsts;
 import services.RemoteServices;
@@ -31,12 +32,19 @@ import utils.Utils;
  *
  * @author root
  */
-public class RegistrationFormFXMLController implements Initializable {
+public class RegistrationFormFXMLController implements Initializable, SessionAwareIF {
+
+    @FXML
+    GridPane mainPane;
 
     @FXML
     TextField eMailTF;
     @FXML
+    Label passwordL;
+    @FXML
     PasswordField passwordTF;
+    @FXML
+    Label confirmL;
     @FXML
     PasswordField confirmTF;
     @FXML
@@ -54,19 +62,19 @@ public class RegistrationFormFXMLController implements Initializable {
     Button editB;
 
     private User readFromForm() {
-        
+
         User tmp = new User(0);
-        
+
         //if editing, take some info from logged in user
         User u = SessionProperties.user;
         if (u != null) {
             tmp = new User(u.getID(), u.getTimeIns(), u.getTimeUpd(), null);
             tmp.role = u.role;
         }
-        
+
         tmp.description = descriptionTF.getText();
         tmp.eMail = eMailTF.getText();
-        tmp.password = passwordTF.getText();
+        tmp.password = confirmTF.getText();
         tmp.fName = fNameTF.getText();
         tmp.sName = sNameTF.getText();
         tmp.lName = lNameTF.getText();
@@ -101,7 +109,7 @@ public class RegistrationFormFXMLController implements Initializable {
     @FXML
     private void handleEditAction(ActionEvent event) {
         UserDAIF stub = (UserDAIF) RemoteServices.getStub(BindingConsts.USER_DA);
-        
+
         Throwable exc = null;
         try {
             User u = readFromForm();
@@ -121,29 +129,42 @@ public class RegistrationFormFXMLController implements Initializable {
             Utils.showError(exc.getMessage(), Client.getMainPageStage());
         }
     }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Session s = SessionProperties.getSession();
-        User u = SessionProperties.user;
-        if (s == null) {
+
+    }
+
+    @Override
+    public void refreshGUI() {
+        if (false == SessionProperties.isLogged()) {
             editB.setVisible(false);
+
+            if (Client.getMainPageController().isLoggingOut()) {
+                mainPane.setVisible(false);
+            }
         } else {
+            User u = SessionProperties.user;
             eMailTF.setText(u.eMail);
             eMailTF.setEditable(false);
-            passwordTF.setText("");
-            passwordTF.setEditable(false);
-            confirmTF.setText("");
-            confirmTF.setEditable(false);
+
+            passwordL.setVisible(false);
+            passwordTF.setVisible(false);
+            confirmL.setVisible(false);
+            confirmTF.setVisible(false);
+
+            //confirmTF.setEditable(false);
             fNameTF.setText(u.fName);
             sNameTF.setText(u.sName);
             lNameTF.setText(u.lName);
             descriptionTF.setText(u.description);
             registerB.setVisible(false);
+            editB.setVisible(true);
+            mainPane.setVisible(true);
         }
-
     }
 
 }

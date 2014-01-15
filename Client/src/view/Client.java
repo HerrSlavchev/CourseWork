@@ -6,6 +6,7 @@
 package view;
 
 import controller.MainPageFXMLController;
+import controller.SessionAwareIF;
 import dto.session.Session;
 import java.rmi.server.UnicastRemoteObject;
 import javafx.application.Application;
@@ -61,6 +62,11 @@ public class Client extends Application {
         stage.setScene(scene);
         //mainPageController.setLogged(false);
         stage.show();
+        
+        if (stage instanceof SessionAwareIF) {
+            SessionAwareIF sessionAwareIF = (SessionAwareIF) stage;
+            sessionAwareIF.refreshGUI();
+        }
     }
 
     /**

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:id="mainPane" maxHeight="1.7976931348623157E308" prefHeight="593.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.PersonalTabFXMLController">
+  <children>
+    <Accordion id="personalAcc" maxHeight="1.7976931348623157E308" maxWidth="-1.0" minWidth="-1.0" prefHeight="582.0" prefWidth="188.0" rotate="0.0" GridPane.columnIndex="0" GridPane.hgrow="NEVER" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
+      <expandedPane>
+        <TitledPane id="x1" fx:id="x2" animated="false" minWidth="188.0" prefHeight="532.0000999999975" prefWidth="188.0" text="Events">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="193.0">
+              <children>
+                <ScrollPane layoutX="1.0" layoutY="0.0" prefHeight="444.0" prefWidth="183.0">
+                  <content>
+                    <VBox fx:id="eventsBox" prefHeight="441.0" prefWidth="180.0" />
+                  </content>
+                </ScrollPane>
+                <Button layoutX="14.0" layoutY="450.0" mnemonicParsing="false" text="New" />
+                <Button layoutX="86.0" layoutY="451.0" mnemonicParsing="false" text="View all" />
+              </children>
+            </AnchorPane>
+          </content>
+        </TitledPane>
+      </expandedPane>
+      <panes>
+        <TitledPane id="eventsPane" fx:id="x1" animated="false" collapsible="true" prefHeight="558.0" prefWidth="186.0" text="Conversations">
+          <content>
+            <AnchorPane id="Content" maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="531.0" prefWidth="178.0">
+              <children>
+                <ScrollPane layoutY="0.0" prefHeight="444.0" prefWidth="183.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0">
+                  <content>
+                    <VBox fx:id="conversationsBox" prefHeight="441.0" prefWidth="180.0" />
+                  </content>
+                </ScrollPane>
+                <Button layoutX="14.0" layoutY="450.0" mnemonicParsing="false" text="New" />
+              </children>
+            </AnchorPane>
+          </content>
+        </TitledPane>
+        <TitledPane id="eventsPane" animated="false" text="Interests">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="172.0">
+              <children>
+                <ScrollPane layoutY="0.0" prefHeight="444.0" prefWidth="183.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
+                  <content>
+                    <VBox fx:id="interestsBox" prefHeight="441.0" prefWidth="180.0" />
+                  </content>
+                </ScrollPane>
+                <Button layoutX="14.0" layoutY="450.0" mnemonicParsing="false" onAction="#handleNewInterestAction" text="New" />
+                <Button layoutX="83.0" layoutY="450.0" mnemonicParsing="false" text="View all" />
+              </children>
+            </AnchorPane>
+          </content>
+        </TitledPane>
+        <TitledPane id="eventsPane" animated="false" text="Groups">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="176.0">
+              <children>
+                <ScrollPane layoutX="0.0" layoutY="0.0" prefHeight="444.0" prefWidth="183.0">
+                  <content>
+                    <VBox fx:id="groupsBox" prefHeight="441.0" prefWidth="180.0" />
+                  </content>
+                </ScrollPane>
+                <Button layoutX="14.0" layoutY="450.0" mnemonicParsing="false" text="New" />
+                <Button layoutX="87.0" layoutY="450.0" mnemonicParsing="false" text="View all" />
+              </children>
+            </AnchorPane>
+          </content>
+        </TitledPane>
+        <fx:reference source="x2" />
+      </panes>
+    </Accordion>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="NEVER" minWidth="-1.0" prefWidth="-1.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-1.0" prefHeight="30.0" vgrow="ALWAYS" />
+  </rowConstraints>
+</GridPane>

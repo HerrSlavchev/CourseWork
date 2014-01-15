@@ -5,10 +5,13 @@
  */
 package controller;
 
+import dto.domain.Interest;
 import view.Client;
 import images.ImageViewFactory;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,6 +36,7 @@ import properties.SessionProperties;
 import services.BindingConsts;
 import services.RemoteServices;
 import services.server.ClientManagerIF;
+import services.server.InterestDAIF;
 import utils.ConfirmationDelegatorIF;
 import utils.Utils;
 
@@ -48,25 +52,10 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
     @FXML
     MenuButton loginB;
     @FXML
-    Accordion personalAcc;
-    @FXML
-    TitledPane conversationsPane;
-    @FXML
-    VBox conversationsBox;
-    @FXML
-    TitledPane interestsPane;
-    @FXML
-    VBox interestsBox;
-    @FXML
-    TitledPane groupsPane;
-    @FXML
-    VBox groupsBox;
-    @FXML
-    TitledPane eventsPane;
-    @FXML
-    VBox eventsBox;
-
+    VBox personalVB;
+    
     private Initializable centerController;
+    private Initializable personalTabController;
 
     private ImageView loggedIV;
     private ImageView guestIV;
@@ -75,6 +64,7 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
     private MenuItem editMI;
     private MenuItem logoutMI;
 
+    private boolean loggingOut = false;
     /**
      * Initializes the controller class.
      */
@@ -117,12 +107,7 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
         loginB.getItems().clear();
         loginB.getItems().addAll(loginMI, registerMI);
 
-        personalAcc.setVisible(false);
-    }
-
-    @FXML
-    private void handleNewInterestAction(ActionEvent event) {
-        setCenterScene("InterestFXML.fxml");
+        setPersonalTab("PersonalTabFXML.fxml");
     }
 
     @FXML
@@ -214,21 +199,21 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
     }
 
     private void handleEditAction() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Client.class.getResource("RegistrationFormFXML.fxml"));
-            AnchorPane ap = (AnchorPane) loader.load();
-            mainPane.setCenter(ap);
-        } catch (Exception e) {
-
-        }
+        setCenterScene("RegistrationFormFXML.fxml");
     }
 
+    public boolean isLoggingOut(){
+        return loggingOut;
+    }
+    
     public void setLogged(boolean b) {
         if (false == b) {
+            loggingOut = true;
             SessionProperties.killSession();
             SessionProperties.user = null;
         }
         refreshGUI();
+        loggingOut = false;
     }
 
     @FXML
@@ -253,20 +238,21 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
             loginB.getItems().clear();
             loginB.getItems().addAll(loginMI, registerMI);
             Client.getMainPageStage().setTitle("GUEST");
-            personalAcc.setVisible(false);
         } else {
             loginB.setGraphic(loggedIV);
             loginB.getItems().clear();
             loginB.getItems().addAll(editMI, logoutMI);
             Client.getMainPageStage().setTitle(SessionProperties.user.lName + ", " + SessionProperties.user.fName);
-            personalAcc.setVisible(true);
         }
         if (centerController != null && centerController instanceof SessionAwareIF) {
             ((SessionAwareIF) centerController).refreshGUI();
         }
+        if (personalTabController != null && personalTabController instanceof SessionAwareIF) {
+            ((SessionAwareIF) personalTabController).refreshGUI();
+        }
     }
 
-    private void setCenterScene(String fxmlFile) {
+    public void setCenterScene(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Client.class.getResource(fxmlFile));
@@ -277,6 +263,24 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
             mainPane.setCenter(pane);
             if (centerController instanceof SessionAwareIF) {
                 ((SessionAwareIF) centerController).refreshGUI();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setPersonalTab(String fxmlFile) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Client.class.getResource(fxmlFile));
+            Pane pane = (Pane) loader.load();
+            
+            personalTabController = loader.getController();
+
+            personalVB.getChildren().clear();
+            personalVB.getChildren().add(pane);
+            if (personalTabController instanceof SessionAwareIF) {
+                ((SessionAwareIF) personalTabController).refreshGUI();
             }
         } catch (Exception e) {
             e.printStackTrace();
