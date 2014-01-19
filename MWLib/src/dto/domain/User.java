@@ -24,7 +24,7 @@ public class User extends PersistedDTO {
     public String description;
     public Role role;
     //extrinsic
-    public List<Town> towns = new ArrayList<Town>();    
+    public ChildrenManager<Town> towns = new ChildrenManager<Town>();    
     public List<Interest> interests = new ArrayList<Interest>();
     public List<Group> groups = new ArrayList<Group>();
     public List<Event> events = new ArrayList<Event>();
@@ -72,7 +72,7 @@ public class User extends PersistedDTO {
         return role;
     }
 
-    public List<Town> getTowns() {
+    public ChildrenManager<Town> getTowns() {
         return towns;
     }
 
