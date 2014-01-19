@@ -19,9 +19,9 @@ public class InterestFilter extends AbstractFilter {
 
     public String name = "";
     
-    public List<Category> categories = new ArrayList<Category>();
-    public List<SubCategory> subCategories = new ArrayList<SubCategory>();
-    public List<User> users = new ArrayList<User>();
+    public List<Category> categories = new ArrayList<>();
+    public List<SubCategory> subCategories = new ArrayList<>();
+    public List<User> users = new ArrayList<>();
     
     public boolean fetchUsers = false;
     public boolean fetchCategories = false;

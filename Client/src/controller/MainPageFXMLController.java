@@ -47,7 +47,7 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
     @FXML
     VBox personalVB;
     
-    private Initializable centerController;
+    private static Initializable centerController;
 
     private ImageView loggedIV;
     private ImageView guestIV;
@@ -275,5 +275,9 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public static Initializable getCenterController(){
+        return centerController;
     }
 }

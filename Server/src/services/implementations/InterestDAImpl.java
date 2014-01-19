@@ -143,6 +143,26 @@ public class InterestDAImpl implements InterestDAIF {
                 "AND id_subcategory = ?"
         );
 
+        final String insertIUSR = DAOUtils.generateStmt(
+                "INSERT INTO interest_user",
+                "(ID_interest, ID_user, notify)",
+                " VALUES ",
+                "(?, ?, ?)"
+        );
+        final String updateIUSR = DAOUtils.generateStmt(
+                "UPDATE interest_user",
+                " SET notify=?",
+                " WHERE ",
+                " ID_interest=?",
+                " AND ID_user=?"
+        );
+        final String deleteIUSR = DAOUtils.generateStmt(
+                "DELETE FROM interest_user",
+                " WHERE ",
+                " ID_interest=?",
+                " AND ID_user=?"
+        );
+        
         try {
             CRUDHelper helper = new CRUDHelper<Interest>(session, upd) {
 
@@ -163,25 +183,13 @@ public class InterestDAImpl implements InterestDAIF {
                         if (updated == 0){
                             throw new Exception("Data has been remotely modified. Operation failed.");
                         }
-                        ChildrenManager<SubCategory> chm = intr.getSubCategories();
-                        List<SubCategory> newChildren = chm.getNewChildren();
-                        List<SubCategory> removedChildren = chm.getRemovedChildren();
+                        ChildrenManager<SubCategory> chmCats = intr.getSubCategories();
+                        List<SubCategory> newCats = chmCats.getNewChildren();
+                        List<SubCategory> removedCats = chmCats.getRemovedChildren();
                         //III: if we have rows, insert them
-                        if (false == newChildren.isEmpty()) {
-                            stmt = conn.prepareStatement(insertSBCI);
-                            for (SubCategory sbc : newChildren) {
-                                stmt.setInt(1, intr.getID());
-                                stmt.setInt(2, sbc.getID());
-                                stmt.addBatch();
-                            }
-                            int[] batchRes = stmt.executeBatch();
-                            if (DAOUtils.processBatchRes(batchRes) == false) {
-                                throw new Exception("Operation failed.");
-                            }
-                        }
-                        if (false == removedChildren.isEmpty()) {
+                        if (false == removedCats.isEmpty()) {
                             stmt = conn.prepareStatement(deleteSBCI);
-                            for (SubCategory sbc : removedChildren) {
+                            for (SubCategory sbc : removedCats) {
                                 stmt.setInt(1, intr.getID());
                                 stmt.setInt(2, sbc.getID());
                                 stmt.addBatch();
@@ -191,6 +199,64 @@ public class InterestDAImpl implements InterestDAIF {
                                 throw new Exception("Operation failed.");
                             }
                         }
+                        if (false == newCats.isEmpty()) {
+                            stmt = conn.prepareStatement(insertSBCI);
+                            for (SubCategory sbc : newCats) {
+                                stmt.setInt(1, intr.getID());
+                                stmt.setInt(2, sbc.getID());
+                                stmt.addBatch();
+                            }
+                            int[] batchRes = stmt.executeBatch();
+                            if (DAOUtils.processBatchRes(batchRes) == false) {
+                                throw new Exception("Operation failed.");
+                            }
+                        }
+                        
+                        //manage user notifications, if any
+                        ChildrenManager<User> chmUsr = intr.getUsers();
+                        List<User> newUsers = chmUsr.getNewChildren();
+                        List<User> modifiedUsers = chmUsr.getModifiedChildren();
+                        List<User> removedUsers = chmUsr.getRemovedChildren();
+                        
+                        if (false == modifiedUsers.isEmpty()){
+                            stmt = conn.prepareStatement(updateIUSR);
+                            for (User usr : modifiedUsers) {
+                                stmt.setInt(1, usr.notify ? 1 : 0);
+                                stmt.setInt(2, intr.getID());
+                                stmt.setInt(3, usr.getID());
+                                stmt.addBatch();
+                            }
+                            int[] batchRes = stmt.executeBatch();
+                            if (DAOUtils.processBatchRes(batchRes) == false) {
+                                throw new Exception("Operation failed.");
+                            }
+                        }
+                        if (false == removedUsers.isEmpty()) {
+                            stmt = conn.prepareStatement(deleteIUSR);
+                            for (User usr : removedUsers) {
+                                stmt.setInt(1, intr.getID());
+                                stmt.setInt(2, usr.getID());
+                                stmt.addBatch();
+                            }
+                            int[] batchRes = stmt.executeBatch();
+                            if (DAOUtils.processBatchRes(batchRes) == false) {
+                                throw new Exception("Operation failed.");
+                            }
+                        }
+                        if (false == newUsers.isEmpty()) {
+                            stmt = conn.prepareStatement(deleteSBCI);
+                            for (User usr : newUsers) {
+                                stmt.setInt(1, intr.getID());
+                                stmt.setInt(2, usr.getID());
+                                stmt.setInt(3, usr.notify ? 1 : 0);
+                                stmt.addBatch();
+                            }
+                            int[] batchRes = stmt.executeBatch();
+                            if (DAOUtils.processBatchRes(batchRes) == false) {
+                                throw new Exception("Operation failed.");
+                            }
+                        }
+                        
                     }
                 }
             };
@@ -236,7 +302,7 @@ public class InterestDAImpl implements InterestDAIF {
             joinCategory = " LEFT OUTER JOIN category cat ON(cat.ID = sbc.ID_category)";
         }
 
-        String fetchUser = FilterUtils.evalFetch(filter.fetchUsers, FilterUtils.fetchUser);
+        String fetchUser = FilterUtils.evalFetch(filter.fetchUsers, FilterUtils.fetchUser  + ", iusr.notify AS iusr_notify");
         String joinUserInterest = "";
         String joinUser = "";
         if (filter.fetchUsers || false == filter.users.isEmpty()) {
@@ -310,6 +376,7 @@ public class InterestDAImpl implements InterestDAIF {
                         }
                         User u = resultSetInterpreter.getUser(rs);
                         if (u != null) {
+                            u.notify = rs.getInt("iusr_notify") == 1;
                             old.users.addOldChild(u);
                         }
                     }

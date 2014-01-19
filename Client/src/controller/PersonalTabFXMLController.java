@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -58,12 +59,12 @@ public class PersonalTabFXMLController implements Initializable, SessionAwareIF 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-            try {
-                stubInterest = (InterestDAIF) RemoteServices.getStub(BindingConsts.INTEREST_DA);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+        try {
+            stubInterest = (InterestDAIF) RemoteServices.getStub(BindingConsts.INTEREST_DA);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -77,6 +78,7 @@ public class PersonalTabFXMLController implements Initializable, SessionAwareIF 
             User user = SessionProperties.user;
             InterestFilter filter = new InterestFilter();
             filter.users.add(user);
+            filter.fetchUsers = true;
             Throwable exc = null;
             try {
                 Result<Interest> res = stubInterest.fetchInterests(filter);
@@ -95,11 +97,11 @@ public class PersonalTabFXMLController implements Initializable, SessionAwareIF 
         showInterests();
     }
 
-    private void removeInterest(List<Interest> lst) {
+    private void updateInterest(List<Interest> lst) {
 
         Throwable exc = null;
         try {
-            Result<Interest> res = stubInterest.deleteInterest(lst, SessionProperties.getSession());
+            Result<Interest> res = stubInterest.updateInterest(lst, SessionProperties.getSession());
             exc = res.getException();
         } catch (Exception e) {
             exc = e;
@@ -117,23 +119,59 @@ public class PersonalTabFXMLController implements Initializable, SessionAwareIF 
         for (final Interest intr : interests) {
             HBox hb = new HBox(3);
 
-            Button b = new Button();
-            b.setPrefSize(22, 22);
-            b.setMinSize(22, 22);
-            b.setMaxSize(22, 22);
-            b.setGraphic(ImageViewFactory.getImageView("x_sign.png", 22));
-            b.setOnAction(new EventHandler<ActionEvent>() {
+            Button leaveButton = new Button();
+            leaveButton.setPrefSize(22, 22);
+            leaveButton.setMinSize(22, 22);
+            leaveButton.setMaxSize(22, 22);
+            leaveButton.setGraphic(ImageViewFactory.getImageView("x_sign.png", 22));
+            leaveButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent t) {
-                    List<Interest> lst = new ArrayList<Interest>();
+                    intr.users.removeChild(SessionProperties.user);
+                    List<Interest> lst = new ArrayList<>();
                     lst.add(intr);
-                    removeInterest(lst);
+                    updateInterest(lst);
                 }
             });
-            hb.getChildren().add(b);
+            hb.getChildren().add(leaveButton);
+
+            final boolean isNotified = intr.users.getOldChildren().get(0).notify;
+            Button manageNotification = new Button();
+            manageNotification.setPrefSize(22, 22);
+            manageNotification.setMinSize(22, 22);
+            manageNotification.setMaxSize(22, 22);
+            String img = "";
+            if (isNotified) {
+                img = "eye_open_checkmark.png";
+            } else {
+                img = "eye_closed_cross.png";
+            }
+            manageNotification.setGraphic(ImageViewFactory.getImageView(img, 22));
+            manageNotification.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent t) {
+                    User usr = intr.users.getOldChildren().get(0);
+                    usr.modified = true;
+                    usr.notify = !isNotified;
+                    List<Interest> lst = new ArrayList<>();
+                    lst.add(intr);
+                    updateInterest(lst);
+                }
+            });
+            hb.getChildren().add(manageNotification);
 
             Label l = new Label(intr.name);
+            l.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent t) {
+                    MainPageFXMLController mpc = Client.getMainPageController();
+                    mpc.setCenterScene("InterestFXML.fxml");
+                    ((InterestFXMLController) mpc.getCenterController()).loadItem(intr.getID());
+                }
+            });
             hb.getChildren().add(l);
+            
             interestsBox.getChildren().add(hb);
         }
     }

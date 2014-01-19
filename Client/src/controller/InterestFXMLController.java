@@ -148,11 +148,13 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
     }
 
     private void showCurrentItem() {
+        refreshGUI();
         name.setText(currentItem.name);
         descriptionArea.setText(currentItem.description);
         chm = new ChildrenManager<>(currentItem.subCategories.getOldChildren());
 
         showSubCategories();
+        
     }
 
     private void showSubCategories() {

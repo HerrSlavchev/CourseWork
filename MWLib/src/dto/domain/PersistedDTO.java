@@ -67,4 +67,6 @@ public abstract class PersistedDTO implements Serializable {
     public User getUserUpd(){
         return this.userUpd;
     }
+    
+    public boolean modified = false;
 }
