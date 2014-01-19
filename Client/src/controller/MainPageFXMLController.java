@@ -5,13 +5,10 @@
  */
 package controller;
 
-import dto.domain.Interest;
 import view.Client;
 import images.ImageViewFactory;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,12 +17,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -36,7 +30,6 @@ import properties.SessionProperties;
 import services.BindingConsts;
 import services.RemoteServices;
 import services.server.ClientManagerIF;
-import services.server.InterestDAIF;
 import utils.ConfirmationDelegatorIF;
 import utils.Utils;
 
@@ -55,7 +48,6 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
     VBox personalVB;
     
     private Initializable centerController;
-    private Initializable personalTabController;
 
     private ImageView loggedIV;
     private ImageView guestIV;
@@ -247,8 +239,8 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
         if (centerController != null && centerController instanceof SessionAwareIF) {
             ((SessionAwareIF) centerController).refreshGUI();
         }
-        if (personalTabController != null && personalTabController instanceof SessionAwareIF) {
-            ((SessionAwareIF) personalTabController).refreshGUI();
+        if (Client.getPersonalTabController() != null) {
+            Client.getPersonalTabController().refreshGUI();
         }
     }
 
@@ -275,13 +267,11 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
             loader.setLocation(Client.class.getResource(fxmlFile));
             Pane pane = (Pane) loader.load();
             
-            personalTabController = loader.getController();
+            Client.setPersonalTabController((PersonalTabFXMLController)loader.getController());
 
             personalVB.getChildren().clear();
             personalVB.getChildren().add(pane);
-            if (personalTabController instanceof SessionAwareIF) {
-                ((SessionAwareIF) personalTabController).refreshGUI();
-            }
+            Client.getPersonalTabController().refreshGUI();
         } catch (Exception e) {
             e.printStackTrace();
         }

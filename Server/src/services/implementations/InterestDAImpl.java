@@ -8,7 +8,6 @@ package services.implementations;
 import dao.CRUDHelper;
 import dao.DAOUtils;
 import dao.FilterUtils;
-import dao.BasicResultSetInterpreter;
 import dao.ResultSetInterpreterIF;
 import dto.Result;
 import dto.domain.Category;
@@ -231,7 +230,7 @@ public class InterestDAImpl implements InterestDAIF {
 
         String fetchCategory = FilterUtils.evalFetch(filter.fetchCategories, FilterUtils.fetchCategory);
         String joinCategory = "";
-        if (filter.fetchCategories) {
+        if (filter.fetchCategories || false == filter.categories.isEmpty()) {
             joinSBCI = " LEFT OUTER JOIN subcategory_interest sbci ON(sbci.ID_interest = intr.ID)";
             joinSubCategory = " LEFT OUTER JOIN subcategory sbc ON(sbc.ID = sbci.ID_subcategory)";
             joinCategory = " LEFT OUTER JOIN category cat ON(cat.ID = sbc.ID_category)";
@@ -240,7 +239,7 @@ public class InterestDAImpl implements InterestDAIF {
         String fetchUser = FilterUtils.evalFetch(filter.fetchUsers, FilterUtils.fetchUser);
         String joinUserInterest = "";
         String joinUser = "";
-        if (filter.fetchUsers) {
+        if (filter.fetchUsers || false == filter.users.isEmpty()) {
             joinUserInterest = " LEFT OUTER JOIN interest_user iusr ON(iusr.ID_interest = intr.ID)";
             joinUser = " LEFT OUTER JOIN user usr ON(usr.ID = iusr.ID_user)";
         }
@@ -268,6 +267,7 @@ public class InterestDAImpl implements InterestDAIF {
                 joinSubCategory,
                 joinCategory,
                 joinGroup,
+                joinUserInterest,
                 joinUser,
                 deepJoin,
                 FilterUtils.prepareWHERE(filter)
@@ -310,7 +310,7 @@ public class InterestDAImpl implements InterestDAIF {
                         }
                         User u = resultSetInterpreter.getUser(rs);
                         if (u != null) {
-                            old.users.add(u);
+                            old.users.addOldChild(u);
                         }
                     }
 

@@ -5,6 +5,7 @@
  */
 package dto.domain;
 
+import dto.domain.crossentities.UserInterest;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Interest extends PersistedDTO {
     public ChildrenManager<SubCategory> subCategories = new ChildrenManager<SubCategory>();
     
     public List<Category> categories = new ArrayList<>();
-    public List<User> users = new ArrayList<>();
+    public ChildrenManager<User> users = new ChildrenManager<>();
     public List<Group> groups = new ArrayList<>();
 
     public Interest(int ID) {
@@ -53,7 +54,7 @@ public class Interest extends PersistedDTO {
         return categories;
     }
 
-    public List<User> getUsers() {
+    public ChildrenManager<User> getUsers() {
         return users;
     }
 

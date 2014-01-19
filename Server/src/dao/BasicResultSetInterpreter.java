@@ -199,8 +199,8 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
         }
         
         u = new User(id);
-        u.fName = rs.getString(tbl + "_f_name");
-        u.lName = rs.getString(tbl + "_l_name");
+        u.fName = safeStr(rs, tbl + "_f_name");
+        u.lName = safeStr(rs, tbl + "_l_name");
         
         return u;
     }
@@ -214,8 +214,8 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
         }
         
         u = new User(id);
-        u.fName = rs.getString(tbl + "_f_name");
-        u.lName = rs.getString(tbl + "_l_name");
+        u.fName = safeStr(rs, tbl + "_f_name");
+        u.lName = safeStr(rs, tbl + "_l_name");
         
         return u;
     }

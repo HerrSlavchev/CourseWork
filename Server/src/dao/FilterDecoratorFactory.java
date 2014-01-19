@@ -152,6 +152,12 @@ public class FilterDecoratorFactory {
         } else if (af instanceof InterestFilter) {
             final InterestFilter inf = (InterestFilter) af;
             fd = new FilterDecorator() {
+                
+                @Override
+                public List<User> getUsers(){
+                    return inf.users;
+                }
+                
                 @Override
                 public String getName() {
                     return inf.name;

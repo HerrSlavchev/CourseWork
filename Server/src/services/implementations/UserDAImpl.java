@@ -8,9 +8,16 @@ package services.implementations;
 import dao.CRUDHelper;
 import dao.DAOUtils;
 import dao.FilterUtils;
+import dao.ResultSetInterpreterIF;
 import dto.Result;
+import dto.domain.Conversation;
+import dto.domain.Event;
+import dto.domain.Group;
+import dto.domain.Interest;
+import dto.domain.Town;
 import dto.domain.User;
 import dto.filters.UserFilter;
+import dto.rolemanagement.Role;
 import dto.session.Session;
 import exceptions.ExceptionProcessor;
 import java.rmi.RemoteException;
@@ -18,7 +25,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import security.Credentials;
 import security.PasswordManagerIF;
 import security.SecurityUtils;
@@ -32,7 +41,8 @@ public class UserDAImpl implements UserDAIF {
 
     private static final int batchSize = DAOUtils.MAX_BATCH_SIZE;
     private static final PasswordManagerIF passwordManager = SecurityUtils.passwordManager;
-    
+    private ResultSetInterpreterIF resultSetInterpreter = DAOUtils.resultSetInterpreter;
+
     @Override
     public Result<User> insertUser(final List<User> ins, Session session) throws RemoteException {
 
@@ -174,51 +184,51 @@ public class UserDAImpl implements UserDAIF {
     }
 
     @Override
-    public Result<User> fetchUsers(UserFilter filter) throws RemoteException {
+    public Result<User> fetchUsers(final UserFilter filter) throws RemoteException {
         Result<User> res = null;
-        List<User> lst = new ArrayList<User>();
+        final List<User> lst = new ArrayList<User>();
         Exception exc = null;
 
         String fetchFullPersonal = "";
         if (filter.fetchFullPersonalData) {
-            fetchFullPersonal = ", u.s_name AS u_s_name, u.role AS u_role, u.timeins AS u_timeins, u.ID_userupd, u.description AS u_description";
+            fetchFullPersonal = ", usr.s_name AS usr_s_name, usr.role AS usr_role, usr.timeins AS usr_timeins, usr.ID_userupd, usr.description AS usr_description";
         }
         String fetchTown = "";
         String joinTown = "";
         if (filter.fetchTowns) {
             fetchTown = FilterUtils.fetchTown;
-            joinTown = " LEFT OUTER JOIN town_user tu ON(tu.ID_user = u.ID) " +
-                        "LEFT OUTER JOIN town t ON(t.ID = tu.ID_town)";
+            joinTown = " LEFT OUTER JOIN town_user tu ON(tu.ID_user = usr.ID) "
+                    + "LEFT OUTER JOIN town twn ON(twn.ID = tu.ID_town)";
         }
         String fetchGroups = "";
         String joinGroups = "";
         if (filter.fetchGroups) {
             fetchGroups = FilterUtils.fetchGroup;
-            joinGroups = " LEFT OUTER JOIN igroup_user igu ON(igu.ID_user = u.ID) " +
-                        "LEFT OUTER JOIN igroup ig ON(ig.ID = igu.ID_igroup)";
+            joinGroups = " LEFT OUTER JOIN igroup_user igu ON(igu.ID_user = usr.ID) "
+                    + "LEFT OUTER JOIN igroup grp ON(grp.ID = igu.ID_igroup)";
         }
         String fetchInterests = "";
         String joinInterests = "";
         if (filter.fetchInterests) {
             fetchInterests = FilterUtils.fetchInterest;
-            joinInterests = " LEFT OUTER JOIN interest_user iu ON(iu.ID_user = u.ID) " +
-                        "LEFT OUTER JOIN interest i ON(i.ID = iu.ID_interest)";
+            joinInterests = " LEFT OUTER JOIN interest_user iu ON(iu.ID_user = usr.ID) "
+                    + "LEFT OUTER JOIN interest intr ON(intr.ID = iu.ID_interest)";
         }
         String fetchEvents = "";
         String joinEvents = "";
         if (filter.fetchEvents) {
             fetchEvents = FilterUtils.fetchEvent;
-            joinEvents = " LEFT OUTER JOIN event_user eu ON(eu.ID_user = u.ID) " +
-                        "LEFT OUTER JOIN event e ON(e.ID = eu.ID_event)";
+            joinEvents = " LEFT OUTER JOIN event_user eu ON(eu.ID_user = usr.ID) "
+                    + "LEFT OUTER JOIN event evt ON(evt.ID = eu.ID_event)";
         }
         String fetchConversations = "";
         String joinConversations = "";
         if (filter.fetchConversations) {
             fetchConversations = FilterUtils.fetchConversation;
-            joinConversations = " LEFT OUTER JOIN conversation_user cu ON(cu.ID_user = u.ID) " +
-                        "LEFT OUTER JOIN conversation c ON(c.ID = cu.ID_conversation)";
+            joinConversations = " LEFT OUTER JOIN conversation_user cu ON(cu.ID_user = usr.ID) "
+                    + "LEFT OUTER JOIN conversation con ON(con.ID = cu.ID_conversation)";
         }
-        
+
         final String slct = DAOUtils.generateStmt(
                 "SELECT ",
                 FilterUtils.fetchUser.replaceFirst(", ", ""),
@@ -234,26 +244,72 @@ public class UserDAImpl implements UserDAIF {
                 joinInterests,
                 joinEvents,
                 joinConversations);
-                
+
         try {
-        CRUDHelper<User> helper = new CRUDHelper<User>(null, null) {
-            
-            @Override
-            protected void runQueries(Connection conn, PreparedStatement stmt, ResultSet rs) throws Exception {
-                stmt = conn.prepareStatement(slct);
-                rs = stmt.executeQuery();
-                for (int i = 1; i < rs.getMetaData().getColumnCount(); i++){
-                    System.out.println(rs.getMetaData().getColumnLabel(i) + "|" + rs.getMetaData().getColumnName(i));
+            CRUDHelper<User> helper = new CRUDHelper<User>(null, null) {
+
+                @Override
+                protected void runQueries(Connection conn, PreparedStatement stmt, ResultSet rs) throws Exception {
+                    stmt = conn.prepareStatement(slct);
+                    rs = stmt.executeQuery();
+
+                    Map<Integer, User> map = new HashMap<>();
+                    while (rs.next()) {
+                        User curr = resultSetInterpreter.getUser(rs);
+                        User old = map.get(curr.getID());
+                        if (old == null) {
+                            curr.userIns = resultSetInterpreter.getUserIns(rs);
+                            curr.userUpd = resultSetInterpreter.getUserUpd(rs);
+                            if (filter.deepFetch) {
+                                curr.description = rs.getString("usr_description");
+                                curr.sName = rs.getString("usr_s_name");
+                                curr.role = Role.values()[rs.getInt("usr_role")];
+                            }
+                            old = curr;
+                            map.put(old.getID(), old);
+                        }
+                        if (filter.fetchTowns) {
+                            Town twn = resultSetInterpreter.getTown(rs);
+                            if (twn != null) {
+                                old.towns.addOldChild(twn);
+                            }
+                        }
+                        if (filter.fetchInterests) {
+                            Interest intr = resultSetInterpreter.getInterest(rs);
+                            if (intr != null) {
+                                old.interests.add(intr);
+                            }
+                        }
+                        if (filter.fetchConversations) {
+                            Conversation conv = resultSetInterpreter.getConversation(rs);
+                            if (conv != null) {
+                                old.conversations.add(conv);
+                            }
+                        }
+                        if (filter.fetchGroups) {
+                            Group g = resultSetInterpreter.getGroup(rs);
+                            if (g != null) {
+                                old.groups.add(g);
+                            }
+                        }
+                        if (filter.fetchEvents) {
+                            Event evt = resultSetInterpreter.getEvent(rs);
+                            if (evt != null) {
+                                old.events.add(evt);
+                            }
+                        }
+                    }
+
+                    lst.addAll(map.values());
                 }
-                
-            }
-        };
-        helper.setSessionCheck(false);
-        helper.setRightsCheck(false);
-        helper.performCUD();
-        } catch (Exception e){
+            };
+            helper.setSessionCheck(false);
+            helper.setRightsCheck(false);
+            helper.performCUD();
+        } catch (Exception e) {
             exc = ExceptionProcessor.processException(e);
         }
+        res = new Result<>(lst, exc);
         return res;
     }
 

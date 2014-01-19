@@ -6,6 +6,7 @@
 package view;
 
 import controller.MainPageFXMLController;
+import controller.PersonalTabFXMLController;
 import controller.SessionAwareIF;
 import dto.session.Session;
 import java.rmi.server.UnicastRemoteObject;
@@ -27,6 +28,8 @@ public class Client extends Application {
 
     private static Stage mainPageStage = null;
     private static MainPageFXMLController mainPageController = null;
+    private static PersonalTabFXMLController personalTabController = null;
+    
     private boolean askBeforeExit = true;
 
     public void setAskBeforeExit(boolean b) {
@@ -40,10 +43,18 @@ public class Client extends Application {
     public static MainPageFXMLController getMainPageController() {
         return mainPageController;
     }
+    
+    public static void setPersonalTabController(PersonalTabFXMLController controller){
+        personalTabController = controller;
+    }
+    
+    public static PersonalTabFXMLController getPersonalTabController() {
+        return personalTabController;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
-        //huc huc
+        
         try {
             RemoteServices.init();
         } catch (Exception e) {

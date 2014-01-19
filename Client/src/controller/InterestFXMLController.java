@@ -135,9 +135,6 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
                         throw new Exception("No data found!");
                     }
                     currentItem = lst.get(0);
-                    
-                    System.out.println(lst.size());
-                    System.out.println((currentItem.userIns == null) + "|" + (currentItem.userUpd == null));
                 }
             } catch (Exception e) {
                 exc = e;
@@ -281,6 +278,9 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
                 loadItem(res.getAutoIDs().get(0));
                 showCurrentItem();
                 refreshGUI();
+                if(Client.getPersonalTabController() != null){
+                    Client.getPersonalTabController().loadInterests();
+                }
             }
         } catch (Throwable e) {
             exc = e;
@@ -312,6 +312,9 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
                 //IV: if ok, refresh data
                 loadItem(currentItem.getID());
                 showCurrentItem();
+                if(Client.getPersonalTabController() != null){
+                    Client.getPersonalTabController().loadInterests();
+                }
             }
         } catch (Throwable e) {
             exc = e;
