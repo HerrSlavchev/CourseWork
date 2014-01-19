@@ -30,7 +30,7 @@ public class User extends PersistedDTO {
     public List<Event> events = new ArrayList<Event>();
     public List<Conversation> conversations = new ArrayList<Conversation>();
 
-    
+    public boolean notify = false;
     
     public User(int ID){
         super(ID);
@@ -95,5 +95,9 @@ public class User extends PersistedDTO {
     @Override
     public String toString(){
         return lName + ", " + sName;
+    }
+    
+    public boolean getNotify(){
+        return notify;
     }
 }

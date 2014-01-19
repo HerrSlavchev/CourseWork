@@ -5,7 +5,6 @@
  */
 package dto.domain;
 
-import dto.domain.crossentities.UserInterest;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
