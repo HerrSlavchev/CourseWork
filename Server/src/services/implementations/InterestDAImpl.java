@@ -8,7 +8,8 @@ package services.implementations;
 import dao.CRUDHelper;
 import dao.DAOUtils;
 import dao.FilterUtils;
-import dao.ResultSetInterpreter;
+import dao.BasicResultSetInterpreter;
+import dao.ResultSetInterpreterIF;
 import dto.Result;
 import dto.domain.Category;
 import dto.domain.ChildrenManager;
@@ -35,6 +36,8 @@ import services.server.InterestDAIF;
  */
 public class InterestDAImpl implements InterestDAIF {
 
+    private ResultSetInterpreterIF resultSetInterpreter = DAOUtils.resultSetInterpreter;
+    
     @Override
     public Result<Interest> insertInterest(final List<Interest> ins, Session session) throws RemoteException {
         final List<Category> lst = new ArrayList<>();
@@ -279,11 +282,11 @@ public class InterestDAImpl implements InterestDAIF {
 
                     Map<Integer, Interest> map = new HashMap<>();
                     while (rs.next()) {
-                        Interest curr = ResultSetInterpreter.getInterest(rs);
+                        Interest curr = resultSetInterpreter.getInterest(rs);
                         Interest old = map.get(curr.getID());
                         if (old == null) {
-                            curr.userIns = ResultSetInterpreter.getUserIns(rs);
-                            curr.userUpd = ResultSetInterpreter.getUserUpd(rs);
+                            curr.userIns = resultSetInterpreter.getUserIns(rs);
+                            curr.userUpd = resultSetInterpreter.getUserUpd(rs);
                             if (filter.deepFetch) {
                                 curr.description = rs.getString("intr_description");
                             }
@@ -292,20 +295,20 @@ public class InterestDAImpl implements InterestDAIF {
                         }
                         if (filter.fetchSubCategories) {
                             
-                            SubCategory sbcat = ResultSetInterpreter.getSubCategory(rs);
+                            SubCategory sbcat = resultSetInterpreter.getSubCategory(rs);
                             if (sbcat != null) {
                                 old.subCategories.addOldChild(sbcat);
                             }
                         }
-                        Category e = ResultSetInterpreter.getCategory(rs);
+                        Category e = resultSetInterpreter.getCategory(rs);
                         if (e != null) {
                             old.categories.add(e);
                         }
-                        Group g = ResultSetInterpreter.getGroup(rs);
+                        Group g = resultSetInterpreter.getGroup(rs);
                         if (g != null){
                             old.groups.add(g);
                         }
-                        User u = ResultSetInterpreter.getUser(rs);
+                        User u = resultSetInterpreter.getUser(rs);
                         if (u != null) {
                             old.users.add(u);
                         }

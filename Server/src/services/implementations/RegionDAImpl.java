@@ -9,7 +9,8 @@ import com.sun.deploy.uitoolkit.impl.awt.OldPluginAWTUtil;
 import dao.CRUDHelper;
 import dao.DAOUtils;
 import dao.FilterUtils;
-import dao.ResultSetInterpreter;
+import dao.BasicResultSetInterpreter;
+import dao.ResultSetInterpreterIF;
 import dto.Result;
 import dto.domain.Event;
 import dto.domain.Region;
@@ -34,6 +35,8 @@ import services.server.RegionDAIF;
  */
 public class RegionDAImpl implements RegionDAIF {
 
+    private ResultSetInterpreterIF resultSetInterpreter = DAOUtils.resultSetInterpreter;
+    
     @Override
     public Result<Region> insertRegion(final List<Region> ins, Session session) throws RemoteException {
 
@@ -213,7 +216,7 @@ public class RegionDAImpl implements RegionDAIF {
 
                     Map<Integer, Region> map = new HashMap<>();
                     while (rs.next()) {
-                        Region curr = ResultSetInterpreter.getRegion(rs);
+                        Region curr = resultSetInterpreter.getRegion(rs);
                         Region old = map.get(curr.getID());
                         if (old == null) {
                             curr.eventCount = rs.getInt("e_count");
@@ -222,17 +225,17 @@ public class RegionDAImpl implements RegionDAIF {
                             old = curr;
                             map.put(old.getID(), old);
                         }
-                        Town t = ResultSetInterpreter.getTown(rs);
+                        Town t = resultSetInterpreter.getTown(rs);
                         if (t != null) {
                             old.towns.add(t);
                             old.townCount++;
                         }
-                        Event e = ResultSetInterpreter.getEvent(rs);
+                        Event e = resultSetInterpreter.getEvent(rs);
                         if (e != null) {
                             old.events.add(e);
                             old.eventCount++;
                         }
-                        User u = ResultSetInterpreter.getUser(rs);
+                        User u = resultSetInterpreter.getUser(rs);
                         if (u != null) {
                             old.users.add(u);
                             old.userCount++;

@@ -8,7 +8,8 @@ package services.implementations;
 import dao.CRUDHelper;
 import dao.DAOUtils;
 import dao.FilterUtils;
-import dao.ResultSetInterpreter;
+import dao.BasicResultSetInterpreter;
+import dao.ResultSetInterpreterIF;
 import dto.Result;
 import dto.domain.Event;
 import dto.domain.Region;
@@ -33,6 +34,8 @@ import services.server.TownDAIF;
  */
 public class TownDAImpl implements TownDAIF {
 
+    private ResultSetInterpreterIF resultSetInterpreter = DAOUtils.resultSetInterpreter;
+    
     @Override
     public Result<Town> insertTown(final List<Town> ins, Session session) throws RemoteException {
         List<Town> lst = new ArrayList<Town>();
@@ -185,7 +188,7 @@ public class TownDAImpl implements TownDAIF {
 
                     Map<Integer, Town> map = new HashMap<>();
                     while (rs.next()) {
-                        Town curr = ResultSetInterpreter.getTown(rs);
+                        Town curr = resultSetInterpreter.getTown(rs);
                         Town old = map.get(curr.getID());
                         if (old == null) {
                             curr.eventCount = rs.getInt("e_count");
@@ -193,15 +196,15 @@ public class TownDAImpl implements TownDAIF {
                             old = curr;
                             map.put(old.getID(), old);
                         }
-                        Region reg = ResultSetInterpreter.getRegion(rs);
+                        Region reg = resultSetInterpreter.getRegion(rs);
                         if (reg != null) {
                             old.region = reg;
                         }
-                        Event e = ResultSetInterpreter.getEvent(rs);
+                        Event e = resultSetInterpreter.getEvent(rs);
                         if (e != null) {
                             old.events.add(e);
                         }
-                        User u = ResultSetInterpreter.getUser(rs);
+                        User u = resultSetInterpreter.getUser(rs);
                         if (u != null) {
                             old.users.add(u);
                         }

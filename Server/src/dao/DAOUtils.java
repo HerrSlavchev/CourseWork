@@ -19,6 +19,7 @@ public class DAOUtils {
 
     public static final int MAX_BATCH_SIZE = 1000;
 
+    public static final ResultSetInterpreterIF resultSetInterpreter = new BasicResultSetInterpreter();
     
     /**
      * Calls the <code>close()</code> method of each interface

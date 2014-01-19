@@ -27,9 +27,9 @@ import java.sql.Timestamp;
  *
  * @author root
  */
-public class ResultSetInterpreter {
+public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
 
-    public static Category getCategory(ResultSet rs) throws SQLException {
+    public Category getCategory(ResultSet rs) throws SQLException {
         Category cat = null;
         String tbl = FilterUtils.CATEGORY;
         Integer id = safeInt(rs, tbl + "_ID");
@@ -42,7 +42,7 @@ public class ResultSetInterpreter {
         return cat;
     }
 
-    public static Conversation getConversation(ResultSet rs) throws SQLException {
+    public Conversation getConversation(ResultSet rs) throws SQLException {
         Conversation con = null;
         String tbl = FilterUtils.CONVERSATION;
         Integer id = safeInt(rs, tbl + "_ID");
@@ -56,7 +56,7 @@ public class ResultSetInterpreter {
         return con;
     }
 
-    public static Event getEvent(ResultSet rs) throws SQLException {
+    public Event getEvent(ResultSet rs) throws SQLException {
         Event e = null;
         String tbl = FilterUtils.EVENT;
         Integer id = safeInt(rs, tbl + "_ID");
@@ -74,7 +74,7 @@ public class ResultSetInterpreter {
         return e;
     }
 
-    public static Group getGroup(ResultSet rs) throws SQLException {
+    public Group getGroup(ResultSet rs) throws SQLException {
         Group ig = null;
         String tbl = FilterUtils.GROUP;
         Integer id = safeInt(rs, tbl + "_ID");
@@ -89,7 +89,7 @@ public class ResultSetInterpreter {
         return ig;
     }
 
-    public static Interest getInterest(ResultSet rs) throws SQLException {
+    public Interest getInterest(ResultSet rs) throws SQLException {
         Interest i = null;
         String tbl = FilterUtils.INTEREST;
         Integer id = safeInt(rs, tbl + "_ID");
@@ -104,7 +104,7 @@ public class ResultSetInterpreter {
         return i;
     }
 
-    public static Message getMessage(ResultSet rs) throws SQLException {
+    public Message getMessage(ResultSet rs) throws SQLException {
         Message m = null;
         String tbl = FilterUtils.MESSAGE;
         Integer id = safeInt(rs, tbl + "_ID");
@@ -118,7 +118,7 @@ public class ResultSetInterpreter {
         return m;
     }
 
-    public static Publication getPublication(ResultSet rs) throws SQLException {
+    public Publication getPublication(ResultSet rs) throws SQLException {
         Publication p = null;
         String tbl = FilterUtils.PUBLICATION;
         Integer id = safeInt(rs, tbl + "_ID");
@@ -133,7 +133,7 @@ public class ResultSetInterpreter {
         return p;
     }
 
-    public static Region getRegion(ResultSet rs) throws SQLException {
+    public Region getRegion(ResultSet rs) throws SQLException {
         Region r = null;
         String tbl = FilterUtils.REGION;
         Integer id = safeInt(rs, tbl + "_ID");
@@ -146,7 +146,7 @@ public class ResultSetInterpreter {
         return r;
     }
 
-    public static SubCategory getSubCategory(ResultSet rs) throws SQLException {
+    public SubCategory getSubCategory(ResultSet rs) throws SQLException {
         SubCategory s = null;
         String tbl = FilterUtils.SUBCATEGORY;
         Integer id = safeInt(rs, tbl + "_ID");
@@ -160,7 +160,7 @@ public class ResultSetInterpreter {
         return s;
     }
 
-    public static Town getTown(ResultSet rs) throws SQLException {
+    public Town getTown(ResultSet rs) throws SQLException {
         Town t = null;
         String tbl = FilterUtils.TOWN;
         Integer id = safeInt(rs, tbl + "_ID");
@@ -173,7 +173,7 @@ public class ResultSetInterpreter {
         return t;
     }
 
-    public static User getUser(ResultSet rs) throws SQLException {
+    public User getUser(ResultSet rs) throws SQLException {
         User u = null;
         String tbl = FilterUtils.USER;
         Integer id = safeInt(rs, tbl + "_ID");
@@ -190,7 +190,7 @@ public class ResultSetInterpreter {
         return u;
     }
     
-    public static User getUserIns(ResultSet rs) throws SQLException {
+    public User getUserIns(ResultSet rs) throws SQLException {
         User u = null;
         String tbl = "userins";
         Integer id = safeInt(rs, tbl + "_ID");
@@ -205,7 +205,7 @@ public class ResultSetInterpreter {
         return u;
     }
 
-    public static User getUserUpd(ResultSet rs) throws SQLException {
+    public User getUserUpd(ResultSet rs) throws SQLException {
         User u = null;
         String tbl = "userupd";
         Integer id = safeInt(rs, tbl + "_ID");
@@ -220,7 +220,7 @@ public class ResultSetInterpreter {
         return u;
     }
     
-    public static boolean checkColumn(ResultSet rs, String label) {
+    public boolean checkColumn(ResultSet rs, String label) {
         int idx = -1;
         try {
             idx = rs.findColumn(label);
@@ -266,4 +266,6 @@ public class ResultSetInterpreter {
         }
         return r;
     }
+    
+    
 }

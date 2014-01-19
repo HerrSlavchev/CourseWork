@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import security.Credentials;
+import security.PasswordManagerIF;
 import security.SecurityUtils;
 import services.server.UserDAIF;
 
@@ -30,7 +31,8 @@ import services.server.UserDAIF;
 public class UserDAImpl implements UserDAIF {
 
     private static final int batchSize = DAOUtils.MAX_BATCH_SIZE;
-
+    private static final PasswordManagerIF passwordManager = SecurityUtils.passwordManager;
+    
     @Override
     public Result<User> insertUser(final List<User> ins, Session session) throws RemoteException {
 
@@ -62,7 +64,7 @@ public class UserDAImpl implements UserDAIF {
                         stmt.setString(5, u.description);
 
                         String password = u.password;
-                        Credentials creds = SecurityUtils.passwordManager.createCredentials(password);
+                        Credentials creds = passwordManager.createCredentials(password);
 
                         String hashedPass = creds.getEncodedHashedPassword();
                         stmt.setString(6, hashedPass);

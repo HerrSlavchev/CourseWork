@@ -9,7 +9,8 @@ package services.implementations;
 import dao.CRUDHelper;
 import dao.DAOUtils;
 import dao.FilterUtils;
-import dao.ResultSetInterpreter;
+import dao.BasicResultSetInterpreter;
+import dao.ResultSetInterpreterIF;
 import dto.Result;
 import dto.domain.Category;
 import dto.domain.Interest;
@@ -34,6 +35,8 @@ import services.server.CategoryDAIF;
  */
 public class CategoryDAImpl implements CategoryDAIF{
 
+    private ResultSetInterpreterIF resultSetInterpreter = DAOUtils.resultSetInterpreter;
+    
     @Override
     public Result<Category> insertCategory(final List<Category> ins, Session session) throws RemoteException {
         List<Category> lst = new ArrayList<Category>();
@@ -182,7 +185,7 @@ public class CategoryDAImpl implements CategoryDAIF{
 
                     Map<Integer, Category> map = new HashMap<>();
                     while (rs.next()) {
-                        Category curr = ResultSetInterpreter.getCategory(rs);
+                        Category curr = resultSetInterpreter.getCategory(rs);
                         Category old = map.get(curr.getID());
                         if (old == null) {
                             curr.subCategoryCount = rs.getInt("sbc_count");
@@ -190,11 +193,11 @@ public class CategoryDAImpl implements CategoryDAIF{
                             old = curr;
                             map.put(old.getID(), old);
                         }
-                        SubCategory sbcat = ResultSetInterpreter.getSubCategory(rs);
+                        SubCategory sbcat = resultSetInterpreter.getSubCategory(rs);
                         if (sbcat != null) {
                             old.subCategories.add(sbcat);
                         }
-                        Interest e = ResultSetInterpreter.getInterest(rs);
+                        Interest e = resultSetInterpreter.getInterest(rs);
                         if (e != null) {
                             old.interests.add(e);
                         }

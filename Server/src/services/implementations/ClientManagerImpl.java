@@ -29,9 +29,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import security.Credentials;
+import security.PasswordManagerIF;
 import security.SecurityUtils;
 import services.client.NotifiableIF;
 import services.server.ClientManagerIF;
+import session.SessionCodeProviderIF;
 import session.SessionUtils;
 
 /**
@@ -40,6 +42,9 @@ import session.SessionUtils;
  */
 public class ClientManagerImpl implements ClientManagerIF {
 
+    private static PasswordManagerIF passwordManager = SecurityUtils.passwordManager;
+    private static SessionCodeProviderIF sessionCodeProvider = SessionUtils.sessionCodeProvider;
+    
     private static Map<Integer, NotifiableIF> mapIDsToClients = new HashMap<Integer, NotifiableIF>();
     private static Map<String, Integer> mapCodesToIDs = new HashMap<String, Integer>();
 
@@ -74,7 +79,7 @@ public class ClientManagerImpl implements ClientManagerIF {
                 String realSalt = rs.getString("salt");
                 int realIterations = rs.getInt("iterations");
                 Credentials creds = new Credentials(realPassword, realSalt, realIterations);
-                boolean valid = SecurityUtils.passwordManager.validatePassword(password, creds);
+                boolean valid = passwordManager.validatePassword(password, creds);
                 if (valid) {
                     
                     slct = "select "
@@ -149,11 +154,11 @@ public class ClientManagerImpl implements ClientManagerIF {
             String oldSessionCode = old.getSessionCode();
             mapCodesToIDs.remove(oldSessionCode);
             mapIDsToClients.remove(userID);
-            SessionUtils.sessionCodeProvider.releaseSessionCode(oldSessionCode);
+            sessionCodeProvider.releaseSessionCode(oldSessionCode);
         }
         
         
-        String sessionCode = SessionUtils.sessionCodeProvider.getSessionCode();
+        String sessionCode = sessionCodeProvider.getSessionCode();
         mapCodesToIDs.put(sessionCode, userID);
         mapIDsToClients.put(userID, cli);
         cli.setSessionCode(sessionCode);
@@ -174,8 +179,7 @@ public class ClientManagerImpl implements ClientManagerIF {
             return;
         }
         
-        SessionUtils.sessionCodeProvider.releaseSessionCode(sessionCode);
-        
+        sessionCodeProvider.releaseSessionCode(sessionCode);
         cli.logout();
     }
 
