@@ -11,14 +11,14 @@ package dto.domain;
  */
 public class Notification extends PersistedDTO {
 
-    public TriggerType triggerType;
-    public ReasonType reasonType;
-    public boolean isImportant;
-    public boolean isRead;
+    private TriggerType triggerType;
+    private ReasonType reasonType;
+    private boolean important;
+    private boolean read;
 
     //extrinsic
-    public PersistedDTO reason; //why report
-    public PersistedDTO trigger; //what exactly happened
+    private PersistedDTO reason; //why report
+    private PersistedDTO trigger; //what exactly happened
 
     public Notification(int ID) {
         super(ID);
@@ -41,10 +41,34 @@ public class Notification extends PersistedDTO {
     }
 
     public boolean isImportant() {
-        return isImportant;
+        return important;
     }
 
     public boolean isRead() {
-        return isRead;
+        return read;
+    }
+
+    public void setTriggerType(TriggerType triggerType) {
+        this.triggerType = triggerType;
+    }
+
+    public void setReasonType(ReasonType reasonType) {
+        this.reasonType = reasonType;
+    }
+
+    public void setImportant(boolean important) {
+        this.important = important;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
+
+    public void setReason(PersistedDTO reason) {
+        this.reason = reason;
+    }
+
+    public void setTrigger(PersistedDTO trigger) {
+        this.trigger = trigger;
     }
 }

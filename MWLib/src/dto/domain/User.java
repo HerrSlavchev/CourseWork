@@ -16,21 +16,22 @@ import java.util.List;
  */
 public class User extends PersistedDTO {
 
-    public String fName;
-    public String sName;
-    public String lName;
-    public String eMail;
-    public String password;
-    public String description;
-    public Role role;
-    //extrinsic
-    public ChildrenManager<Town> towns = new ChildrenManager<Town>();    
-    public List<Interest> interests = new ArrayList<Interest>();
-    public List<Group> groups = new ArrayList<Group>();
-    public List<Event> events = new ArrayList<Event>();
-    public List<Conversation> conversations = new ArrayList<Conversation>();
 
-    public boolean notify = false;
+    private String firstName;
+    private String surName;
+    private String lastName;
+    private String e_Mail;
+    private String password;
+    private String description;
+    private Role role;
+    //extrinsic
+    private ChildrenManager<Town> towns = new ChildrenManager<>();    
+    private List<Interest> interests = new ArrayList<>();
+    private List<Group> groups = new ArrayList<>();
+    private List<Event> events = new ArrayList<>();
+    private List<Conversation> conversations = new ArrayList<>();
+
+    private boolean notify = false;
     
     public User(int ID){
         super(ID);
@@ -44,20 +45,20 @@ public class User extends PersistedDTO {
         super(ID, timeIns, timeUpd, null, userUpd);
     }
 
-    public String getFName() {
-        return fName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getSName() {
-        return sName;
+    public String getSurName() {
+        return surName;
     }
 
-    public String getLName() {
-        return lName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public String getEMail() {
-        return eMail;
+    public String getE_Mail() {
+        return e_Mail;
     }
 
     public String getPassword() {
@@ -91,13 +92,45 @@ public class User extends PersistedDTO {
     public List<Conversation> getConversations() {
         return conversations;
     }
-    
-    @Override
-    public String toString(){
-        return lName + ", " + sName;
-    }
-    
-    public boolean getNotify(){
+
+    public boolean isNotify() {
         return notify;
+    }
+
+    
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setE_Mail(String e_Mail) {
+        this.e_Mail = e_Mail;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setTowns(ChildrenManager<Town> towns) {
+        this.towns = towns;
+    }
+
+    public void setNotify(boolean notify) {
+        this.notify = notify;
     }
 }

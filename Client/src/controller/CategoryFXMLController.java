@@ -138,13 +138,13 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
 
     private boolean checkInput(Category input) {
 
-        if (input.name.isEmpty()) {
+        if (input.getName().isEmpty()) {
             Utils.showError("Name cannot be empty!", Client.getMainPageStage());
             return false;
         }
 
         for (Category cmp : data) {
-            if (cmp.name.equals(input.name)
+            if (cmp.getName().equals(input.getName())
                     && cmp.getID() != input.getID()) {
                 Utils.showError("The category exists.", Client.getMainPageStage());
                 return false;
@@ -200,8 +200,8 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
                 //set currentItem
                 currentItem = resItem;
                 //show info
-                name.setText(currentItem.name);
-                descriptionArea.setText(currentItem.description);
+                name.setText(currentItem.getName());
+                descriptionArea.setText(currentItem.getDescription());
             }
         }
     }
@@ -219,8 +219,8 @@ public class CategoryFXMLController implements Initializable, SessionAwareIF {
         Category cat = new Category(id);
 
         //II: read data from input controls
-        cat.name = name.getText();
-        cat.description = descriptionArea.getText();
+        cat.setName(name.getText());
+        cat.setDescription(descriptionArea.getText());
         //III: validate inputs
         if (false == checkInput(cat)) {
             return null;

@@ -39,6 +39,7 @@ public class CategoryDAImpl implements CategoryDAIF{
     
     @Override
     public Result<Category> insertCategory(final List<Category> ins, Session session) throws RemoteException {
+        
         List<Category> lst = new ArrayList<Category>();
         Exception exc = null;
 
@@ -56,8 +57,8 @@ public class CategoryDAImpl implements CategoryDAIF{
 
                     int count = 0;
                     for (Category cat : ins) {
-                        stmt.setString(1, cat.name);
-                        stmt.setString(2, cat.description);
+                        stmt.setString(1, cat.getName());
+                        stmt.setString(2, cat.getDescription());
                         stmt.addBatch();
                         count++;
 
@@ -105,8 +106,8 @@ public class CategoryDAImpl implements CategoryDAIF{
                     int count = 0;
                     stmt = conn.prepareStatement(update);
                     for (Category cat : upd) {
-                        stmt.setString(1, cat.name);
-                        stmt.setString(2, cat.description);
+                        stmt.setString(1, cat.getName());
+                        stmt.setString(2, cat.getDescription());
                         stmt.setInt(3, cat.getID());
 
                         stmt.addBatch();
@@ -188,18 +189,20 @@ public class CategoryDAImpl implements CategoryDAIF{
                         Category curr = resultSetInterpreter.getCategory(rs);
                         Category old = map.get(curr.getID());
                         if (old == null) {
-                            curr.subCategoryCount = rs.getInt("sbc_count");
-                            curr.interestCount = rs.getInt("intr_count");
+                            int subCategoryCount = rs.getInt("sbc_count");
+                            int interestCount = rs.getInt("intr_count");
+                            curr.setSubCategoryCount(subCategoryCount);
+                            curr.setInterestCount(interestCount);
                             old = curr;
                             map.put(old.getID(), old);
                         }
                         SubCategory sbcat = resultSetInterpreter.getSubCategory(rs);
                         if (sbcat != null) {
-                            old.subCategories.add(sbcat);
+                            old.getSubCategories().add(sbcat);
                         }
                         Interest e = resultSetInterpreter.getInterest(rs);
                         if (e != null) {
-                            old.interests.add(e);
+                            old.getInterests().add(e);
                         }
                     }
                     

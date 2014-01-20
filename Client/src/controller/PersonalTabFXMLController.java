@@ -127,7 +127,7 @@ public class PersonalTabFXMLController implements Initializable, SessionAwareIF 
             leaveButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent t) {
-                    intr.users.removeChild(SessionProperties.user);
+                    intr.getUsers().removeChild(SessionProperties.user);
                     List<Interest> lst = new ArrayList<>();
                     lst.add(intr);
                     updateInterest(lst);
@@ -135,7 +135,7 @@ public class PersonalTabFXMLController implements Initializable, SessionAwareIF 
             });
             hb.getChildren().add(leaveButton);
 
-            final boolean isNotified = intr.users.getOldChildren().get(0).notify;
+            final boolean isNotified = intr.getUsers().getOldChildren().get(0).isNotify();
             Button manageNotification = new Button();
             manageNotification.setPrefSize(22, 22);
             manageNotification.setMinSize(22, 22);
@@ -150,9 +150,9 @@ public class PersonalTabFXMLController implements Initializable, SessionAwareIF 
             manageNotification.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent t) {
-                    User usr = intr.users.getOldChildren().get(0);
-                    usr.modified = true;
-                    usr.notify = !isNotified;
+                    User usr = intr.getUsers().getOldChildren().get(0);
+                    usr.setModified(true);
+                    usr.setNotify(!isNotified);
                     List<Interest> lst = new ArrayList<>();
                     lst.add(intr);
                     updateInterest(lst);
@@ -160,7 +160,7 @@ public class PersonalTabFXMLController implements Initializable, SessionAwareIF 
             });
             hb.getChildren().add(manageNotification);
 
-            Label l = new Label(intr.name);
+            Label l = new Label(intr.getName());
             l.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
                 @Override

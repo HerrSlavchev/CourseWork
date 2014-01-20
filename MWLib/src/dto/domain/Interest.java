@@ -15,15 +15,15 @@ import java.util.List;
  */
 public class Interest extends PersistedDTO {
 
-    public String name = "";
-    public String description = "";
+    private String name = "";
+    private String description = "";
     //extrinsic
     
-    public ChildrenManager<SubCategory> subCategories = new ChildrenManager<SubCategory>();
+    private ChildrenManager<SubCategory> subCategories = new ChildrenManager<SubCategory>();
     
-    public List<Category> categories = new ArrayList<>();
-    public ChildrenManager<User> users = new ChildrenManager<>();
-    public List<Group> groups = new ArrayList<>();
+    private List<Category> categories = new ArrayList<>();
+    private ChildrenManager<User> users = new ChildrenManager<>();
+    private List<Group> groups = new ArrayList<>();
 
     public Interest(int ID) {
         super(ID);
@@ -65,4 +65,18 @@ public class Interest extends PersistedDTO {
     public String toString(){
         return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSubCategories(ChildrenManager<SubCategory> subCategories) {
+        this.subCategories = subCategories;
+    }
+    
+    
 }

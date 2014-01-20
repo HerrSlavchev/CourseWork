@@ -234,7 +234,7 @@ public class MainPageFXMLController implements Initializable, SessionAwareIF {
             loginB.setGraphic(loggedIV);
             loginB.getItems().clear();
             loginB.getItems().addAll(editMI, logoutMI);
-            Client.getMainPageStage().setTitle(SessionProperties.user.lName + ", " + SessionProperties.user.fName);
+            Client.getMainPageStage().setTitle(SessionProperties.user.getLastName() + ", " + SessionProperties.user.getFirstName());
         }
         if (centerController != null && centerController instanceof SessionAwareIF) {
             ((SessionAwareIF) centerController).refreshGUI();

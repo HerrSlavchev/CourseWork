@@ -39,7 +39,7 @@ public class ConnectionProvider {
         String pass = dbProps.getProperty("pass");
         int maxPoolSize = Integer.parseInt(dbProps.getProperty("maxPoolSize", "50"));
         int minPoolSize = Integer.parseInt(dbProps.getProperty("minPoolSize", "10"));
-        int maxStatements = Integer.parseInt(dbProps.getProperty("minPoolSize", "150"));
+        int maxStatements = Integer.parseInt(dbProps.getProperty("maxStatements", "150"));
         int acquireIncrement = Integer.parseInt(dbProps.getProperty("acquireIncrement", "5"));
         cpds = new ComboPooledDataSource();
         cpds.setDriverClass(driverClass);

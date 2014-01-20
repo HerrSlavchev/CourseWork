@@ -74,8 +74,8 @@ public class InterestDAImpl implements InterestDAIF {
                     for (Interest intr : ins) {
                         //I: insert head
                         stmt = conn.prepareStatement(insertIntrMarked, PreparedStatement.RETURN_GENERATED_KEYS);
-                        stmt.setString(1, intr.name);
-                        stmt.setString(2, intr.description);
+                        stmt.setString(1, intr.getName());
+                        stmt.setString(2, intr.getDescription());
                         stmt.execute();
                         rs = stmt.getGeneratedKeys();
                         if (rs.next()) {
@@ -174,8 +174,8 @@ public class InterestDAImpl implements InterestDAIF {
                     for (Interest intr : upd) {
                         //I: update head
                         stmt = conn.prepareStatement(updateIntrMarked);
-                        stmt.setString(1, intr.name);
-                        stmt.setString(2, intr.description);
+                        stmt.setString(1, intr.getName());
+                        stmt.setString(2, intr.getDescription());
                         stmt.setInt(3, intr.getID());
                         stmt.setTimestamp(4, intr.getTimeUpd());
                         int updated = stmt.executeUpdate();
@@ -221,7 +221,7 @@ public class InterestDAImpl implements InterestDAIF {
                         if (false == modifiedUsers.isEmpty()){
                             stmt = conn.prepareStatement(updateIUSR);
                             for (User usr : modifiedUsers) {
-                                stmt.setInt(1, usr.notify ? 1 : 0);
+                                stmt.setInt(1, usr.isNotify() ? 1 : 0);
                                 stmt.setInt(2, intr.getID());
                                 stmt.setInt(3, usr.getID());
                                 stmt.addBatch();
@@ -248,7 +248,7 @@ public class InterestDAImpl implements InterestDAIF {
                             for (User usr : newUsers) {
                                 stmt.setInt(1, intr.getID());
                                 stmt.setInt(2, usr.getID());
-                                stmt.setInt(3, usr.notify ? 1 : 0);
+                                stmt.setInt(3, usr.isNotify() ? 1 : 0);
                                 stmt.addBatch();
                             }
                             int[] batchRes = stmt.executeBatch();
@@ -351,10 +351,10 @@ public class InterestDAImpl implements InterestDAIF {
                         Interest curr = resultSetInterpreter.getInterest(rs);
                         Interest old = map.get(curr.getID());
                         if (old == null) {
-                            curr.userIns = resultSetInterpreter.getUserIns(rs);
-                            curr.userUpd = resultSetInterpreter.getUserUpd(rs);
+                            curr.setUserIns(resultSetInterpreter.getUserIns(rs));
+                            curr.setUserUpd(resultSetInterpreter.getUserUpd(rs));
                             if (filter.deepFetch) {
-                                curr.description = rs.getString("intr_description");
+                                curr.setDescription(rs.getString("intr_description"));
                             }
                             old = curr;
                             map.put(old.getID(), old);
@@ -363,21 +363,21 @@ public class InterestDAImpl implements InterestDAIF {
                             
                             SubCategory sbcat = resultSetInterpreter.getSubCategory(rs);
                             if (sbcat != null) {
-                                old.subCategories.addOldChild(sbcat);
+                                old.getSubCategories().addOldChild(sbcat);
                             }
                         }
                         Category e = resultSetInterpreter.getCategory(rs);
                         if (e != null) {
-                            old.categories.add(e);
+                            old.getCategories().add(e);
                         }
                         Group g = resultSetInterpreter.getGroup(rs);
                         if (g != null){
-                            old.groups.add(g);
+                            old.getGroups().add(g);
                         }
                         User u = resultSetInterpreter.getUser(rs);
                         if (u != null) {
-                            u.notify = rs.getInt("iusr_notify") == 1;
-                            old.users.addOldChild(u);
+                            u.setNotify(rs.getInt("iusr_notify") == 1);
+                            old.getUsers().addOldChild(u);
                         }
                     }
 

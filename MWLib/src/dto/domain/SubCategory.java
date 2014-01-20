@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class SubCategory extends PersistedDTO{
 
-    public String name;
-    public String description;
+    private String name;
+    private String description;
     
     //extrinsic
-    public Category category;
-    public int interestCount;
+    private Category category;
+    private int interestCount;
     public List<Interest> interests = new ArrayList<Interest>();
     
     public SubCategory(int ID) {
@@ -41,7 +41,7 @@ public class SubCategory extends PersistedDTO{
     }
     
     public int getInterestCount() {
-        return interestCount;
+        return interestCount > interests.size() ? interestCount : interests.size();
     }
     
     public List<Interest> getInterests(){
@@ -51,5 +51,21 @@ public class SubCategory extends PersistedDTO{
     @Override
     public String toString(){
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setInterestCount(int interestCount) {
+        this.interestCount = interestCount;
     }
 }

@@ -162,18 +162,18 @@ public class SubCategoryFXMLController implements Initializable, SessionAwareIF 
     
     private boolean checkInput(SubCategory input) {
 
-        if (input.name.isEmpty()) {
+        if (input.getName().isEmpty()) {
             Utils.showError("Name cannot be empty!", Client.getMainPageStage());
             return false;
         }
         
-        if (input.category == null) {
+        if (input.getCategory() == null) {
             Utils.showError("Must choose region!", Client.getMainPageStage());
             return false;
         }
         
         for (SubCategory cmp : data) {
-            if (cmp.name.equals(input.name)
+            if (cmp.getName().equals(input.getName())
                     && cmp.getID() != input.getID()) {
                 Utils.showError("The category exists.", Client.getMainPageStage());
                 return false;
@@ -226,12 +226,12 @@ public class SubCategoryFXMLController implements Initializable, SessionAwareIF 
             } else {
                 //set currentItem
                 currentItem = resItem;
-                descriptionArea.setText(currentItem.description);
+                descriptionArea.setText(currentItem.getDescription());
                 //show info
-                name.setText(currentItem.name);
+                name.setText(currentItem.getName());
                 for (Category cmp : choiceBoxCat.getItems()) {
                     //System.out.println(cmp.getID() + "|" + currentItem.region.getID());
-                    if (cmp.getID() == currentItem.category.getID()) {
+                    if (cmp.getID() == currentItem.getCategory().getID()) {
                         choiceBoxCat.setValue(cmp);
                         break;
                     }
@@ -253,9 +253,9 @@ public class SubCategoryFXMLController implements Initializable, SessionAwareIF 
         SubCategory subCategory = new SubCategory(id);
 
         //II: read data from input controls
-        subCategory.name = name.getText();
-        subCategory.category = choiceBoxCat.getValue();
-        subCategory.description = descriptionArea.getText();
+        subCategory.setName(name.getText());
+        subCategory.setCategory(choiceBoxCat.getValue());
+        subCategory.setDescription(descriptionArea.getText());
 
         //III: validate inputs
         if (false == checkInput(subCategory)) {

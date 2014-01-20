@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class Event extends Publication {
 
-    public String name;
-    public Date dateFrom;
-    public Date dateTo;
+    private String name;
+    private Date dateFrom;
+    private Date dateTo;
     //extrinsic
-    public List<User> users = new ArrayList<User>();
-    public List<Town> towns = new ArrayList<Town>();
+    private List<User> users = new ArrayList<User>();
+    private List<Town> towns = new ArrayList<Town>();
 
     public Event(int ID) {
         super(ID);
@@ -58,5 +58,17 @@ public class Event extends Publication {
     @Override
     public String toString(){
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDateFrom(Date dateFrom) {
+        this.dateFrom = dateFrom;
+    }
+
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
     }
 }

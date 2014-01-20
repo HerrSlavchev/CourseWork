@@ -5,11 +5,9 @@
  */
 package services.implementations;
 
-import com.sun.deploy.uitoolkit.impl.awt.OldPluginAWTUtil;
 import dao.CRUDHelper;
 import dao.DAOUtils;
 import dao.FilterUtils;
-import dao.BasicResultSetInterpreter;
 import dao.ResultSetInterpreterIF;
 import dto.Result;
 import dto.domain.Event;
@@ -58,7 +56,7 @@ public class RegionDAImpl implements RegionDAIF {
 
                     int count = 0;
                     for (Region r : ins) {
-                        stmt.setString(1, r.name);
+                        stmt.setString(1, r.getName());
                         stmt.addBatch();
                         count++;
 
@@ -106,7 +104,7 @@ public class RegionDAImpl implements RegionDAIF {
                     int count = 0;
                     stmt = conn.prepareStatement(update);
                     for (Region r : upd) {
-                        stmt.setString(1, r.name);
+                        stmt.setString(1, r.getName());
                         stmt.setInt(2, r.getID());
 
                         stmt.addBatch();
@@ -219,26 +217,23 @@ public class RegionDAImpl implements RegionDAIF {
                         Region curr = resultSetInterpreter.getRegion(rs);
                         Region old = map.get(curr.getID());
                         if (old == null) {
-                            curr.eventCount = rs.getInt("e_count");
-                            curr.townCount = rs.getInt("t_count");
-                            curr.userCount = rs.getInt("u_count");
+                            curr.setEventCount(rs.getInt("e_count"));
+                            curr.setTownCount(rs.getInt("t_count"));
+                            curr.setUserCount(rs.getInt("u_count"));
                             old = curr;
                             map.put(old.getID(), old);
                         }
                         Town t = resultSetInterpreter.getTown(rs);
                         if (t != null) {
-                            old.towns.add(t);
-                            old.townCount++;
+                            old.getTowns().add(t);
                         }
                         Event e = resultSetInterpreter.getEvent(rs);
                         if (e != null) {
-                            old.events.add(e);
-                            old.eventCount++;
+                            old.getEvents().add(e);
                         }
                         User u = resultSetInterpreter.getUser(rs);
                         if (u != null) {
-                            old.users.add(u);
-                            old.userCount++;
+                            old.getUsers().add(u);
                         }
                     }
                     

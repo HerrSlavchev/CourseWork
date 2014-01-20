@@ -5,17 +5,6 @@
  */
 package dto.filters;
 
-import dto.domain.Category;
-import dto.domain.Conversation;
-import dto.domain.Event;
-import dto.domain.Group;
-import dto.domain.Interest;
-import dto.domain.Message;
-import dto.domain.Publication;
-import dto.domain.Region;
-import dto.domain.SubCategory;
-import dto.domain.Town;
-import dto.domain.User;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

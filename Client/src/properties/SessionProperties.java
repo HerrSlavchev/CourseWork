@@ -39,11 +39,11 @@ public class SessionProperties {
     }
     
     public static boolean hasRole(Role role){
-        return (user != null && user.role.compareTo(role) == 0);
+        return (user != null && user.getRole().compareTo(role) == 0);
     }
     
     public static boolean isOwner(PersistedDTO dto){
-        User userIns = dto.userIns;
+        User userIns = dto.getUserIns();
         if (user == null || userIns == null){
             return false;
         }

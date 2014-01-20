@@ -6,11 +6,7 @@
 package controller;
 
 import dto.Result;
-import dto.domain.Event;
-import dto.domain.PersistedDTO;
 import dto.domain.Region;
-import dto.domain.Town;
-import dto.domain.User;
 import dto.filters.RegionFilter;
 import dto.rolemanagement.Role;
 import java.net.URL;
@@ -163,13 +159,13 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
     //run some checks to validate a prepared object
     private boolean checkInput(Region input) {
         for (Region cmp : data) {
-            if (cmp.name.equals(input.name) && cmp.getID() != input.getID()) {
+            if (cmp.getName().equals(input.getName()) && cmp.getID() != input.getID()) {
                 Utils.showError("A region with the specified name already exists!", Client.getMainPageStage());
                 return false;
             }
         }
         
-        if(input.name.isEmpty()){
+        if(input.getName().isEmpty()){
             Utils.showError("Name cannot be empty!", Client.getMainPageStage());
                 return false;
         }
@@ -228,11 +224,11 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
                 //set currentItem
                 currentItem = resItem;
                 //show info
-                name.setText(currentItem.name);
+                name.setText(currentItem.getName());
                 //extras
-                tCount.setText("" + currentItem.townCount);
-                uCount.setText("" + currentItem.userCount);
-                eCount.setText("" + currentItem.eventCount);
+                tCount.setText("" + currentItem.getTownCount());
+                uCount.setText("" + currentItem.getUserCount());
+                eCount.setText("" + currentItem.getEventCount());
                 prepareDetailsTable();
             }
         }
@@ -251,7 +247,7 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
         Region reg = new Region(id);
 
         //II: read data from input controls
-        reg.name = name.getText();
+        reg.setName(name.getText());
 
         //III: validate inputs
         if (false == checkInput(reg)) {
@@ -413,19 +409,19 @@ public class RegionFXMLController implements Initializable, SessionAwareIF {
 
         switch (detailsMode) {
             case DETAILS_TOWN:
-                detailsData.addAll(currentItem.towns);
+                detailsData.addAll(currentItem.getTowns());
                 colNames = colNamesTown;
                 fields = fieldsTown;
                 widths = widthsTown;
                 break;
             case DETAILS_USER:
-                detailsData.addAll(currentItem.users);
+                detailsData.addAll(currentItem.getUsers());
                 colNames = colNamesUser;
                 fields = fieldsUser;
                 widths = widthsUser;
                 break;
             case DETAILS_EVENT:
-                detailsData.addAll(currentItem.events);
+                detailsData.addAll(currentItem.getEvents());
                 colNames = colNamesEvent;
                 fields = fieldsEvent;
                 widths = widthsEvent;

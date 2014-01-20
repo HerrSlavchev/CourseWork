@@ -69,15 +69,15 @@ public class RegistrationFormFXMLController implements Initializable, SessionAwa
         User u = SessionProperties.user;
         if (u != null) {
             tmp = new User(u.getID(), u.getTimeIns(), u.getTimeUpd(), null);
-            tmp.role = u.role;
+            tmp.setRole(u.getRole());
         }
 
-        tmp.description = descriptionTF.getText();
-        tmp.eMail = eMailTF.getText();
-        tmp.password = confirmTF.getText();
-        tmp.fName = fNameTF.getText();
-        tmp.sName = sNameTF.getText();
-        tmp.lName = lNameTF.getText();
+        tmp.setDescription(descriptionTF.getText());
+        tmp.setE_Mail(eMailTF.getText());
+        tmp.setPassword(confirmTF.getText());
+        tmp.setFirstName(fNameTF.getText());
+        tmp.setSurName(sNameTF.getText());
+        tmp.setLastName(lNameTF.getText());
 
         return tmp;
     }
@@ -148,7 +148,7 @@ public class RegistrationFormFXMLController implements Initializable, SessionAwa
             }
         } else {
             User u = SessionProperties.user;
-            eMailTF.setText(u.eMail);
+            eMailTF.setText(u.getE_Mail());
             eMailTF.setEditable(false);
 
             passwordL.setVisible(false);
@@ -157,10 +157,10 @@ public class RegistrationFormFXMLController implements Initializable, SessionAwa
             confirmTF.setVisible(false);
 
             //confirmTF.setEditable(false);
-            fNameTF.setText(u.fName);
-            sNameTF.setText(u.sName);
-            lNameTF.setText(u.lName);
-            descriptionTF.setText(u.description);
+            fNameTF.setText(u.getFirstName());
+            sNameTF.setText(u.getSurName());
+            lNameTF.setText(u.getLastName());
+            descriptionTF.setText(u.getDescription());
             registerB.setVisible(false);
             editB.setVisible(true);
             mainPane.setVisible(true);

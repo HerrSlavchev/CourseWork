@@ -15,13 +15,13 @@ import java.util.List;
  */
 public class Publication extends PersistedDTO {
 
-    public String text;
+    private String text;
 
     //extrinsic
-    public List<Publication> children = new ArrayList<Publication>();
-    public Group group;
-    public Publication parentPublication;
-    public Event event;
+    private List<Publication> children = new ArrayList<Publication>();
+    private Group group;
+    private Publication parentPublication;
+    private Event event;
 
     public Publication(int ID) {
         super(ID);
@@ -63,5 +63,25 @@ public class Publication extends PersistedDTO {
             txt = text.substring(0, 17) + "...";
         }
         return txt;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setChildren(List<Publication> children) {
+        this.children = children;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public void setParentPublication(Publication parentPublication) {
+        this.parentPublication = parentPublication;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

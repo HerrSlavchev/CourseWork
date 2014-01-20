@@ -16,11 +16,11 @@ import java.util.List;
  */
 public class Conversation extends PersistedDTO{
 
-    public String topic;
-    
+    private String topic;
+
     //extrinsic
-    public List<User> users = new ArrayList<User>();
-    public List<Message> messages = new ArrayList<Message>();
+    private List<User> users = new ArrayList<User>();
+    private List<Message> messages = new ArrayList<Message>();
     
     public Conversation(int ID) {
         super(ID);
@@ -32,6 +32,10 @@ public class Conversation extends PersistedDTO{
     
     public Conversation(int ID, Timestamp timeIns, Timestamp timeUpd, User userIns, User userUpd) {
         super(ID, timeIns, timeUpd, userIns, userUpd);
+    }
+    
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
     
     public String getTopic(){

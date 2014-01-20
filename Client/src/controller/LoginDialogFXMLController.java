@@ -9,6 +9,7 @@ import dto.Result;
 import dto.domain.User;
 import view.Client;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,8 +49,8 @@ public class LoginDialogFXMLController implements Initializable {
         Throwable exc = null;
         try {
             User u = new User(0);
-            u.eMail = eMailTF.getText();
-            u.password = passwordTF.getText();
+            u.setE_Mail(eMailTF.getText());
+            u.setPassword(passwordTF.getText());
             NotifiableIF client = ServiceExposer.client;
             Result<User> res = stub.registerClient(client, u);
             if (res.getException() != null){

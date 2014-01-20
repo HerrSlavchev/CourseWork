@@ -14,14 +14,14 @@ import java.util.List;
  */
 public class Region extends PersistedDTO {
 
-    public String name;
+    private String name;
     //extrinsic
-    public int townCount;
-    public List<Town> towns = new ArrayList<Town>();
-    public int userCount;
-    public List<User> users = new ArrayList<User>();
-    public int eventCount;
-    public List<Event> events = new ArrayList<Event>();
+    private int townCount;
+    private List<Town> towns = new ArrayList<>();
+    private int userCount;
+    private List<User> users = new ArrayList<>();
+    private int eventCount;
+    private List<Event> events = new ArrayList<>();
 
     public Region(int ID) {
         super(ID);
@@ -36,7 +36,7 @@ public class Region extends PersistedDTO {
     }
 
     public int getTownCount() {
-        return townCount;
+        return townCount > towns.size() ? townCount : towns.size();
     }
 
     public List<User> getUsers() {
@@ -44,7 +44,7 @@ public class Region extends PersistedDTO {
     }
 
     public int getUserCount() {
-        return userCount;
+        return userCount > users.size() ? userCount : users.size();
     }
 
     public List<Event> getEvents() {
@@ -52,11 +52,28 @@ public class Region extends PersistedDTO {
     }
 
     public int getEventCount() {
-        return eventCount;
+        return eventCount > events.size() ? eventCount : events.size();
     }
     
     @Override
     public String toString(){
         return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTownCount(int townCount) {
+        this.townCount = townCount;
+    }
+
+    public void setUserCount(int userCount) {
+        this.userCount = userCount;
+    }
+
+    public void setEventCount(int eventCount) {
+        this.eventCount = eventCount;
+    }
+
 }

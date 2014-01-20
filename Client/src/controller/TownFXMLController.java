@@ -150,20 +150,20 @@ public class TownFXMLController implements Initializable, SessionAwareIF {
 
     private boolean checkInput(Town input) {
 
-        if (input.name.isEmpty()) {
+        if (input.getName().isEmpty()) {
             Utils.showError("Name cannot be empty!", Client.getMainPageStage());
             return false;
         }
 
-        if (input.region == null) {
+        if (input.getRegion() == null) {
             Utils.showError("Must choose region!", Client.getMainPageStage());
             return false;
         }
 
         for (Town cmp : data) {
-            if (cmp.name.equals(input.name)
+            if (cmp.getName().equals(input.getName())
                     && cmp.getID() != input.getID()
-                    && cmp.region.getID() == input.region.getID()) {
+                    && cmp.getRegion().getID() == input.getRegion().getID()) {
                 Utils.showError("A town with the specified name already exists in this region!", Client.getMainPageStage());
                 return false;
             }
@@ -216,10 +216,10 @@ public class TownFXMLController implements Initializable, SessionAwareIF {
                 //set currentItem
                 currentItem = resItem;
                 //show info
-                name.setText(currentItem.name);
+                name.setText(currentItem.getName());
                 for (Region cmp : choiceBoxReg.getItems()) {
                     //System.out.println(cmp.getID() + "|" + currentItem.region.getID());
-                    if (cmp.getID() == currentItem.region.getID()) {
+                    if (cmp.getID() == currentItem.getRegion().getID()) {
                         choiceBoxReg.setValue(cmp);
                         break;
                     }
@@ -241,8 +241,8 @@ public class TownFXMLController implements Initializable, SessionAwareIF {
         Town town = new Town(id);
 
         //II: read data from input controls
-        town.name = name.getText();
-        town.region = choiceBoxReg.getValue();
+        town.setName(name.getText());
+        town.setRegion(choiceBoxReg.getValue());
 
         //III: validate inputs
         if (false == checkInput(town)) {

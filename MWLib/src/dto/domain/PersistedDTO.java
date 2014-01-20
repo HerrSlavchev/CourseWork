@@ -27,8 +27,10 @@ public abstract class PersistedDTO implements Serializable {
     private Timestamp timeIns;
     private Timestamp timeUpd;
     
-    public  User userIns;
-    public User userUpd;
+    private  User userIns;
+    private User userUpd;
+    
+    private boolean modified = false;
     
     public PersistedDTO(int ID){
         this.ID = ID;
@@ -68,5 +70,19 @@ public abstract class PersistedDTO implements Serializable {
         return this.userUpd;
     }
     
-    public boolean modified = false;
+    public boolean isModified(){
+        return modified;
+    }
+    
+    public void setUserIns(User userIns) {
+        this.userIns = userIns;
+    }
+
+    public void setUserUpd(User userUpd) {
+        this.userUpd = userUpd;
+    }
+
+    public void setModified(boolean modified) {
+        this.modified = modified;
+    }
 }

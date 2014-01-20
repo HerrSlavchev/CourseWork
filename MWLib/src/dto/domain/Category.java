@@ -14,14 +14,14 @@ import java.util.List;
  */
 public class Category extends PersistedDTO {
 
-    public String name;
-    public String description;
+    private String name;
+    private String description;
 
     //extrinsic
-    public int subCategoryCount;
-    public List<SubCategory> subCategories = new ArrayList<SubCategory>();
-    public int interestCount;
-    public List<Interest> interests = new ArrayList<Interest>();
+    private int subCategoryCount;
+    private List<SubCategory> subCategories = new ArrayList<SubCategory>();
+    private int interestCount;
+    private List<Interest> interests = new ArrayList<Interest>();
 
     public Category(int ID) {
         super(ID);
@@ -49,6 +49,22 @@ public class Category extends PersistedDTO {
 
     public List<Interest> getInterests() {
         return interests;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSubCategoryCount(int subCategoryCount) {
+        this.subCategoryCount = subCategoryCount;
+    }
+
+    public void setInterestCount(int interestCount) {
+        this.interestCount = interestCount;
     }
     
     @Override

@@ -9,13 +9,11 @@ package services.implementations;
 import dao.CRUDHelper;
 import dao.DAOUtils;
 import dao.FilterUtils;
-import dao.BasicResultSetInterpreter;
 import dao.ResultSetInterpreterIF;
 import dto.Result;
 import dto.domain.Category;
 import dto.domain.Interest;
 import dto.domain.SubCategory;
-import dto.domain.User;
 import dto.filters.SubCategoryFilter;
 import dto.session.Session;
 import exceptions.ExceptionProcessor;
@@ -56,9 +54,9 @@ public class SubCategoryDAImpl implements SubCategoryDAIF{
 
                     int count = 0;
                     for (SubCategory sbc : ins) {
-                        stmt.setString(1, sbc.name);
-                        stmt.setInt(2, sbc.category.getID());
-                        stmt.setString(3, sbc.description);
+                        stmt.setString(1, sbc.getName());
+                        stmt.setInt(2, sbc.getCategory().getID());
+                        stmt.setString(3, sbc.getDescription());
                         stmt.addBatch();
                         count++;
 
@@ -108,9 +106,9 @@ public class SubCategoryDAImpl implements SubCategoryDAIF{
                     int count = 0;
                     stmt = conn.prepareStatement(update);
                     for (SubCategory sbc : upd) {
-                        stmt.setString(1, sbc.name);
-                        stmt.setInt(2, sbc.category.getID());
-                        stmt.setString(3, sbc.description);
+                        stmt.setString(1, sbc.getName());
+                        stmt.setInt(2, sbc.getCategory().getID());
+                        stmt.setString(3, sbc.getDescription());
                         stmt.setInt(4, sbc.getID());
 
                         stmt.addBatch();
@@ -189,13 +187,13 @@ public class SubCategoryDAImpl implements SubCategoryDAIF{
                         SubCategory curr = resultSetInterpreter.getSubCategory(rs);
                         SubCategory old = map.get(curr.getID());
                         if (old == null) {
-                            curr.interestCount = rs.getInt("intr_count");
+                            curr.setInterestCount(rs.getInt("intr_count"));
                             old = curr;
                             map.put(old.getID(), old);
                         }
                         Category cat = resultSetInterpreter.getCategory(rs);
                         if (cat != null) {
-                            old.category = cat;
+                            old.setCategory(cat);
                         }
                         Interest intr = resultSetInterpreter.getInterest(rs);
                         if (intr != null) {

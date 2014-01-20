@@ -113,7 +113,7 @@ public class ChildrenManager<E extends PersistedDTO>  implements Serializable{
     public List<E> getModifiedChildren(){
         List<E> modified = new ArrayList<>();
         for(E item : oldChildren){
-            if(item.modified){
+            if(item.isModified()){
                 modified.add(item);
             }
         }

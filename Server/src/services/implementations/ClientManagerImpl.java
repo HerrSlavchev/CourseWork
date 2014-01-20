@@ -44,7 +44,7 @@ public class ClientManagerImpl implements ClientManagerIF {
 
     private static PasswordManagerIF passwordManager = SecurityUtils.passwordManager;
     private static SessionCodeProviderIF sessionCodeProvider = SessionUtils.sessionCodeProvider;
-    
+
     private static Map<Integer, NotifiableIF> mapIDsToClients = new HashMap<Integer, NotifiableIF>();
     private static Map<String, Integer> mapCodesToIDs = new HashMap<String, Integer>();
 
@@ -52,20 +52,20 @@ public class ClientManagerImpl implements ClientManagerIF {
         return Collections.unmodifiableMap(mapIDsToClients);
     }
 
-    public static Integer getID(Session session){
+    public static Integer getID(Session session) {
         return mapCodesToIDs.get(session.getSessionCode());
     }
-    
-    private User login(User user) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, SQLException, Exception {
+
+    private User checkCredentials(User user) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, SQLException, Exception {
 
         User u = null;
 
-        String email = user.eMail;
-        String password = user.password;
+        String email = user.getE_Mail();
+        String password = user.getPassword();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         try {
             conn = ConnectionProvider.getConnection();
             String slct = "SELECT ID, password, salt, iterations FROM user WHERE e_mail = ?";
@@ -81,7 +81,7 @@ public class ClientManagerImpl implements ClientManagerIF {
                 Credentials creds = new Credentials(realPassword, realSalt, realIterations);
                 boolean valid = passwordManager.validatePassword(password, creds);
                 if (valid) {
-                    
+
                     slct = "select "
                             + "u.f_name, "
                             + "u.s_name, "
@@ -102,13 +102,13 @@ public class ClientManagerImpl implements ClientManagerIF {
                     Timestamp timeins = rs.getTimestamp("timeins");
                     Timestamp timeupd = rs.getTimestamp("timeupd");
                     u = new User(ID, timeins, timeupd, null);
-                    u.fName = rs.getString("f_name");
-                    u.sName = rs.getString("s_name");
-                    u.lName = rs.getString("l_name");
-                    u.eMail = rs.getString("e_mail");
-                    u.description = rs.getString("description");
+                    u.setFirstName(rs.getString("f_name"));
+                    u.setSurName(rs.getString("s_name"));
+                    u.setLastName(rs.getString("l_name"));
+                    u.setE_Mail(rs.getString("e_mail"));
+                    u.setDescription(rs.getString("description"));
                     int roleIdx = rs.getInt("role");
-                    u.role = Role.values()[roleIdx];
+                    u.setRole(Role.values()[roleIdx]);
                 } else {
                     throw new Exception("Password and e-mail do not match!");
                 }
@@ -121,64 +121,77 @@ public class ClientManagerImpl implements ClientManagerIF {
         return u;
     }
 
+    private boolean checkOldClient(int userID) {
+        return mapIDsToClients.containsKey(userID);
+    }
+
+    private void notifyOldClient(NotifiableIF oldCli) throws RemoteException {
+        Notification info = new Notification(0);
+        info.setTriggerType(TriggerType.LOGGED_FROM_ANOTHER_CLIENT);
+        List<Notification> news = new ArrayList();
+        news.add(info);
+        oldCli.acceptNotifications(news);
+    }
+
+    private void removeOldClient(NotifiableIF oldCli) throws RemoteException {
+        String oldSessionCode = oldCli.getSessionCode();
+        int userID = mapCodesToIDs.remove(oldSessionCode);
+        mapIDsToClients.remove(userID);
+        sessionCodeProvider.releaseSessionCode(oldSessionCode);
+    }
+    
+    private void enlistNewClient(int userID, NotifiableIF newCli) throws RemoteException {
+        String sessionCode = sessionCodeProvider.getSessionCode();
+        mapCodesToIDs.put(sessionCode, userID);
+        mapIDsToClients.put(userID, newCli);
+        newCli.setSessionCode(sessionCode);
+    }
+
     @Override
     public Result<User> registerClient(NotifiableIF cli, User user) throws RemoteException {
 
         List<User> lst = new ArrayList<>();
         User dbUser = null;
         Throwable exc = null;
-        
+
         try {
-            dbUser = login(user);
+            dbUser = checkCredentials(user);
             lst.add(dbUser);
         } catch (Exception e) {
             exc = ExceptionProcessor.processException(e);
         }
         Result res = new Result(lst, exc);
-        
+
         if (exc != null) {
             return res;
         }
-        
-        
+
         int userID = dbUser.getID();
-        
-        //if someone has logged with this user, kill his client and register this one
-        NotifiableIF old = mapIDsToClients.get(userID);
-        if (old != null) {
-            Notification info = new Notification(0);
-            info.triggerType = TriggerType.LOGGED_FROM_ANOTHER_CLIENT;
-            List<Notification> news = new ArrayList();
-            news.add(info);
-            old.acceptNotifications(news);
-            String oldSessionCode = old.getSessionCode();
-            mapCodesToIDs.remove(oldSessionCode);
-            mapIDsToClients.remove(userID);
-            sessionCodeProvider.releaseSessionCode(oldSessionCode);
+        if (checkOldClient(userID)) {
+            //if someone has logged with this user, kill his client and register this one
+            NotifiableIF oldCli = mapIDsToClients.get(userID);
+            notifyOldClient(oldCli);
+            removeOldClient(oldCli);
         }
         
-        
-        String sessionCode = sessionCodeProvider.getSessionCode();
-        mapCodesToIDs.put(sessionCode, userID);
-        mapIDsToClients.put(userID, cli);
-        cli.setSessionCode(sessionCode);
+        enlistNewClient(userID, cli);
         
         return res;
     }
 
     @Override
     public void removeClient(Session session) throws RemoteException {
-        
+
         String sessionCode = session.getSessionCode();
         Integer userID = mapCodesToIDs.remove(sessionCode);
-        if (userID == null){
+        if (userID == null) {
             return;
         }
         NotifiableIF cli = mapIDsToClients.remove(userID);
-        if (cli == null){
+        if (cli == null) {
             return;
         }
-        
+
         sessionCodeProvider.releaseSessionCode(sessionCode);
         cli.logout();
     }

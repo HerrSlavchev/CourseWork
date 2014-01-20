@@ -13,10 +13,10 @@ import java.sql.Timestamp;
  */
 public class Message extends PersistedDTO {
 
-    public String text;
+    private String text;
 
     //extrinsic
-    public Conversation conversation;
+    private Conversation conversation;
 
     public Message(int ID) {
         super(ID);
@@ -46,5 +46,13 @@ public class Message extends PersistedDTO {
             txt = text.substring(0, 17) + "...";
         }
         return txt;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
     }
 }

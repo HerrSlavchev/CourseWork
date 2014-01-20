@@ -15,12 +15,12 @@ import java.util.List;
  */
 public class Group extends PersistedDTO {
 
-    public String name;
-    public String description;
+    private String name;
+    private String description;
     //extrinsic
-    public Interest interest;
-    public List<Publication> publications = new ArrayList<Publication>();
-    public List<User> users = new ArrayList<User>();
+    private Interest interest;
+    private List<Publication> publications = new ArrayList<Publication>();
+    private List<User> users = new ArrayList<User>();
 
     public Group(int ID) {
         super(ID);
@@ -57,5 +57,17 @@ public class Group extends PersistedDTO {
     @Override
     public String toString(){
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setInterest(Interest interest) {
+        this.interest = interest;
     }
 }

@@ -18,8 +18,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -149,9 +147,9 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
 
     private void showCurrentItem() {
         refreshGUI();
-        name.setText(currentItem.name);
-        descriptionArea.setText(currentItem.description);
-        chm = new ChildrenManager<>(currentItem.subCategories.getOldChildren());
+        name.setText(currentItem.getName());
+        descriptionArea.setText(currentItem.getDescription());
+        chm = new ChildrenManager<>(currentItem.getSubCategories().getOldChildren());
 
         showSubCategories();
         
@@ -181,7 +179,7 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
                 });
                 hb.getChildren().add(b);
             }
-            Label l = new Label(child.name);
+            Label l = new Label(child.getName());
             hb.getChildren().add(l);
             vboxSubCategories.getChildren().add(hb);
         }
@@ -220,12 +218,12 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
 
     private boolean checkInput(Interest input) {
 
-        if (input.name.isEmpty()) {
+        if (input.getName().isEmpty()) {
             Utils.showError("Name cannot be empty!", Client.getMainPageStage());
             return false;
         }
 
-        if (input.subCategories.getCurrentChildren().isEmpty()) {
+        if (input.getSubCategories().getCurrentChildren().isEmpty()) {
             Utils.showError("There must be atleast one subcategory!", Client.getMainPageStage());
             return false;
         }
@@ -246,10 +244,10 @@ public class InterestFXMLController implements Initializable, SessionAwareIF {
         Interest intr = new Interest(id, null, timeupd);
 
         //II: read data from input controls
-        intr.name = name.getText();
-        intr.description = descriptionArea.getText();
-        intr.subCategories = chm;
-
+        intr.setName(name.getText());
+        intr.setDescription(descriptionArea.getText());
+        intr.setSubCategories(chm);
+        
         //III: validate inputs
         if (false == checkInput(intr)) {
             return null;

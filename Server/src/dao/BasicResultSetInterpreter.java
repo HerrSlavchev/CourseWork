@@ -37,8 +37,10 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
             return null;
         }
         cat = new Category(id);
-        cat.name = rs.getString(tbl + "_name");
-        cat.description = safeStr(rs, tbl + "_description");
+        String name = rs.getString(tbl + "_name");
+        String description = safeStr(rs, tbl + "_description");
+        cat.setName(name);
+        cat.setDescription(description);
         return cat;
     }
 
@@ -52,7 +54,8 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
         Timestamp timeupd = rs.getTimestamp(tbl + "_timeupd");
         con = new Conversation(id, timeins, timeupd);
-        con.topic = rs.getString(tbl + "_topic");
+        String topic = rs.getString(tbl + "_topic");
+        con.setTopic(topic);
         return con;
     }
 
@@ -66,10 +69,10 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
         Timestamp timeupd = rs.getTimestamp(tbl + "_timeupd");
         e = new Event(id, timeins, timeupd);
-        e.name = rs.getString(tbl + "_name");
-        e.dateFrom = rs.getDate(tbl + "_datefrom");
-        e.dateTo = rs.getDate(tbl + "_dateto");
-        e.text = safeStr(rs, tbl + "_text");
+        e.setName(rs.getString(tbl + "_name"));
+        e.setDateFrom(rs.getDate(tbl + "_datefrom"));
+        e.setDateTo(rs.getDate(tbl + "_dateto"));
+        e.setText(safeStr(rs, tbl + "_text"));
 
         return e;
     }
@@ -84,8 +87,8 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
         Timestamp timeupd = rs.getTimestamp(tbl + "_timeupd");
         ig = new Group(id, timeins, timeupd);
-        ig.description = safeStr(rs, tbl + "_description");
-        ig.name = rs.getString(tbl + "_name");
+        ig.setDescription(safeStr(rs, tbl + "_description"));
+        ig.setName(rs.getString(tbl + "_name"));
         return ig;
     }
 
@@ -99,8 +102,8 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
         Timestamp timeupd = rs.getTimestamp(tbl + "_timeupd");
         i = new Interest(id, timeins, timeupd);
-        i.description = safeStr(rs, tbl + "_description");
-        i.name = rs.getString(tbl + "_name");
+        i.setDescription(safeStr(rs, tbl + "_description"));
+        i.setName(rs.getString(tbl + "_name"));
         return i;
     }
 
@@ -114,7 +117,7 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
         Timestamp timeupd = rs.getTimestamp(tbl + "_timeupd");
         m = new Message(id, timeins, timeupd);
-        m.text = safeStr(rs, tbl + "_text");
+        m.setText(safeStr(rs, tbl + "_text"));
         return m;
     }
 
@@ -128,7 +131,7 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
         Timestamp timeins = safeTimestamp(rs, tbl + "_timeins");
         Timestamp timeupd = rs.getTimestamp(tbl + "_timeupd");
         p = new Publication(id, timeins, timeupd);
-        p.text = safeStr(rs, tbl + "_text");
+        p.setText(safeStr(rs, tbl + "_text"));
 
         return p;
     }
@@ -141,7 +144,7 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
             return null;
         }
         r = new Region(id);
-        r.name = rs.getString(tbl + "_name");
+        r.setName(rs.getString(tbl + "_name"));
 
         return r;
     }
@@ -154,8 +157,8 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
             return null;
         }
         s = new SubCategory(id);
-        s.description = safeStr(rs, tbl + "_description");
-        s.name = rs.getString(tbl + "_name");
+        s.setDescription(safeStr(rs, tbl + "_description"));
+        s.setName(rs.getString(tbl + "_name"));
 
         return s;
     }
@@ -168,7 +171,7 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
             return null;
         }
         t = new Town(id);
-        t.name = rs.getString(tbl + "_name");
+        t.setName(rs.getString(tbl + "_name"));
 
         return t;
     }
@@ -184,8 +187,8 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
         Timestamp timeupd = rs.getTimestamp(tbl + "_timeupd");
         u = new User(id, timeins, timeupd);
         
-        u.fName = rs.getString(tbl + "_f_name");
-        u.lName = rs.getString(tbl + "_l_name");
+        u.setFirstName(rs.getString(tbl + "_f_name"));
+        u.setLastName(rs.getString(tbl + "_l_name"));
         
         return u;
     }
@@ -199,8 +202,8 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
         }
         
         u = new User(id);
-        u.fName = safeStr(rs, tbl + "_f_name");
-        u.lName = safeStr(rs, tbl + "_l_name");
+        u.setFirstName(safeStr(rs, tbl + "_f_name"));
+        u.setLastName(safeStr(rs, tbl + "_l_name"));
         
         return u;
     }
@@ -214,8 +217,8 @@ public class BasicResultSetInterpreter implements ResultSetInterpreterIF{
         }
         
         u = new User(id);
-        u.fName = safeStr(rs, tbl + "_f_name");
-        u.lName = safeStr(rs, tbl + "_l_name");
+        u.setFirstName(safeStr(rs, tbl + "_f_name"));
+        u.setLastName(safeStr(rs, tbl + "_l_name"));
         
         return u;
     }

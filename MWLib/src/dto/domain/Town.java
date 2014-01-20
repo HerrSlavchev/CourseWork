@@ -14,14 +14,14 @@ import java.util.List;
  */
 public class Town extends PersistedDTO {
 
-    public String name;
+    private String name;
     
     //extrinsic
-    public Region region;
-    public int userCount;
-    public List<User> users = new ArrayList<User>();
-    public int eventCount;
-    public List<Event> events = new ArrayList<Event>();
+    private Region region;
+    private int userCount;
+    public List<User> users = new ArrayList<>();
+    private int eventCount;
+    public List<Event> events = new ArrayList<>();
     
     
     public Town(int ID) {
@@ -45,15 +45,31 @@ public class Town extends PersistedDTO {
     }
     
     public int getUserCount() {
-        return userCount;
+        return userCount > users.size() ? userCount : users.size();
     }
     
     public int getEventCount() {
-        return eventCount;
+        return eventCount > events.size() ? eventCount : events.size();
     }
     
     @Override
     public String toString(){
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public void setUserCount(int userCount) {
+        this.userCount = userCount;
+    }
+
+    public void setEventCount(int eventCount) {
+        this.eventCount = eventCount;
     }
 }

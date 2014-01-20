@@ -67,13 +67,13 @@ public class UserDAImpl implements UserDAIF {
 
                     int count = 0;
                     for (User u : ins) {
-                        stmt.setString(1, u.fName);
-                        stmt.setString(2, u.sName);
-                        stmt.setString(3, u.lName);
-                        stmt.setString(4, u.eMail);
-                        stmt.setString(5, u.description);
+                        stmt.setString(1, u.getFirstName());
+                        stmt.setString(2, u.getSurName());
+                        stmt.setString(3, u.getLastName());
+                        stmt.setString(4, u.getE_Mail());
+                        stmt.setString(5, u.getDescription());
 
-                        String password = u.password;
+                        String password = u.getPassword();
                         Credentials creds = passwordManager.createCredentials(password);
 
                         String hashedPass = creds.getEncodedHashedPassword();
@@ -141,11 +141,11 @@ public class UserDAImpl implements UserDAIF {
                     int count = 0;
                     stmt = conn.prepareStatement(updateUserExt);
                     for (User u : upd) {
-                        stmt.setString(1, u.fName);
-                        stmt.setString(2, u.sName);
-                        stmt.setString(3, u.lName);
-                        stmt.setInt(4, u.role.ordinal());
-                        stmt.setString(5, u.description);
+                        stmt.setString(1, u.getFirstName());
+                        stmt.setString(2, u.getSurName());
+                        stmt.setString(3, u.getLastName());
+                        stmt.setInt(4, u.getRole().ordinal());
+                        stmt.setString(5, u.getDescription());
                         stmt.setInt(6, u.getID());
                         stmt.setTimestamp(7, u.getTimeUpd());
 
@@ -258,12 +258,12 @@ public class UserDAImpl implements UserDAIF {
                         User curr = resultSetInterpreter.getUser(rs);
                         User old = map.get(curr.getID());
                         if (old == null) {
-                            curr.userIns = resultSetInterpreter.getUserIns(rs);
-                            curr.userUpd = resultSetInterpreter.getUserUpd(rs);
+                            curr.setUserIns(resultSetInterpreter.getUserIns(rs));
+                            curr.setUserUpd(resultSetInterpreter.getUserUpd(rs));
                             if (filter.deepFetch) {
-                                curr.description = rs.getString("usr_description");
-                                curr.sName = rs.getString("usr_s_name");
-                                curr.role = Role.values()[rs.getInt("usr_role")];
+                                curr.setDescription(rs.getString("usr_description"));
+                                curr.setSurName(rs.getString("usr_s_name"));
+                                curr.setRole(Role.values()[rs.getInt("usr_role")]);
                             }
                             old = curr;
                             map.put(old.getID(), old);
@@ -271,31 +271,31 @@ public class UserDAImpl implements UserDAIF {
                         if (filter.fetchTowns) {
                             Town twn = resultSetInterpreter.getTown(rs);
                             if (twn != null) {
-                                old.towns.addOldChild(twn);
+                                old.getTowns().addOldChild(twn);
                             }
                         }
                         if (filter.fetchInterests) {
                             Interest intr = resultSetInterpreter.getInterest(rs);
                             if (intr != null) {
-                                old.interests.add(intr);
+                                old.getInterests().add(intr);
                             }
                         }
                         if (filter.fetchConversations) {
                             Conversation conv = resultSetInterpreter.getConversation(rs);
                             if (conv != null) {
-                                old.conversations.add(conv);
+                                old.getConversations().add(conv);
                             }
                         }
                         if (filter.fetchGroups) {
                             Group g = resultSetInterpreter.getGroup(rs);
                             if (g != null) {
-                                old.groups.add(g);
+                                old.getGroups().add(g);
                             }
                         }
                         if (filter.fetchEvents) {
                             Event evt = resultSetInterpreter.getEvent(rs);
                             if (evt != null) {
-                                old.events.add(evt);
+                                old.getEvents().add(evt);
                             }
                         }
                     }

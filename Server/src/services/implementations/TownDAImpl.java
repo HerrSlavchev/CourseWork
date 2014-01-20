@@ -8,7 +8,6 @@ package services.implementations;
 import dao.CRUDHelper;
 import dao.DAOUtils;
 import dao.FilterUtils;
-import dao.BasicResultSetInterpreter;
 import dao.ResultSetInterpreterIF;
 import dto.Result;
 import dto.domain.Event;
@@ -55,8 +54,8 @@ public class TownDAImpl implements TownDAIF {
 
                     int count = 0;
                     for (Town twn : ins) {
-                        stmt.setString(1, twn.name);
-                        stmt.setInt(2, twn.region.getID());
+                        stmt.setString(1, twn.getName());
+                        stmt.setInt(2, twn.getRegion().getID());
                         stmt.addBatch();
                         count++;
 
@@ -105,8 +104,8 @@ public class TownDAImpl implements TownDAIF {
                     int count = 0;
                     stmt = conn.prepareStatement(update);
                     for (Town twn : upd) {
-                        stmt.setString(1, twn.name);
-                        stmt.setInt(2, twn.region.getID());
+                        stmt.setString(1, twn.getName());
+                        stmt.setInt(2, twn.getRegion().getID());
                         stmt.setInt(3, twn.getID());
 
                         stmt.addBatch();
@@ -191,14 +190,14 @@ public class TownDAImpl implements TownDAIF {
                         Town curr = resultSetInterpreter.getTown(rs);
                         Town old = map.get(curr.getID());
                         if (old == null) {
-                            curr.eventCount = rs.getInt("e_count");
-                            curr.userCount = rs.getInt("u_count");
+                            curr.setEventCount(rs.getInt("e_count"));
+                            curr.setUserCount(rs.getInt("u_count"));
                             old = curr;
                             map.put(old.getID(), old);
                         }
                         Region reg = resultSetInterpreter.getRegion(rs);
                         if (reg != null) {
-                            old.region = reg;
+                            old.setRegion(reg);
                         }
                         Event e = resultSetInterpreter.getEvent(rs);
                         if (e != null) {
