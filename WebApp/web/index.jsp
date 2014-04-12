@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : index
     Created on : Apr 13, 2014, 12:31:19 AM
@@ -13,5 +14,8 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <br>
+        <c:forEach var="var" items="books">
+        </c:forEach>
     </body>
 </html>
