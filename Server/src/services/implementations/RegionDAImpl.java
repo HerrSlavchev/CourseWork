@@ -35,6 +35,20 @@ public class RegionDAImpl implements RegionDAIF {
 
     private ResultSetInterpreterIF resultSetInterpreter = DAOUtils.resultSetInterpreter;
     
+    private RegionDAImpl(){
+        
+    }
+    
+    private static RegionDAImpl instance;
+    
+    public static RegionDAImpl getInstance(){
+        if (instance == null){
+            instance = new RegionDAImpl();
+        }
+        return instance;
+    }
+    
+    
     @Override
     public Result<Region> insertRegion(final List<Region> ins, Session session) throws RemoteException {
 

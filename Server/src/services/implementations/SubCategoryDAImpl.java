@@ -35,6 +35,20 @@ public class SubCategoryDAImpl implements SubCategoryDAIF{
 
     private ResultSetInterpreterIF resultSetInterpreter = DAOUtils.resultSetInterpreter;
     
+    private SubCategoryDAImpl(){
+        
+    }
+    
+    private static SubCategoryDAImpl instance;
+    
+    public static SubCategoryDAImpl getInstance(){
+        if (instance == null){
+            instance = new SubCategoryDAImpl();
+        }
+        return instance;
+    }
+    
+    
     @Override
     public Result<SubCategory> insertSubCategory(final List<SubCategory> ins, Session session) throws RemoteException {
         List<SubCategory> lst = new ArrayList<SubCategory>();

@@ -37,6 +37,20 @@ public class InterestDAImpl implements InterestDAIF {
 
     private ResultSetInterpreterIF resultSetInterpreter = DAOUtils.resultSetInterpreter;
     
+    private InterestDAImpl(){
+        
+    }
+    
+    private static InterestDAImpl instance;
+    
+    public static InterestDAImpl getInstance(){
+        if (instance == null){
+            instance = new InterestDAImpl();
+        }
+        return instance;
+    }
+    
+    
     @Override
     public Result<Interest> insertInterest(final List<Interest> ins, Session session) throws RemoteException {
         final List<Category> lst = new ArrayList<>();

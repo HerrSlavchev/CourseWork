@@ -37,6 +37,19 @@ public class CategoryDAImpl implements CategoryDAIF{
 
     private ResultSetInterpreterIF resultSetInterpreter = DAOUtils.resultSetInterpreter;
     
+    private CategoryDAImpl(){
+        
+    }
+    
+    private static CategoryDAImpl instance;
+    
+    public static CategoryDAImpl getInstance(){
+        if (instance == null){
+            instance = new CategoryDAImpl();
+        }
+        return instance;
+    }
+    
     @Override
     public Result<Category> insertCategory(final List<Category> ins, Session session) throws RemoteException {
         

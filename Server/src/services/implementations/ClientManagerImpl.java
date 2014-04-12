@@ -52,6 +52,20 @@ public class ClientManagerImpl implements ClientManagerIF {
         return Collections.unmodifiableMap(mapIDsToClients);
     }
 
+    private ClientManagerImpl(){
+        
+    }
+    
+    private static ClientManagerImpl instance;
+    
+    public static ClientManagerImpl getInstance(){
+        if (instance == null){
+            instance = new ClientManagerImpl();
+        }
+        return instance;
+    }
+    
+    
     public static Integer getID(Session session) {
         return mapCodesToIDs.get(session.getSessionCode());
     }
@@ -153,7 +167,7 @@ public class ClientManagerImpl implements ClientManagerIF {
         List<User> lst = new ArrayList<>();
         User dbUser = null;
         Throwable exc = null;
-
+        
         try {
             dbUser = checkCredentials(user);
             lst.add(dbUser);

@@ -35,6 +35,20 @@ public class TownDAImpl implements TownDAIF {
 
     private ResultSetInterpreterIF resultSetInterpreter = DAOUtils.resultSetInterpreter;
     
+    private TownDAImpl(){
+        
+    }
+    
+    private static TownDAImpl instance;
+    
+    public static TownDAImpl getInstance(){
+        if (instance == null){
+            instance = new TownDAImpl();
+        }
+        return instance;
+    }
+    
+    
     @Override
     public Result<Town> insertTown(final List<Town> ins, Session session) throws RemoteException {
         List<Town> lst = new ArrayList<Town>();

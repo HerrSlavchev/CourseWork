@@ -43,13 +43,13 @@ public class ServiceExposer {
         
         registry = LocateRegistry.createRegistry(BindingConsts.port);
 
-        register(new ClientManagerImpl(), BindingConsts.CLIENT_MANAGER);
-        register(new UserDAImpl(), BindingConsts.USER_DA);
-        register(new RegionDAImpl(), BindingConsts.REGION_DA);
-        register(new TownDAImpl(), BindingConsts.TOWN_DA);
-        register(new CategoryDAImpl(), BindingConsts.CATEGORY_DA);
-        register(new SubCategoryDAImpl(), BindingConsts.SUBCATEGORY_DA);
-        register(new InterestDAImpl(), BindingConsts.INTEREST_DA);
+        register( ClientManagerImpl.getInstance(), BindingConsts.CLIENT_MANAGER);
+        register( UserDAImpl.getInstance(), BindingConsts.USER_DA);
+        register( RegionDAImpl.getInstance(), BindingConsts.REGION_DA);
+        register( TownDAImpl.getInstance(), BindingConsts.TOWN_DA);
+        register( CategoryDAImpl.getInstance(), BindingConsts.CATEGORY_DA);
+        register( SubCategoryDAImpl.getInstance(), BindingConsts.SUBCATEGORY_DA);
+        register( InterestDAImpl.getInstance(), BindingConsts.INTEREST_DA);
         /*
         RegionDAIF regionsIF = new RegionDAImpl(); 
         RegionDAIF regionsStub = (RegionDAIF) UnicastRemoteObject.exportObject(regionsIF, 0); 

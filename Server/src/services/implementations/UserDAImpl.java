@@ -43,6 +43,20 @@ public class UserDAImpl implements UserDAIF {
     private static final PasswordManagerIF passwordManager = SecurityUtils.passwordManager;
     private ResultSetInterpreterIF resultSetInterpreter = DAOUtils.resultSetInterpreter;
 
+    private UserDAImpl(){
+        
+    }
+    
+    private static UserDAImpl instance;
+    
+    public static UserDAImpl getInstance(){
+        if (instance == null){
+            instance = new UserDAImpl();
+        }
+        return instance;
+    }
+    
+    
     @Override
     public Result<User> insertUser(final List<User> ins, Session session) throws RemoteException {
 
