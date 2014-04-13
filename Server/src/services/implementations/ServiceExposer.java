@@ -35,6 +35,7 @@ public class ServiceExposer {
         registry.bind(key, stub);
     }
     
+    
     public static void exposeAll() throws Exception {
         
         if (done) { //bootstrap only once

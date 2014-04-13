@@ -22,6 +22,16 @@ public class ConnectionProvider {
 
     private static boolean initiated = false;
 
+    static {
+        try {
+        init();
+        } catch (IOException eIO){
+            eIO.printStackTrace();
+        } catch (PropertyVetoException ePV){
+            ePV.printStackTrace();
+        }
+    }
+    
     public static void init() throws PropertyVetoException, IOException {
         if (initiated) {
             return;
