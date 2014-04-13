@@ -184,8 +184,8 @@ public class ClientManagerImpl implements ClientManagerIF {
         if (checkOldClient(userID)) {
             //if someone has logged with this user, kill his client and register this one
             NotifiableIF oldCli = mapIDsToClients.get(userID);
-            notifyOldClient(oldCli);
             removeOldClient(oldCli);
+            notifyOldClient(oldCli);
         }
         
         enlistNewClient(userID, cli);
