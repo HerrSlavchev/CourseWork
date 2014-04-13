@@ -15,7 +15,12 @@
     <body>
         <h1>Hello World!</h1>
         <br>
-        <c:forEach var="var" items="books">
-        </c:forEach>
+        <form action="LoginServlet" method="POST">
+            E-mail: <input type="text" name="eMail" value="" /> <br>
+            Password: <input type="password" name="password" value="" /> <br>
+            <input type="submit" value="Login" /> 
+        </form>
+        <br>
+        <input type="button" value="Register" action="RegisterServlet"/>
     </body>
 </html>
