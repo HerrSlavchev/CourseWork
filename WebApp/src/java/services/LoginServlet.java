@@ -9,7 +9,7 @@ package services;
 import dto.Result;
 import dto.domain.User;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.rmi.RemoteException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import services.client.NotifiableIF;
 import services.implementations.ClientManagerImpl;
-import services.implementations.ServiceExposer;
 import services.server.ClientManagerIF;
 import webdao.NotifiableImpl;
 
@@ -59,8 +58,8 @@ public class LoginServlet extends HttpServlet {
             } else {
                 user = res.getResult().get(0);
             }
-        } catch (Exception e){
-            exc = e;
+        } catch (RemoteException eR){
+            exc = eR;
         }
         
         if(exc != null) {

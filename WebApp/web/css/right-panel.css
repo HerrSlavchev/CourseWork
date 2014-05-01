@@ -1,83 +1,83 @@
-		h1 {
-			margin-bottom: 100px;
-		}
-		form {
-			margin-left: 30px;
-		}
-		.label {
-			width: 100px;
-			//background: #F00;
-			float: left;
-		}
-		.textField1 {
-			//float: left;
-		}
-		textarea {
-			//background: #F0F;
-			width: 250px;
-			height: 200px;
-		}
-		#emailInfo {
-			margin-bottom: 40px;
-		}
-		#description {
-			margin-bottom: 40px;
-		}
-		#names {
-			margin-bottom: 40px;
-		}
+h1 {
+    margin-bottom: 100px;
+}
+form {
+    margin-left: 30px;
+}
+.label {
+    width: 100px;
+    //background: #F00;
+    float: left;
+}
+.textField1 {
+    //float: left;
+}
+textarea {
+    //background: #F0F;
+    width: 250px;
+    height: 200px;
+}
+#emailInfo {
+    margin-bottom: 40px;
+}
+#description {
+    margin-bottom: 40px;
+}
+#names {
+    margin-bottom: 40px;
+}
 
-		#clearButton {
-			margin-left: 40px;
-		}
-		#password {
-			margin-bottom: 40px;
-		}
-		
-				#subcategories {
-			margin-bottom: 40px;
-		}
-		
-		#subc {
-			margin-right: 10px;
-			width: 250px;
-			height: 200px;
-			background: #808080;
-			opacity: 0.5;
-			color: #fff;
-			border: 2px solid #000;
-			float: left;
-			overflow-y: scroll;
-		}
-		
+#clearButton {
+    margin-left: 40px;
+}
+#password {
+    margin-bottom: 40px;
+}
+
+#subcategories {
+    margin-bottom: 40px;
+}
+
+#subc {
+    margin-right: 10px;
+    width: 250px;
+    height: 200px;
+    background: #808080;
+    opacity: 0.5;
+    color: #fff;
+    border: 2px solid #000;
+    float: left;
+    overflow-y: scroll;
+}
+
 .interest {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 .interest img{
-	margin-right:5px;
-	float: left;
+    margin-right:5px;
+    float: left;
 }
 
 #buttons {
-	margin-top: 150px;
+    margin-top: 150px;
 }
 
-		select {
-			margin-left: 2px;
-			width: 153px;
-		}
-		
-		#town1 {
-			margin-bottom: 15px;
-		}
-		
-		#user1 {
-			margin-bottom: 15px;
-		}
-		
-		#counts {
-			margin-bottom: 50px;
-		}
+select {
+    margin-left: 2px;
+    width: 153px;
+}
+
+#town1 {
+    margin-bottom: 15px;
+}
+
+#user1 {
+    margin-bottom: 15px;
+}
+
+#counts {
+    margin-bottom: 50px;
+}
 
 
 

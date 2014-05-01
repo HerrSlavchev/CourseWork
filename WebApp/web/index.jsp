@@ -11,6 +11,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>IntSN</title>
         <link href="css/ddmenu.css" rel="stylesheet" type="text/css" />
+        <link rel='stylesheet' type='text/css' href='css/right-panel.css' />
+        <link rel='stylesheet' type='text/css' href='css/cool-button.css' />
         <script src="scripts/ddmenu.js" type="text/javascript"></script>
         <script src="scripts/mainpage.js" type="text/javascript"></script>
     </head>
