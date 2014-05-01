@@ -1,0 +1,66 @@
+		#tableView1 {
+			width: 740px;
+			height: 600px;
+			border: 2px solid #000;
+			border-radius: 5px;
+			background-color:#EFFFFF;
+		}
+		
+		.topPanel1 {
+			width: 100%;
+			height: 30px;
+			background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CCFFFF), color-stop(1, #66FFFF) );
+			background:-moz-linear-gradient( center top, #CCFFFF 5%, #66FFFF 100% );
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCFFFF', endColorstr='#66FFFF');
+			background-color:#CCFFFF;
+			border-bottom: 2px solid #000;
+		}
+		
+		.topPanel1 .text {
+			color: #000;
+			font-family: sans-serif;
+			text-align: center;
+			margin-top: 3px;
+			font-weight: bold;
+		}
+		
+		.mainPanel1 {
+			width: 100%;
+			height: 568px;
+			overflow-y: scroll;
+		}
+		
+		.mainRow {
+			border-bottom: 1px solid #000;
+			height: 40px;
+		}
+		
+		.mainRow:nth-child(even) {
+			background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #AAFFAA), color-stop(1, #AAFFCC) );
+			background:-moz-linear-gradient( center top, #AAFFAA 5%, #AAFFCC 100% );
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#AAFFAA', endColorstr='#AAFFCC');
+			background-color:#AAFFAA;
+		}
+		
+		.mainRow:nth-child(odd) {
+			background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #EFFFFF), color-stop(1, #DDFFFF) );
+			background:-moz-linear-gradient( center top, #EFFFFF 5%, #DDFFFF 100% );
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#EFFFFF', endColorstr='#DDFFFF');
+			background-color:#EFFFFF;
+		}
+		
+		.mainPanel1 .text {
+			color: #000;
+			padding-top: 5px;
+			padding-left: 5px;
+			font-family: Arial;
+			font-size: 16px;
+		}
+		
+		.mainRow:hover {
+			background: #f00;
+		}
+		
+		.mainRow:active {
+			background: #00f;
+		}

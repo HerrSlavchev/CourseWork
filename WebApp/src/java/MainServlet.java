@@ -4,32 +4,29 @@
  * and open the template in the editor.
  */
 
-package services;
-
-import dto.Result;
-import dto.domain.Region;
-import dto.filters.RegionFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import services.implementations.RegionDAImpl;
-import services.server.RegionDAIF;
 
 /**
  *
  * @author root
  */
-@WebServlet(name = "TestServlet", urlPatterns = {"/TestServlet"})
-public class TestServlet extends HttpServlet {
-
-    private RegionDAIF regionDAIF = RegionDAImpl.getInstance();
+@WebServlet(urlPatterns = {"/MainServlet"})
+public class MainServlet extends HttpServlet {
     
-
+    private ServletContext servletContext;
+    @Override
+    public void init(ServletConfig config){
+        this.servletContext = config.getServletContext();
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -43,17 +40,14 @@ public class TestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        RegionFilter rf = new RegionFilter();
-        Result<Region> result = regionDAIF.fetchRegions(rf);
-        Throwable exc = result.getException();
-        if (exc != null){
-            String errorMsg = exc.getMessage();
-            request.setAttribute("errorMsg", errorMsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+        String action = request.getParameter("action");
+        if (action == null){
+            return;
+        }
+        if (action.equals("login")){
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            List<Region> regions = result.getResult();
-            request.setAttribute("regions", regions);
-            request.getRequestDispatcher("testjsp.jsp").forward(request, response);
+            
         }
     }
 
@@ -68,8 +62,7 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        doGet(request, response);
+       // processRequest(request, response);
     }
 
     /**

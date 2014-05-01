@@ -1,0 +1,34 @@
+		.firstRow {
+			height: 100%;
+			width: 349px;
+			float: left;
+			border-right: 1px solid #000;
+			overflow-x: hidden;
+		}
+		
+		.secondtRow {
+			height: 100%;
+			width: 129px;
+			float: left;
+			border-right: 1px solid #000;
+			overflow-x: hidden;
+		}
+		
+		.thirdRow {
+			height: 100%;
+			width: 129px;
+			float: left;
+			border-right: 1px solid #000;
+			overflow-x: hidden;
+		}
+		
+		.forthRow {
+			height: 100%;
+			width: 130px;
+			float: left;
+			overflow-x: hidden;
+		}
+		
+		.mainRow .forthRow {
+			width: 111px;
+		}

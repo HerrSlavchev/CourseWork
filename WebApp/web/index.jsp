@@ -1,7 +1,6 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : index
-    Created on : Apr 13, 2014, 12:31:19 AM
+    Created on : Apr 13, 2014, 5:07:31 PM
     Author     : root
 --%>
 
@@ -10,17 +9,36 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>IntSN</title>
+        <link href="css/ddmenu.css" rel="stylesheet" type="text/css" />
+        <script src="scripts/ddmenu.js" type="text/javascript"></script>
+        <script src="scripts/mainpage.js" type="text/javascript"></script>
     </head>
-    <body>
-        <h1>Hello World!</h1>
+    <body onload="init()" style="padding:10px 10px;">
+        
+        <nav id="ddmenu">
+            <ul>
+                <li>Me
+                    <div>
+                        <div class="column">
+                            <a id="login">Login</a>
+                            <a id="register">Register</a>
+                            <a id="profile">Show profile</a>
+                            <a id="logout">Logout</a>
+                        </div>
+                    </div>
+                </li>
+                <li><a id="interests">Interests</a></li>
+                <li><a id="groups">Groups</a></li>
+                <li><a id="events">Events</a></li>
+                <li><a id="users">Users</a></li>
+                <li><a id="categories">Categories</a></li>
+                <li><a id="subcategories">Subcategories</a></li>
+                <li><a id="regions">Regions</a></li>
+                <li><a id="towns">Towns</a></li>
+            </ul>
+        </nav>
         <br>
-        <form action="LoginServlet" method="POST">
-            E-mail: <input type="text" name="eMail" value="" /> <br>
-            Password: <input type="password" name="password" value="" /> <br>
-            <input type="submit" value="Login" /> 
-        </form>
-        <br>
-        <input type="button" value="Register" action="RegisterServlet"/>
+        <div id="targetDiv"></div>
     </body>
 </html>

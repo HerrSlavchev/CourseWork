@@ -1,0 +1,25 @@
+		.firstRow {
+			height: 100%;
+			width: 349px;
+			float: left;
+			border-right: 1px solid #000;
+			overflow-x: hidden;
+		}
+		
+		.secondtRow {
+			height: 100%;
+			width: 194px;
+			float: left;
+			border-right: 1px solid #000;
+			overflow-x: hidden;
+		}
+		
+		.thirdRow {
+			height: 100%;
+			width: 195px;
+			overflow-x: hidden;
+		}
+				
+		.mainRow .thirdRow {
+			width: 176px;
+		}
