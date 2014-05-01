@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>IntSN</title>
         <link href="css/ddmenu.css" rel="stylesheet" type="text/css" />
+        <link rel='stylesheet' type='text/css' href='css/mainpage.css' />
         <link rel='stylesheet' type='text/css' href='css/right-panel.css' />
         <link rel='stylesheet' type='text/css' href='css/cool-button.css' />
         <script src="scripts/ddmenu.js" type="text/javascript"></script>
@@ -40,7 +41,8 @@
                 <li><a id="towns">Towns</a></li>
             </ul>
         </nav>
-        <br>
+        
+        <div id="personalDiv"></div>
         <div id="targetDiv"></div>
     </body>
 </html>

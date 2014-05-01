@@ -1,0 +1,11 @@
+#personalDiv
+{
+    width: 30%;
+    float: left;
+}
+
+#targetDiv
+{
+    width: 70%;
+    float: right;
+}

@@ -7,8 +7,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<form action="LoginServlet" method="POST">
-
+<form id="loginform" action="LoginServlet" method="POST">
     <div id="names">
         <div class="label"><label for="eMail"><strong>E-Mail</strong></label></div>
         <div class="textField1"><input type="text" id="eMail" name="eMail" placeholder="Your e-mail" required="required" /></div> 
@@ -16,6 +15,6 @@
         <div class="label"><label for="password"><strong>Password</strong></label></div>
         <div class="textField1"><input type="password" id="password" name="password" required="required" /></div>
     </div>
-    <input type="submit" value="Login" /> 
+    <input type="submit" value="Login"/> 
 </form>
 <br>
