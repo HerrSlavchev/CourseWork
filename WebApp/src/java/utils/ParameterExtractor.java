@@ -24,9 +24,11 @@ public class ParameterExtractor {
         } else {
             Map<String, String[]> params = request.getParameterMap();
             for(Entry<String, String[]> pair : params.entrySet()){
+                
                 String name = pair.getKey();
+                //System.out.println("++<>" + name);
                 String[] values = pair.getValue();
-                if(name.contains("-----------------------------")) { //form data from ajax, ugly stuff awaits us!
+                if(name.contains("Content-Disposition: form-data")) { //form data from ajax, ugly stuff awaits us!
                     for(String str : values){
                         String search = "\"" + key + "\"";
                         int start = str.indexOf(search);

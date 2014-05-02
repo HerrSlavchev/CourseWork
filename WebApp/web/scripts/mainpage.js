@@ -10,10 +10,10 @@ var isIE;
 
 var callbacks;
 function init() {
-    
+
     targetDiv = document.getElementById("targetDiv");
     personalDiv = document.getElementById("personalDiv");
-    
+
     document.getElementById("ddmenu").addEventListener("click", function(e) {
         // e.target is our targetted element
         if (e.target && e.target.nodeName === "A") {
@@ -21,7 +21,7 @@ function init() {
             showPage(id);
         }
     });
-    
+
     callbacks['login'] = callback_login;
 }
 
@@ -61,7 +61,7 @@ function parseMessagesMainPage(response, id) {
 }
 
 function registerSubmit(id) {
-    var formID = id+'form';
+    var formID = id + 'form';
     var fun = 'callback_' + id;
     var form = document.getElementById(formID);
     form.onsubmit = function(e) {
@@ -94,7 +94,7 @@ function parseMessages_login(response) {
 }
 
 function applyPersonalTabBehaviour() {
-    
+
     $('#cssmenu > ul > li > a').click(function() {
         $('#cssmenu li').removeClass('active');
         $(this).closest('li').addClass('active');
@@ -113,4 +113,68 @@ function applyPersonalTabBehaviour() {
             return false;
         }
     });
+
+    $("#cssmenu").on("click", ".interest_unsubscribe", function(event) {
+        var target = event.target;
+        var realTarget = target.parentNode.parentNode.parentNode;
+        removeInterest(realTarget.id);
+    });
+
+    $("#cssmenu").on("click", ".notification_unsubscribe", function(event) {
+        var target = event.target;
+        var realTarget = target.parentNode.parentNode.parentNode;
+        changeSubscription(realTarget.id);
+    });
+}
+
+function changeSubscription(id) {
+    lastid = escape(id);
+    var url = "InterestServlet?action=changeSubscription&id=" + escape(id);
+    req = initRequest();
+    req.open("POST", url, true);
+    req.onreadystatechange = callback_subscription;
+    req.send(null);
+}
+
+function callback_subscription() {
+    if (req.readyState === 4) {
+        if (req.status === 200) {
+            parseMessages_subscription(req.responseXML);
+        }
+    }
+}
+
+function parseMessages_subscription(responseXML) {
+    if (responseXML == null) {
+        return false;
+    } else {
+
+        var root = responseXML.getElementsByTagName("root")[0];
+        var interests = root.getElementsByTagName("interests")[0];
+
+        if (interests.childNodes.length > 0) {
+            for (var loop = 0; loop < interests.childNodes.length; loop++) {
+                var interest = interests.childNodes[loop];
+                var interestID = interest.getElementsByTagName("id")[0];
+                var subscribed = interest.getElementsByTagName("subscribed")[0];
+                markInterest(interestID.childNodes[0].nodeValue, subscribed.childNodes[0].nodeValue);
+            }
+        }
+    }
+}
+
+function markInterest(id, subscribed) {
+
+    var src = "";
+    if (subscribed === 'true') {
+        src = "images/see.jpg";
+    } else {
+        src = "images/nosee.png";
+    }
+    
+    var targetImg = "img_"+id;
+    document.getElementById(targetImg).src = src;
+}
+function removeInterest(id) {
+
 }

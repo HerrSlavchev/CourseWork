@@ -34,8 +34,8 @@ import webdao.NotifiableImpl;
 @WebServlet(urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
-    private ClientManagerIF managerStub = ClientManagerImpl.getInstance();
-    private InterestDAIF interestStub = InterestDAImpl.getInstance();
+    private ClientManagerIF stubClientManager = ClientManagerImpl.getInstance();
+    private InterestDAIF stubInterest = InterestDAImpl.getInstance();
 
     private ServletContext servletContext;
     @Override
@@ -59,6 +59,7 @@ public class LoginServlet extends HttpServlet {
         
         NotifiableIF client = new NotifiableImpl(request.getSession());
 
+        Integer userID = null;
         User user = null;
         List<Interest> interests = null;
         Throwable exc = null;
@@ -66,15 +67,16 @@ public class LoginServlet extends HttpServlet {
             User u = new User(0);
             u.setE_Mail(eMail);
             u.setPassword(password);
-            Result<User> res = managerStub.registerClient(client, u);
+            Result<User> res = stubClientManager.registerClient(client, u);
             if (res.getException() != null) {
                 exc = res.getException();
             } else {
                 user = res.getResult().get(0);
+                userID = user.getID();
                 InterestFilter filter = new InterestFilter();
                 filter.users.add(user);
                 filter.fetchUsers = true;
-                Result<Interest> resInt = interestStub.fetchInterests(filter);
+                Result<Interest> resInt = stubInterest.fetchInterests(filter);
                 if(resInt.getException() != null){
                     exc = resInt.getException();
                 } else {
@@ -90,6 +92,8 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("error.jsp").forward(request, response);
         } else {
             request.setAttribute("interests", interests);
+            request.setAttribute("userID", userID);
+            //System.out.println("userID:" + userID);
             request.getRequestDispatcher("personaltab.jsp").forward(request, response);
         }
     }
