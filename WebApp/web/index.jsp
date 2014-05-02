@@ -14,11 +14,13 @@
         <link rel='stylesheet' type='text/css' href='css/mainpage.css' />
         <link rel='stylesheet' type='text/css' href='css/right-panel.css' />
         <link rel='stylesheet' type='text/css' href='css/cool-button.css' />
+        <link rel='stylesheet' type='text/css' href='css/left-menu.css' />
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="scripts/ddmenu.js" type="text/javascript"></script>
         <script src="scripts/mainpage.js" type="text/javascript"></script>
     </head>
     <body onload="init()" style="padding:10px 10px;">
-        
+
         <nav id="ddmenu">
             <ul>
                 <li>Me
@@ -41,7 +43,7 @@
                 <li><a id="towns">Towns</a></li>
             </ul>
         </nav>
-        
+
         <div id="personalDiv"></div>
         <div id="targetDiv"></div>
     </body>

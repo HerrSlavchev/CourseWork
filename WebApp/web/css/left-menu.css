@@ -1,205 +1,205 @@
 body{padding:20px; font-size:14px; color:#000000; font-family:Arial, Helvetica, sans-serif;}
-  h2 {font-weight:bold; color:#000099; margin: 20px 0px 10px 0; font-size: 1.5em;}
-  p span {color:#006600; font-weight:bold; }
-  a, a:link, a:visited {color:#0000FF;}
-  textarea {width: 100%; padding: 10px; margin: 10px 0 15px 0; font-size: 13px; font-family: Consolas,monospace;}
-  textarea.html {height: 300px;}
-  textarea.css {height: 50px;}
-  p {margin: 0 0 10px 0; line-height: 1.5; font-size: 1em;}
-  code, pre {font-family: Consolas,monospace; color: green;}
-  ol li {margin: 0 0 15px 0;}
+h2 {font-weight:bold; color:#000099; margin: 20px 0px 10px 0; font-size: 1.5em;}
+p span {color:#d8d5d5; font-weight:bold; }
+a, a:link, a:visited {color:#0000FF;}
+textarea {width: 100%; padding: 10px; margin: 10px 0 15px 0; font-size: 13px; font-family: Consolas,monospace;}
+textarea.html {height: 300px;}
+textarea.css {height: 50px;}
+p {margin: 0 0 10px 0; line-height: 1.5; font-size: 1em;}
+code, pre {font-family: Consolas,monospace; color: green;}
+ol li {margin: 0 0 15px 0;}
 
-  .thirds {width: 30%; margin: 0 5% 0 0; float: left;}
-  .thirds.last {margin-right: 0; float: left;}   
-  .thirds textarea {height: 50px; font-size: .9em;}
-  
-  
-  
-  
-  
-  
-  
-  /* Base Styles */
+.thirds {width: 30%; margin: 0 5% 0 0; float: left;}
+.thirds.last {margin-right: 0; float: left;}   
+.thirds textarea {height: 50px; font-size: .9em;}
+
+
+
+
+
+
+
+/* Base Styles */
 #cssmenu,
 #cssmenu ul,
 #cssmenu li,
 #cssmenu a {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  list-style: none;
-  font-weight: normal;
-  text-decoration: none;
-  line-height: 1;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
-  position: relative;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style: none;
+    font-weight: normal;
+    text-decoration: none;
+    line-height: 1;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    position: relative;
 }
 #cssmenu a {
-  line-height: 1.3;
+    line-height: 1.3;
 }
 #cssmenu {
-  width: 250px;
-  background: #fff;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  padding: 3px;
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+    width: 250px;
+    background: #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 3px;
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
 }
 #cssmenu > ul > li {
-  margin: 0 0 2px 0;
+    margin: 0 0 2px 0;
 }
 #cssmenu > ul > li:last-child {
-  margin: 0;
+    margin: 0;
 }
 #cssmenu > ul > li > a {
-  font-size: 15px;
-  display: block;
-  /*awful color of the fackin' letters on the left menu...*/
-  color: #000;
-  text-shadow: 0 1px 1px #000;
-  //background: #565656;
-  background: #CCFFFF;
-  background: -moz-linear-gradient(#CCFFFF 0%, #66FFFF 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #CCFFFF), color-stop(100%, #66FFFF));
-  background: -webkit-linear-gradient(#CCFFFF 0%, #66FFFF 100%);
-  background: linear-gradient(#CCFFFF 0%, #66FFFF 100%);
-  border: 1px solid #000;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+    font-size: 15px;
+    display: block;
+    /*awful color of the fackin' letters on the left menu...*/
+    color: #000;
+    text-shadow: 0 1px 1px #000;
+    //background: #565656;
+    background: #CCFFFF;
+    background: -moz-linear-gradient(#CCFFFF 0%, #66FFFF 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #CCFFFF), color-stop(100%, #66FFFF));
+    background: -webkit-linear-gradient(#CCFFFF 0%, #66FFFF 100%);
+    background: linear-gradient(#CCFFFF 0%, #66FFFF 100%);
+    border: 1px solid #000;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
 #cssmenu > ul > li > a > span {
-  display: block;
-  border: 1px solid #666666;
-  padding: 6px 10px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  font-weight: bold;
+    display: block;
+    border: 1px solid #666666;
+    padding: 6px 10px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-weight: bold;
 }
 #cssmenu > ul > li > a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 #cssmenu > ul > li.active {
-  border-bottom: none;
+    border-bottom: none;
 }
 #cssmenu > ul > li.active > a {
-  background: #008f00;
-  background: -moz-linear-gradient(#008f00 0%, #006600 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #008f00), color-stop(100%, #006600));
-  background: -webkit-linear-gradient(#008f00 0%, #006600 100%);
-  background: linear-gradient(#008f00 0%, #006600 100%);
-  color: #fff;
-  text-shadow: 0 1px 1px #000;
-  border: 1px solid #006600;
+    background: #bcbcbc;
+    background: -moz-linear-gradient(#bcbcbc 0%, #d8d5d5 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #bcbcbc), color-stop(100%, #d8d5d5));
+    background: -webkit-linear-gradient(#bcbcbc 0%, #d8d5d5 100%);
+    background: linear-gradient(#bcbcbc 0%, #d8d5d5 100%);
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+    border: 1px solid #d8d5d5;
 }
 #cssmenu > ul > li.active > a span {
-  border: 1px solid #008f00;
+    border: 1px solid #bcbcbc;
 }
 #cssmenu > ul > li.has-sub > a span {
-  background: url(../images/icon_plus.png) 98% center no-repeat;
+    background: url(../images/icon_plus.png) 98% center no-repeat;
 }
 #cssmenu > ul > li.has-sub.active > a span {
-  background: url(../images/icon_minus.png) 98% center no-repeat;
+    background: url(../images/icon_minus.png) 98% center no-repeat;
 }
 /* Sub menu */
 #cssmenu ul ul {
-  padding: 5px 12px;
-  display: none;
-  background:#006600;
+    padding: 5px 12px;
+    display: none;
+    background:#d8d5d5;
 }
 #cssmenu ul ul li {
-  padding: 3px 0;
+    padding: 3px 0;
 }
 #cssmenu ul ul a {
-  display: block;
-  color: #000000;
-  font-size: 13px;
-  font-weight: bold;
+    display: block;
+    color: #000000;
+    font-size: 13px;
+    font-weight: bold;
 }
 #cssmenu ul ul a:hover {
-  color: #FFFFFF;
+    color: #FFFFFF;
 }
 
 .innerListOfInterests {
-	border: 2px solid #000;
-	padding: 10px;
-	padding-bottom: 20px;
+    border: 2px solid #000;
+    padding: 10px;
+    padding-bottom: 20px;
 }
 .interest {
-	margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 .interest div{
-	float: left;
+    float: left;
 }
 .interest img{
-	margin-right:5px;
+    margin-right:5px;
 }
 
 .classname {
-	-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CCFFFF), color-stop(1, #66FFFF) );
-	background:-moz-linear-gradient( center top, #CCFFFF 5%, #66FFFF 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCFFFF', endColorstr='#66FFFF');
-	background-color:#CCFFFF;
-	-webkit-border-top-left-radius:6px;
-	-moz-border-radius-topleft:6px;
-	border-top-left-radius:6px;
-	-webkit-border-top-right-radius:6px;
-	-moz-border-radius-topright:6px;
-	border-top-right-radius:6px;
-	-webkit-border-bottom-right-radius:6px;
-	-moz-border-radius-bottomright:6px;
-	border-bottom-right-radius:6px;
-	-webkit-border-bottom-left-radius:6px;
-	-moz-border-radius-bottomleft:6px;
-	border-bottom-left-radius:6px;
-	text-indent:0;
-	border:2px solid #84bbf3;
-	display:inline-block;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	font-style:normal;
-	height:23px;
-	line-height:23px;
-	width:70px;
-	text-decoration:none;
-	text-align:center;
-	text-shadow:1px 1px 0px #528ecc;
+    -moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CCFFFF), color-stop(1, #66FFFF) );
+    background:-moz-linear-gradient( center top, #CCFFFF 5%, #66FFFF 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCFFFF', endColorstr='#66FFFF');
+    background-color:#CCFFFF;
+    -webkit-border-top-left-radius:6px;
+    -moz-border-radius-topleft:6px;
+    border-top-left-radius:6px;
+    -webkit-border-top-right-radius:6px;
+    -moz-border-radius-topright:6px;
+    border-top-right-radius:6px;
+    -webkit-border-bottom-right-radius:6px;
+    -moz-border-radius-bottomright:6px;
+    border-bottom-right-radius:6px;
+    -webkit-border-bottom-left-radius:6px;
+    -moz-border-radius-bottomleft:6px;
+    border-bottom-left-radius:6px;
+    text-indent:0;
+    border:2px solid #84bbf3;
+    display:inline-block;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    font-style:normal;
+    height:23px;
+    line-height:23px;
+    width:70px;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #528ecc;
 }
 .classname:hover {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
-	background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
-	background-color:#378de5;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
+    background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
+    background-color:#378de5;
 }.classname:active {
-	position:relative;
-	top:1px;
+    position:relative;
+    top:1px;
 }
 /* This button was generated using CSSButtonGenerator.com */
 
 .finalButtons {
-	margin-top: 10px;
-	padding: 10px;
-	padding-bottom: 40px;
-	//float: left;
+    margin-top: 10px;
+    padding: 10px;
+    padding-bottom: 40px;
+    //float: left;
 }
 #button1 {
-	margin: 10px;
-	margin-top: 0;
-	float: left;
+    margin: 10px;
+    margin-top: 0;
+    float: left;
 }
 
 #button2 {
-	float: left;
-	margin: 10px;
-	margin-top: 0;
+    float: left;
+    margin: 10px;
+    margin-top: 0;
 }

@@ -12,8 +12,8 @@ import dto.filters.InterestFilter;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +37,11 @@ public class LoginServlet extends HttpServlet {
     private ClientManagerIF managerStub = ClientManagerImpl.getInstance();
     private InterestDAIF interestStub = InterestDAImpl.getInstance();
 
+    private ServletContext servletContext;
+    @Override
+    public void init(ServletConfig config){
+        this.servletContext = config.getServletContext();
+    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -48,17 +53,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*
-        Map<String, String[]> pairs = request.getParameterMap();
-        for(Entry<String, String[]> pair : pairs.entrySet()){
-            System.out.println(">>" + pair.getKey());
-            for(String str : pair.getValue()){
-                System.out.println("<" + str);
-            }
-        }*/
+        
         String eMail = ParameterExtractor.getParameter(request, "eMail");
         String password = ParameterExtractor.getParameter(request, "password");
-        System.out.println("X" + eMail + "|" + password+"X");
         
         NotifiableIF client = new NotifiableImpl(request.getSession());
 
@@ -89,13 +86,11 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (exc != null) {
-            System.out.println(exc.getMessage());
             request.setAttribute("errorMsg", exc.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         } else {
-            System.out.println("sending");
             request.setAttribute("interests", interests);
-            request.getRequestDispatcher("personal.jsp").forward(request, response);
+            request.getRequestDispatcher("personaltab.jsp").forward(request, response);
         }
     }
 

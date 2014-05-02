@@ -8,6 +8,7 @@ var personalDiv;
 var req;
 var isIE;
 
+var callbacks;
 function init() {
     
     targetDiv = document.getElementById("targetDiv");
@@ -20,6 +21,8 @@ function init() {
             showPage(id);
         }
     });
+    
+    callbacks['login'] = callback_login;
 }
 
 function initRequest() {
@@ -71,7 +74,7 @@ function registerSubmit(id) {
 
         req.open("POST", f.action, true);
         req.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-        req.onreadystatechange = fun;
+        req.onreadystatechange = window[fun];
         req.send(formData);
     }
 }
@@ -85,6 +88,29 @@ function callback_login() {
 }
 
 function parseMessages_login(response) {
-    personal.innerHTML = response;
+    personalDiv.innerHTML = response;
     targetDiv.innerHTML = "";
+    applyPersonalTabBehaviour();
+}
+
+function applyPersonalTabBehaviour() {
+    
+    $('#cssmenu > ul > li > a').click(function() {
+        $('#cssmenu li').removeClass('active');
+        $(this).closest('li').addClass('active');
+        var checkElement = $(this).next();
+        if ((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+            $(this).closest('li').removeClass('active');
+            checkElement.slideUp('normal');
+        }
+        if ((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
+            $('#cssmenu ul ul:visible').slideUp('normal');
+            checkElement.slideDown('normal');
+        }
+        if ($(this).closest('li').find('ul').children().length == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    });
 }
