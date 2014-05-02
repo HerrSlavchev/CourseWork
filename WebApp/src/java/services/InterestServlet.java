@@ -83,13 +83,14 @@ public class InterestServlet extends HttpServlet {
                     exc = resInt.getException();
                 } else {
                     Interest intr = resInt.getResult().get(0);
-                    boolean isNotified = intr.getUsers().getOldChildren().get(0).isNotify();
+                    
                     User usr = null;
                     for (User cmp : intr.getUsers().getOldChildren()) {
                         if (cmp.getID() == userID) {
                             usr = cmp;
                         }
                     }
+                    boolean isNotified = usr.isNotify();
                     usr.setModified(true);
                     usr.setNotify(!isNotified);
                     List<Interest> lst = new ArrayList<Interest>();
