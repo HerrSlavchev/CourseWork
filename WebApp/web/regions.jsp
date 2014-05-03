@@ -50,7 +50,7 @@
 </div>
 
 <div id="dynamicRight">
-    <form id="regionsform" action="RegionsServlet" method="post">
+    <form id="regionsform" action="RegionServlet" method="post">
 
         <fieldset id="names" 
                   <c:if test="${empty sessionScope.role || sessionScope.role.name eq 'User'}">

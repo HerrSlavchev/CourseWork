@@ -21,13 +21,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import services.client.NotifiableIF;
 import services.implementations.ClientManagerImpl;
 import services.implementations.InterestDAImpl;
 import services.server.ClientManagerIF;
 import services.server.InterestDAIF;
 import utils.ParameterExtractor;
-import webdao.NotifiableImpl;
 
 /**
  *

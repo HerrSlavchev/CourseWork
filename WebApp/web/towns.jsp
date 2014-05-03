@@ -1,13 +1,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
-    Document   : categories
-    Created on : May 3, 2014, 6:30:16 PM
+    Document   : towns
+    Created on : May 4, 2014, 12:26:47 AM
     Author     : root
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
 
 <div id="dynamicTable">
     <div id="tableView1">
@@ -16,30 +15,30 @@
                 <div class="text">Name</div>
             </div>
             <div class="secondCol">
-                <div class="text">Subcategories</div>
+                <div class="text">Region</div>
             </div>
             <div class="thirdCol">
-                <div class="text">Interests</div>
+                <div class="text">Users</div>
             </div>
             <div class="fourthCol">
-                <div class="text">Description</div>
+                <div class="text">Events</div>
             </div>
         </div>
         <div id="items" class="mainPanel1">
             <!-- spam spam spam -->
-            <c:forEach var="cat" items="${requestScope.categories}">
-                <div id="${cat.ID}" class="mainRow">
+            <c:forEach var="town" items="${requestScope.towns}">
+                <div id="${town.ID}" class="mainRow">
                     <div class="firstCol">
-                        <div class="text">${cat.name}</div>
+                        <div class="text">${town.name}</div>
                     </div>
                     <div class="secondCol">
-                        <div class="text">${cat.subCategoryCount}</div>
+                        <div class="text">${town.region.shortName}</div>
                     </div>
                     <div class="thirdCol">
-                        <div class="text">${cat.interestCount}</div>
+                        <div class="text">${town.eventCount}</div>
                     </div>
                     <div class="fourthCol">
-                        <div class="text">${cat.shortDescription}</div>
+                        <div class="text">${town.userCount}</div>
                     </div>
                 </div>
             </c:forEach>
@@ -51,28 +50,34 @@
 </div>
 
 <div id="dynamicRight">
-    <form id="categoriesform" action="CategoryServlet" method="post">
+    <form id="townsform" action="TownServlet" method="post">
 
         <fieldset id="names" 
                   <c:if test="${empty sessionScope.role || sessionScope.role.name eq 'User'}">
                       disabled="true"
                   </c:if>
                   >
+            <div id="region-fall">
+                <div class="label"><label for="reg"><strong>Region</strong></label></div>
+                <div class="textField1">
+                    <select type="text" id="region" name="region" required="required">
+                        <c:forEach var="curr" items="${requestScope.regions}">
+                            <option value="${curr.ID}">${curr.name}</option>
+                        </c:forEach>
+                    </select>
+                </div> <br/>
+            </div>
             <div class="label"><label for="name"><strong>Name</strong></label></div>
-            <div class="textField1"><input type="text" id="name" name="name" placeholder="Category name" required="required"/></div> <br />
+            <div class="textField1"><input type="text" id="name" name="name" placeholder="Region name" required="required"/></div> <br />
             <div id="counts">
                 <div class="count">
-                    <div class="label"><strong>Subcats</strong></div>
-                    <div id="subCategoryCount" class="textField1">N/A</div>
+                    <div class="label"><strong>Events</strong></div>
+                    <div id="eventCount" class="textField1">N/A</div>
                 </div>
                 <div class="count">
-                    <div class="label"><strong>Interests</strong></div>
-                    <div id="interestCount" class="textField1">N/A</div>
+                    <div class="label"><strong>Users</strong></div>
+                    <div id="userCount" class="textField1">N/A</div>
                 </div>
-            </div>
-            <div id="descr">
-                <div class="label"><label for="description"><strong>Description</strong></label></div>
-                <textarea name="description" id="description"></textarea> <br />
             </div>
             <input type="text" id="id" name="id" hidden="true"/>
         </fieldset>

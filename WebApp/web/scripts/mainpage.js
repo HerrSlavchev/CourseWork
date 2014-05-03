@@ -140,3 +140,13 @@ function getChildFromNode(node, idChild){
     return null;
 }
 
+function selectOption(selectID, literal) {
+    var sel = document.getElementById(selectID);
+    var val = literal;
+    for(var i = 0, j = sel.options.length; i < j; ++i) {
+        if(sel.options[i].innerHTML === val) {
+           sel.selectedIndex = i;
+           break;
+        }
+    }
+}

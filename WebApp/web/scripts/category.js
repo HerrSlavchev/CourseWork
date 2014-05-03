@@ -62,12 +62,13 @@ function show_categories(id, name, subCategoryCount, interestCount, shortDescrip
     
     var idx = shortDescription.indexOf("...");
     var cmp = shortDescription.length - 3;
-    if(idx === cmp){
+    if(idx !== cmp){
         show_category(id, name, subCategoryCount, interestCount, shortDescription);
+        return;
     }
     
     
-    var url = "CategoriesServlet?action=read&id=" + escape(id);
+    var url = "CategoryServlet?action=read&id=" + escape(id);
     req = initRequest();
     req.open("POST", url, true);
     req.onreadystatechange = callback_categories;
