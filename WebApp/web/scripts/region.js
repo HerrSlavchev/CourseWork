@@ -18,6 +18,13 @@ function parseMessages_regions(responseXML) {
     } else {
 
         var root = responseXML.getElementsByTagName("root")[0];
+        
+        var error = root.getElementsByTagName("error");
+        if(error.length !== 0){
+            alert(error[0].childNodes[0].nodeValue);
+            return false;
+        } 
+        
         var regions = root.getElementsByTagName("regions")[0];
 
         if (regions.childNodes.length > 0) {

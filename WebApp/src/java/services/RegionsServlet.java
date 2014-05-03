@@ -164,9 +164,12 @@ public class RegionsServlet extends HttpServlet {
         sb.append("</regions>");
 
         if (exc != null) {
-            System.out.println(exc.getMessage());
-            request.setAttribute("errorMsg", exc.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            String xml = "<error>" + exc.getMessage() + "</error>";
+            response.setContentType("text/xml");
+            response.setHeader("Cache-Control", "no-cache");
+            String answer = "<root>" + xml + "</root>";
+            //System.out.println(answer);
+            response.getWriter().write(answer);
         } else {
             String xml = sb.toString();
 
