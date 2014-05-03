@@ -13,44 +13,38 @@ function bindTable(){
             target = target.parentNode; 
         }
         
-        var firstRow = null;
-        var secondtRow = null;
-        var thirdRow = null;
-        var forthRow = null;
+        var firstCol = null;
+        var secondCol = null;
+        var thirdCol = null;
+        var fourthCol = null;
         
         for (var j = 0; j < target.childNodes.length; j++) {
                 var row = target.childNodes[j];
-                if (row.className == "firstRow") {
-                    firstRow = getContent(row);
+                if (row.className == "firstCol") {
+                    firstCol = getContent(row);
                 }
-                if (row.className == "secondtRow") {
-                    secondtRow = getContent(row);
+                if (row.className == "secondCol") {
+                    secondCol = getContent(row);
                 }
-                if (row.className == "thirdRow") {
-                    thirdRow = getContent(row);
+                if (row.className == "thirdCol") {
+                    thirdCol = getContent(row);
                 }
-                if (row.className == "forthRow") {
-                    forthRow = getContent(row);
+                if (row.className == "fourthCol") {
+                    fourthCol = getContent(row);
                 }
             }
             
         
-        var arguments = [target.id, firstRow, secondtRow, thirdRow];
-        if(forthRow !== null){
-            arguments = [target.id, firstRow, secondtRow, thirdRow, forthRow];
+        var arguments = [target.id, firstCol, secondCol, thirdCol];
+        if(fourthCol !== null){
+            arguments = [target.id, firstCol, secondCol, thirdCol, fourthCol];
         }
         window[fun].apply(null, Array.prototype.slice.call(arguments, 0));
-        /*
-        if(forthRow !== null){
-            window[func].apply(null, Array.prototype.slice.call(arguments, 1));
-        } else {
-            window[fun](target.id, firstRow.childNodes[0].innerHTML, secondtRow.childNodes[0].innerHTML, thirdRow.childNodes[0].innerHTML);
-        }
-        */
+        
     });
 }
 
-function addRow4(id, firstRow, secondtRow, thirdRow, forthRow) {
+function addRow4(id, firstCol, secondCol, thirdCol, fourthCol) {
 
     var regDivs = document.getElementsByClassName("mainRow");
     var table = document.getElementById('items');
@@ -63,17 +57,17 @@ function addRow4(id, firstRow, secondtRow, thirdRow, forthRow) {
         if (cmp.id === id) {
             for (var j = 0; j < cmp.childNodes.length; j++) {
                 var row = cmp.childNodes[j];
-                if (row.className == "firstRow") {
-                    row.innerHTML = prefix + firstRow + suffix;
+                if (row.className == "firstCol") {
+                    row.innerHTML = prefix + firstCol + suffix;
                 }
-                if (row.className == "secondtRow") {
-                    row.innerHTML = prefix + secondtRow + suffix;
+                if (row.className == "secondCol") {
+                    row.innerHTML = prefix + secondCol + suffix;
                 }
-                if (row.className == "thirdRow") {
-                    row.innerHTML = prefix + thirdRow + suffix;
+                if (row.className == "thirdCol") {
+                    row.innerHTML = prefix + thirdCol + suffix;
                 }
-                if (row.className == "forthRow") {
-                    row.innerHTML = prefix + forthRow + suffix;
+                if (row.className == "fourthCol") {
+                    row.innerHTML = prefix + fourthCol + suffix;
                 }
             }
             found = true;
@@ -86,20 +80,20 @@ function addRow4(id, firstRow, secondtRow, thirdRow, forthRow) {
         divMR.className = "mainRow";
 
         var divFR = document.createElement('div');
-        divFR.className = "firstRow";
-        attachDiv("text", firstRow, divFR);
+        divFR.className = "firstCol";
+        attachDiv("text", firstCol, divFR);
 
         var divSR = document.createElement('div');
-        divSR.className = "secondtRow";
-        attachDiv("text", secondtRow, divSR);
+        divSR.className = "secondCol";
+        attachDiv("text", secondCol, divSR);
 
         var divTR = document.createElement('div');
-        divTR.className = "thirdRow";
-        attachDiv("text", thirdRow, divTR);
+        divTR.className = "thirdCol";
+        attachDiv("text", thirdCol, divTR);
 
         var div4R = document.createElement('div');
-        div4R.className = "forthRow";
-        attachDiv("text", forthRow, div4R);
+        div4R.className = "fourthCol";
+        attachDiv("text", fourthCol, div4R);
 
         divMR.appendChild(divFR);
         divMR.appendChild(divSR);

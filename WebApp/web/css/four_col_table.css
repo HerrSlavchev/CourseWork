@@ -1,43 +1,43 @@
-		.firstRow {
+		.firstCol {
 			height: 100%;
-			width: 47%;
+			width: 44%;
 			float: left;
 			border-right: 1px solid #000;
 			overflow-x: hidden;
 		}
 		
-		.secondtRow {
+		.secondCol {
 			height: 100%;
-			width: 17.5%;
+			width: 20.5%;
 			float: left;
 			border-right: 1px solid #000;
 			overflow-x: hidden;
 		}
 		
-		.thirdRow {
+		.thirdCol {
 			height: 100%;
-			width: 17.5%;
+			width: 16.2%;
 			float: left;
 			border-right: 1px solid #000;
 			overflow-x: hidden;
 		}
 		
-		.forthRow {
+		.fourthCol {
 			height: 100%;
-			width: 17.2%;
+			width: 18.5%;
 			float: left;
 			overflow-x: hidden;
 		}
 		
-                .mainRow .firstRow {
-			width: 48.4%;
+                .mainRow .firstCol {
+			width: 45.2%;
 		}
-                .mainRow .secondtRow {
-			width: 18%;
+                .mainRow .secondCol {
+			width: 21.1%;
 		}
-                .mainRow .thirdRow {
-			width: 18%;
+                .mainRow .thirdCol {
+			width: 16.6%;
 		}
-		.mainRow .forthRow {
-			width: 15%;
+		.mainRow .fourthCol {
+			width: 15.5%;
 		}

@@ -23,6 +23,7 @@
         <script src="scripts/personaltab.js" type="text/javascript"></script>
         <script src="scripts/login.js" type="text/javascript"></script>
         <script src="scripts/region.js" type="text/javascript"></script>
+        <script src="scripts/category.js" type="text/javascript"></script>
         <script src="scripts/mainpage.js" type="text/javascript"></script>
     </head>
     <body onload="init()" style="padding:10px 10px;">

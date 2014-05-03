@@ -2,7 +2,7 @@ body{padding:20px; font-size:14px; color:#000000; font-family:Arial, Helvetica, 
 h2 {font-weight:bold; color:#000099; margin: 20px 0px 10px 0; font-size: 1.5em;}
 p span {color:#d8d5d5; font-weight:bold; }
 a, a:link, a:visited {color:#0000FF;}
-textarea {width: 100%; padding: 10px; margin: 10px 0 15px 0; font-size: 13px; font-family: Consolas,monospace;}
+textarea {width: 100%; padding: 3px; margin: 10px 0 15px 0; font-size: 13px; font-family: Consolas,monospace;}
 textarea.html {height: 300px;}
 textarea.css {height: 50px;}
 p {margin: 0 0 10px 0; line-height: 1.5; font-size: 1em;}

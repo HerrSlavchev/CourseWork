@@ -49,6 +49,8 @@ public class MainServlet extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else if (action.equals("regions")){
             request.getRequestDispatcher("RegionsServlet").forward(request, response);
+        } else if (action.equals("categories")){
+            request.getRequestDispatcher("CategoriesServlet").forward(request, response);
         }
     }
 

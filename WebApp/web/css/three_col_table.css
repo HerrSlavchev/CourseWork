@@ -1,4 +1,4 @@
-		.firstRow {
+		.firstCol {
 			height: 100%;
 			width: 349px;
 			float: left;
@@ -6,7 +6,7 @@
 			overflow-x: hidden;
 		}
 		
-		.secondtRow {
+		.secondCol {
 			height: 100%;
 			width: 194px;
 			float: left;
@@ -14,12 +14,12 @@
 			overflow-x: hidden;
 		}
 		
-		.thirdRow {
+		.thirdCol {
 			height: 100%;
 			width: 195px;
 			overflow-x: hidden;
 		}
 				
-		.mainRow .thirdRow {
+		.mainRow .thirdCol {
 			width: 176px;
 		}

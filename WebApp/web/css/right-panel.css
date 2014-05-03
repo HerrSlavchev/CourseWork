@@ -14,8 +14,9 @@ form {
 }
 textarea {
     //background: #F0F;
-    width: 250px;
-    height: 200px;
+    padding: 3px;
+    width: 90px;
+    height: 100px;
 }
 #emailInfo {
     margin-bottom: 40px;
@@ -67,11 +68,7 @@ select {
     width: 153px;
 }
 
-#town1 {
-    margin-bottom: 15px;
-}
-
-#user1 {
+.count {
     margin-bottom: 15px;
 }
 
