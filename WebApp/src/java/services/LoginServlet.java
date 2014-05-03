@@ -9,6 +9,7 @@ import dto.Result;
 import dto.domain.Interest;
 import dto.domain.User;
 import dto.filters.InterestFilter;
+import dto.rolemanagement.Role;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -60,6 +61,7 @@ public class LoginServlet extends HttpServlet {
         NotifiableIF client = new NotifiableImpl(request.getSession());
 
         Integer userID = null;
+        Role role = null;
         User user = null;
         List<Interest> interests = null;
         Throwable exc = null;
@@ -73,6 +75,7 @@ public class LoginServlet extends HttpServlet {
             } else {
                 user = res.getResult().get(0);
                 userID = user.getID();
+                role = user.getRole();
                 InterestFilter filter = new InterestFilter();
                 filter.users.add(user);
                 filter.fetchUsers = true;
@@ -93,6 +96,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             request.setAttribute("interests", interests);
             request.setAttribute("userID", userID);
+            request.getSession().setAttribute("role", role);
             //System.out.println("userID:" + userID);
             request.getRequestDispatcher("personaltab.jsp").forward(request, response);
         }

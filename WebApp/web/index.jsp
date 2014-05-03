@@ -15,8 +15,13 @@
         <link rel='stylesheet' type='text/css' href='css/right-panel.css' />
         <link rel='stylesheet' type='text/css' href='css/cool-button.css' />
         <link rel='stylesheet' type='text/css' href='css/left-menu.css' />
+        <link rel='stylesheet' type='text/css' href='css/table-overall.css' />
+        <link rel='stylesheet' type='text/css' href='css/four_col_table.css' />
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="scripts/ddmenu.js" type="text/javascript"></script>
+        <script src="scripts/personaltab.js" type="text/javascript"></script>
+        <script src="scripts/login.js" type="text/javascript"></script>
+        <script src="scripts/region.js" type="text/javascript"></script>
         <script src="scripts/mainpage.js" type="text/javascript"></script>
     </head>
     <body onload="init()" style="padding:10px 10px;">

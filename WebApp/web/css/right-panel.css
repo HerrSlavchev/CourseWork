@@ -2,10 +2,10 @@ h1 {
     margin-bottom: 100px;
 }
 form {
-    margin-left: 30px;
+    margin-left: 10px;
 }
 .label {
-    width: 100px;
+    width: 60px;
     //background: #F00;
     float: left;
 }

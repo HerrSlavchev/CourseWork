@@ -30,6 +30,7 @@ public class ParameterExtractor {
                 String[] values = pair.getValue();
                 if(name.contains("Content-Disposition: form-data")) { //form data from ajax, ugly stuff awaits us!
                     for(String str : values){
+                        //System.out.println(">>" + str);
                         String search = "\"" + key + "\"";
                         int start = str.indexOf(search);
                         if(start != -1){

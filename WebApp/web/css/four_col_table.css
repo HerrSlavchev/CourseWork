@@ -1,6 +1,6 @@
 		.firstRow {
 			height: 100%;
-			width: 349px;
+			width: 47%;
 			float: left;
 			border-right: 1px solid #000;
 			overflow-x: hidden;
@@ -8,7 +8,7 @@
 		
 		.secondtRow {
 			height: 100%;
-			width: 129px;
+			width: 17.5%;
 			float: left;
 			border-right: 1px solid #000;
 			overflow-x: hidden;
@@ -16,7 +16,7 @@
 		
 		.thirdRow {
 			height: 100%;
-			width: 129px;
+			width: 17.5%;
 			float: left;
 			border-right: 1px solid #000;
 			overflow-x: hidden;
@@ -24,11 +24,20 @@
 		
 		.forthRow {
 			height: 100%;
-			width: 130px;
+			width: 17.2%;
 			float: left;
 			overflow-x: hidden;
 		}
 		
+                .mainRow .firstRow {
+			width: 48.4%;
+		}
+                .mainRow .secondtRow {
+			width: 18%;
+		}
+                .mainRow .thirdRow {
+			width: 18%;
+		}
 		.mainRow .forthRow {
-			width: 111px;
+			width: 15%;
 		}
