@@ -16,7 +16,8 @@ public class Category extends PersistedDTO {
 
     private String name;
     private String description;
-
+    
+    private String shortDescription;
     //extrinsic
     private int subCategoryCount;
     private List<SubCategory> subCategories = new ArrayList<SubCategory>();
@@ -33,6 +34,10 @@ public class Category extends PersistedDTO {
 
     public String getDescription() {
         return description;
+    }
+    
+    public String getShortDescription(){
+        return shortDescription;
     }
 
     public int getSubCategoryCount() {
@@ -56,7 +61,12 @@ public class Category extends PersistedDTO {
     }
 
     public void setDescription(String description) {
+        
         this.description = description;
+        this.shortDescription = description;
+        if(description != null && description.length() > 9){
+            shortDescription = description.substring(0, 7) + "...";
+        }
     }
 
     public void setSubCategoryCount(int subCategoryCount) {
