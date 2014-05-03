@@ -79,7 +79,7 @@ public class DAOUtils {
             sb.append(stmt);
         }
         String all = sb.toString();
-        System.out.println(all);
+        //System.out.println(all);
         return all;
     }
 }
