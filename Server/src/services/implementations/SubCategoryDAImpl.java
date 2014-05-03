@@ -51,7 +51,9 @@ public class SubCategoryDAImpl implements SubCategoryDAIF{
     
     @Override
     public Result<SubCategory> insertSubCategory(final List<SubCategory> ins, Session session) throws RemoteException {
+        
         List<SubCategory> lst = new ArrayList<SubCategory>();
+        final List<Integer> autoIDs = new ArrayList<>();
         Exception exc = null;
 
         final String insert = DAOUtils.generateStmt(
@@ -64,14 +66,20 @@ public class SubCategoryDAImpl implements SubCategoryDAIF{
 
                 @Override
                 protected void runQueries(Connection conn, PreparedStatement stmt, ResultSet rs) throws Exception {
-                    stmt = conn.prepareStatement(insert);
+                    stmt = conn.prepareStatement(insert, PreparedStatement.RETURN_GENERATED_KEYS);
 
                     int count = 0;
                     for (SubCategory sbc : ins) {
                         stmt.setString(1, sbc.getName());
                         stmt.setInt(2, sbc.getCategory().getID());
                         stmt.setString(3, sbc.getDescription());
-                        stmt.addBatch();
+                        stmt.execute();
+                        rs = stmt.getGeneratedKeys();
+                        if(rs.next()){
+                            int autoID = rs.getInt(1);
+                            autoIDs.add(autoID);
+                        }
+                        /*stmt.addBatch();
                         count++;
 
                         if (count == DAOUtils.MAX_BATCH_SIZE) {
@@ -80,15 +88,16 @@ public class SubCategoryDAImpl implements SubCategoryDAIF{
                             if (DAOUtils.processBatchRes(batchRes) == false) {
                                 throw new Exception("Operation failed. Data has been remotely modified.");
                             }
-                        }
+                        }*/
                     }
+                    /*
                     if (count > 0) {
                         int[] batchRes = stmt.executeBatch();
                         if (DAOUtils.processBatchRes(batchRes) == false) {
                             throw new Exception("Operation failed. Data has been remotely modified.");
                         }
                     }
-
+                    */
                 }
             };
             helper.performCUD();
@@ -96,7 +105,7 @@ public class SubCategoryDAImpl implements SubCategoryDAIF{
             exc = ExceptionProcessor.processException(e);
         }
         
-        return new Result(lst, exc);
+        return new Result(lst, exc, autoIDs);
     }
 
     @Override

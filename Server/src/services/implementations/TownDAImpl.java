@@ -51,7 +51,9 @@ public class TownDAImpl implements TownDAIF {
     
     @Override
     public Result<Town> insertTown(final List<Town> ins, Session session) throws RemoteException {
+        
         List<Town> lst = new ArrayList<Town>();
+        final List<Integer> autoIDs = new ArrayList<>();
         Exception exc = null;
 
         final String insert = DAOUtils.generateStmt(
@@ -64,13 +66,19 @@ public class TownDAImpl implements TownDAIF {
 
                 @Override
                 protected void runQueries(Connection conn, PreparedStatement stmt, ResultSet rs) throws Exception {
-                    stmt = conn.prepareStatement(insert);
+                    stmt = conn.prepareStatement(insert, PreparedStatement.RETURN_GENERATED_KEYS);
 
                     int count = 0;
                     for (Town twn : ins) {
                         stmt.setString(1, twn.getName());
                         stmt.setInt(2, twn.getRegion().getID());
-                        stmt.addBatch();
+                        stmt.execute();
+                        rs = stmt.getGeneratedKeys();
+                        if(rs.next()){
+                            int autoID = rs.getInt(1);
+                            autoIDs.add(autoID);
+                        }
+                        /*stmt.addBatch();
                         count++;
 
                         if (count == DAOUtils.MAX_BATCH_SIZE) {
@@ -79,15 +87,16 @@ public class TownDAImpl implements TownDAIF {
                             if (DAOUtils.processBatchRes(batchRes) == false) {
                                 throw new Exception("Operation failed. Data has been remotely modified.");
                             }
-                        }
+                        }*/
                     }
+                    /*
                     if (count > 0) {
                         int[] batchRes = stmt.executeBatch();
                         if (DAOUtils.processBatchRes(batchRes) == false) {
                             throw new Exception("Operation failed. Data has been remotely modified.");
                         }
                     }
-
+                    */
                 }
             };
             helper.performCUD();
@@ -95,7 +104,7 @@ public class TownDAImpl implements TownDAIF {
             exc = ExceptionProcessor.processException(e);
         }
         
-        return new Result(lst, exc);
+        return new Result(lst, exc, autoIDs);
     }
 
     @Override
