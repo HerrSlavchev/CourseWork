@@ -62,11 +62,11 @@
             <input type="text" id="id" name="id" hidden="true"/>
             <div id="counts">
                 <div id="town1"><div class="label"><strong>Towns</strong></div>
-                    <div class="textField1">N/A</div></div>
+                    <div id="towncount" class="textField1">N/A</div></div>
                 <div id="user1"><div class="label"><strong>Users</strong></div>
-                    <div class="textField1">N/A</div></div>
+                    <div id="usercount" class="textField1">N/A</div></div>
                 <div id="event1"><div class="label"><strong>Events</strong></div>
-                    <div class="textField1">N/A</div></div>
+                    <div id="eventcount" class="textField1">N/A</div></div>
             </div>
         </fieldset>
 

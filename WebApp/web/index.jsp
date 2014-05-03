@@ -19,6 +19,7 @@
         <link rel='stylesheet' type='text/css' href='css/four_col_table.css' />
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="scripts/ddmenu.js" type="text/javascript"></script>
+        <script src="scripts/table.js" type="text/javascript"></script>
         <script src="scripts/personaltab.js" type="text/javascript"></script>
         <script src="scripts/login.js" type="text/javascript"></script>
         <script src="scripts/region.js" type="text/javascript"></script>

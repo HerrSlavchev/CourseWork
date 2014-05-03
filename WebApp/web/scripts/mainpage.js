@@ -55,32 +55,32 @@ function callback_MainPage() {
     if (req.readyState === 4) {
         if (req.status === 200) {
             //subpage jsp returned as text
-            parseMessagesMainPage(req.responseText, lastid);
+            parseMessagesMainPage(req.responseText);
         }
     }
 }
 
-function parseMessagesMainPage(response, id) {
+function parseMessagesMainPage(response) {
     targetDiv.innerHTML = response;
-    registerSubmit(id);
+    registerSubmit();
+    bindTable();
 }
 
 //prepare the common behaviour for newly loaded subpage
-function registerSubmit(id) {
+function registerSubmit() {
     
     //naming follows convention, based on id
-    var formID = id + 'form';
-    var fun = 'callback_' + id;
+    var formID = lastid + 'form';
+    var fun = 'callback_' + lastid;
     
     var formX = document.getElementById(formID);
-    /*
+    
     var clearB = document.getElementById('clearButton');
-    if (clearB !== undefined) {
+    if (clearB !== null) {
         clearB.onclick = function() {
             formX.reset();
         };
     }
-    */
     
     //make form submission work via AJAX
     formX.onsubmit = function(e) {

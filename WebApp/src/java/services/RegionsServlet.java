@@ -112,6 +112,40 @@ public class RegionsServlet extends HttpServlet {
                     } catch (RemoteException eR) {
                         exc = eR;
                     }
+                } else if (update != null) {
+                    String sessionCode = (String) request.getSession().getAttribute("sessionCode");
+                    String targetID = ParameterExtractor.getParameter(request, "id");
+                    if(targetID == null || targetID.isEmpty()){
+                        exc = new Exception("Missing id!");
+                    } else {
+                        int id = Integer.parseInt(targetID);
+                        RegionFilter filter = new RegionFilter();
+                        filter.ids.add(id);
+                        Result<Region> resFetch = stubRegion.fetchRegions(filter);
+                        if(resFetch.getException() != null){
+                            exc = resFetch.getException();
+                        } else if (resFetch.getResult().isEmpty()) {
+                            exc = new Exception("Item not found!");
+                        } else {
+                            List<Region> lst = new ArrayList();
+                            Region oldReg = resFetch.getResult().get(0);
+                            oldReg.setName(name);
+                            lst.add(oldReg);
+                            Result<Region> resUpd = stubRegion.updateRegion(lst, new Session(sessionCode));
+                            if (resUpd.getException() != null) {
+                                exc = resUpd.getException();
+                            } else {
+                                resFetch = stubRegion.fetchRegions(filter);
+                                if (resFetch.getException() != null) {
+                                    exc = resFetch.getException();
+                                } else if (resFetch.getResult().isEmpty()) {
+                                    exc = new Exception("Item not found!");
+                                } else {
+                                    regions = resFetch.getResult();
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
