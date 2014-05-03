@@ -39,7 +39,6 @@ function applyPersonalTabBehaviour() {
 }
 
 function changeSubscription(id) {
-    lastid = escape(id);
     var url = "InterestServlet?action=changeSubscription&id=" + escape(id);
     req = initRequest();
     req.open("POST", url, true);

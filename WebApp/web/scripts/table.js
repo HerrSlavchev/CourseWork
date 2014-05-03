@@ -125,6 +125,5 @@ function getContent(node){
     var end = inner.indexOf("</");
     
     var res = inner.substring(start, end);
-    //console.log(res);
     return res;
 }

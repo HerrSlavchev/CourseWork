@@ -40,10 +40,11 @@ function parseMessages_regions(responseXML) {
 
 function show_regions(id, name, townCount, userCount, eventCount){
     
-    document.getElementById('name').value = name;
-    document.getElementById('id').value = id;
+    var formid = lastid + 'form';
     
-    document.getElementById('towncount').innerHTML = townCount;
-    document.getElementById('usercount').innerHTML = userCount;
-    document.getElementById('eventcount').innerHTML = eventCount;
+    getChildFromParent(formid, 'id').value = id;
+    getChildFromParent(formid, 'name').value = name;
+    getChildFromParent(formid, 'towncount').innerHTML = townCount;
+    getChildFromParent(formid, 'usercount').innerHTML = userCount;
+    getChildFromParent(formid, 'eventcount').innerHTML = eventCount;
 }

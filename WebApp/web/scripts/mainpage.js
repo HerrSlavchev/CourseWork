@@ -68,34 +68,75 @@ function parseMessagesMainPage(response) {
 
 //prepare the common behaviour for newly loaded subpage
 function registerSubmit() {
-    
+
     //naming follows convention, based on id
     var formID = lastid + 'form';
     var fun = 'callback_' + lastid;
-    
+
     var formX = document.getElementById(formID);
-    
+
     var clearB = document.getElementById('clearButton');
     if (clearB !== null) {
         clearB.onclick = function() {
             formX.reset();
         };
     }
-    
+
     //make form submission work via AJAX
-    formX.onsubmit = function(e) {
+    if (formX !== null) {
+        formX.onsubmit = function(e) {
 
-        req = initRequest();
-        e.preventDefault();
+            req = initRequest();
+            e.preventDefault();
 
-        var f = e.target,
-                formData = new FormData(formX);
-        
-        req.open("POST", f.action, true);
-        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-        req.onreadystatechange = window[fun];
-        req.send(formData);
+            var f = e.target,
+                    formData = new FormData(formX);
+
+            req.open("POST", f.action, true);
+            req.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+            req.onreadystatechange = window[fun];
+            req.send(formData);
+        }
     }
 }
 
+function getChildFromParent(idParent, idChild){
+    
+    var parent = document.getElementById(idParent);
+    if(parent === null){
+        return null;
+    }
+    
+    
+    
+    return getChildFromNode(parent, idChild);;
+}
+
+function getChildFromNode(node, idChild){
+    
+    var parent = node;
+    
+    if(parent === null){
+        return null;
+    }
+    
+    if(parent.id === idChild) {
+        return parent;
+    }
+    
+    var children = parent.childNodes;
+    if(children === null){
+        return null;
+    }
+    
+    for (var i = 0; i < children.length; i++){
+        var child = children[i];
+        var node = getChildFromNode(child, idChild);
+        if( node !== null){
+            return node;
+        }
+    }
+    
+    return null;
+}
 
