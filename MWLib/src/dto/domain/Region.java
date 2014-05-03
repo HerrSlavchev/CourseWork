@@ -15,6 +15,7 @@ import java.util.List;
 public class Region extends PersistedDTO {
 
     private String name;
+    private String shortName;
     //extrinsic
     private int townCount;
     private List<Town> towns = new ArrayList<>();
@@ -31,6 +32,10 @@ public class Region extends PersistedDTO {
         return name;
     }
 
+    public String getShortName() {
+        return shortName;
+    }
+    
     public List<Town> getTowns() {
         return towns;
     }
@@ -62,6 +67,10 @@ public class Region extends PersistedDTO {
 
     public void setName(String name) {
         this.name = name;
+        shortName = name;
+        if(name != null && name.length() > 11){
+            shortName = name.substring(0, 9) + "...";
+        }
     }
 
     public void setTownCount(int townCount) {
