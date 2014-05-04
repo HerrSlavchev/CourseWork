@@ -6,6 +6,7 @@ package services;
  * and open the template in the editor.
  */
 
+import dto.session.Session;
 import java.io.IOException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -14,6 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import services.implementations.ClientManagerImpl;
+import services.server.ClientManagerIF;
 
 /**
  *
@@ -21,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/MainServlet"})
 public class MainServlet extends HttpServlet {
+    
+    private ClientManagerIF stubClientManager = ClientManagerImpl.getInstance();
     
     private ServletContext servletContext;
     @Override
@@ -55,6 +60,16 @@ public class MainServlet extends HttpServlet {
             request.getRequestDispatcher("CategoryServlet").forward(request, response);
         } else if (action.equals("subcategories")){
             request.getRequestDispatcher("SubcategoryServlet").forward(request, response);
+        } else if (action.equals("logout")){
+            String sessionCode = (String) request.getSession().getAttribute("sessionCode");
+            stubClientManager.removeClient(new Session(sessionCode));
+            
+            String xml = "<success>" + true + "</success>";
+            response.setContentType("text/xml");
+            response.setHeader("Cache-Control", "no-cache");
+            String answer = "<root>" + xml + "</root>";
+            //System.out.println(answer);
+            response.getWriter().write(answer);
         }
     }
 

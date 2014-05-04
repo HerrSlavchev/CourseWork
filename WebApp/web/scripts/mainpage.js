@@ -47,7 +47,11 @@ function showPage(id) {
     var url = "MainServlet?action=" + lastid;
     req = initRequest();
     req.open("GET", url, true);
-    req.onreadystatechange = callback_MainPage;
+    if(id !== 'logout') {
+        req.onreadystatechange = callback_MainPage;
+    } else {
+        req.onreadystatechange = callback_logout;
+    }
     req.send(null);
 }
 
@@ -166,4 +170,22 @@ function checkError(req){
     }
     
     return true;
+}
+
+function attachDiv(className, innerHTML, parent){
+    var newDiv = document.createElement('div');
+    newDiv.className = className;
+    newDiv.innerHTML = innerHTML;
+    parent.appendChild(newDiv);
+}
+
+function getContent(node){
+    var inner = node.innerHTML + "";
+    var start = -1;
+    start = inner.indexOf(">");
+    start = start + 1;
+    var end = inner.indexOf("</");
+    
+    var res = inner.substring(start, end);
+    return res;
 }

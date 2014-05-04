@@ -4,6 +4,7 @@
     Author     : root
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,6 +23,7 @@
         <script src="scripts/table.js" type="text/javascript"></script>
         <script src="scripts/personaltab.js" type="text/javascript"></script>
         <script src="scripts/login.js" type="text/javascript"></script>
+        <script src="scripts/logout.js" type="text/javascript"></script>
         <script src="scripts/region.js" type="text/javascript"></script>
         <script src="scripts/town.js" type="text/javascript"></script>
         <script src="scripts/category.js" type="text/javascript"></script>
@@ -32,13 +34,19 @@
 
         <nav id="ddmenu">
             <ul>
-                <li>Me
+                <li>User
                     <div>
-                        <div class="column">
-                            <a id="login">Login</a>
-                            <a id="register">Register</a>
-                            <a id="profile">Show profile</a>
-                            <a id="logout">Logout</a>
+                        <div id="useroptions" class="column">
+                            <c:choose>
+                                <c:when test="${sessionScope.sessionCode eq null}">
+                                    <a id="login">Login</a>
+                                    <a id="register">Register</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a id="profile">Show profile</a>
+                                    <a id="logout">Logout</a>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </li>

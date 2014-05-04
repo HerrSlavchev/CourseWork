@@ -3,37 +3,47 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-function callback_login() {
+function callback_logout() {
     if (req.readyState === 4) {
         if (req.status === 200) {
             if (checkError(req)) {
-                parseMessages_login(req.responseText);
+                parseMessages_logout(req.responseXML);
             }
         }
     }
 }
 
-function parseMessages_login(responseText) {
-    login();
-    personalDiv.innerHTML = responseText;
-    applyPersonalTabBehaviour();
+function parseMessages_logout(responseXML) {
+    if(responseXML !== null){
+        var root = responseXML.getElementsByTagName("root")[0];
+        var success = root.getElementsByTagName("success");
+        if(success.length !== 0){
+            logout();
+        } 
+    }
 }
 
-function login(){
+
+
+
+function logout(){
+    
+    console.log("logout");
     targetDiv.innerHTML = "";
+    personalDiv.innerHTML = "";
     
     var userOptions = document.getElementById('useroptions');
     userOptions.innerHTML = '';
     
+    
     var newA = document.createElement('a');
-    newA.id = "profile";
-    newA.innerHTML = 'Profile';
+    newA.id = "login";
+    newA.innerHTML = 'Login';
     userOptions.appendChild(newA);
     
     newA = document.createElement('a');
-    newA.id = "logout";
-    newA.innerHTML = 'Logout';
+    newA.id = "register";
+    newA.innerHTML = 'Register';
     userOptions.appendChild(newA);
     
     document.getElementById("useroptions").addEventListener("click", function(e) {
@@ -44,4 +54,3 @@ function login(){
         }
     });
 }
-

@@ -104,20 +104,3 @@ function addRow4(id, firstCol, secondCol, thirdCol, fourthCol) {
     }
 }
 
-function attachDiv(className, innerHTML, parent){
-    var newDiv = document.createElement('div');
-    newDiv.className = className;
-    newDiv.innerHTML = innerHTML;
-    parent.appendChild(newDiv);
-}
-
-function getContent(node){
-    var inner = node.innerHTML + "";
-    var start = -1;
-    start = inner.indexOf(">");
-    start = start + 1;
-    var end = inner.indexOf("</");
-    
-    var res = inner.substring(start, end);
-    return res;
-}

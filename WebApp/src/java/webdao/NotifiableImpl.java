@@ -61,8 +61,8 @@ public class NotifiableImpl implements NotifiableIF, Serializable {
 
     @Override
     public void logout() throws RemoteException {
-        System.out.println("logging out");
         session.removeAttribute("sessionCode"); 
+        session.removeAttribute("role");
     }
 
 }
