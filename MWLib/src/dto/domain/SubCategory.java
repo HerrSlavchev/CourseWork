@@ -18,7 +18,7 @@ public class SubCategory extends PersistedDTO{
 
     private String name;
     private String description;
-    
+    private String shortDescription;
     //extrinsic
     private Category category;
     private int interestCount;
@@ -34,6 +34,10 @@ public class SubCategory extends PersistedDTO{
     
     public String getDescription(){
         return description;
+    }
+    
+    public String getShortDescription(){
+        return shortDescription;
     }
     
     public Category getCategory(){
@@ -59,6 +63,10 @@ public class SubCategory extends PersistedDTO{
 
     public void setDescription(String description) {
         this.description = description;
+        this.shortDescription = description;
+        if(description != null && description.length() > 9){
+            shortDescription = description.substring(0, 7) + "...";
+        }
     }
 
     public void setCategory(Category category) {
