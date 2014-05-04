@@ -53,6 +53,8 @@ public class MainServlet extends HttpServlet {
             request.getRequestDispatcher("TownServlet").forward(request, response);
         } else if (action.equals("categories")){
             request.getRequestDispatcher("CategoryServlet").forward(request, response);
+        } else if (action.equals("subcategories")){
+            request.getRequestDispatcher("SubcategoryServlet").forward(request, response);
         }
     }
 

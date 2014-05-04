@@ -7,7 +7,9 @@ package services;
  */
 import dto.Result;
 import dto.domain.Category;
+import dto.domain.SubCategory;
 import dto.filters.CategoryFilter;
+import dto.filters.SubCategoryFilter;
 import dto.session.Session;
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -21,18 +23,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import services.implementations.CategoryDAImpl;
+import services.implementations.SubCategoryDAImpl;
 import services.server.CategoryDAIF;
+import services.server.SubCategoryDAIF;
 import utils.ParameterExtractor;
 
 /**
  *
  * @author root
  */
-@WebServlet(urlPatterns = {"/CategoryServlet"})
-public class CategoryServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/SubcategoryServlet"})
+public class SubcategoryServlet extends HttpServlet {
 
+    private SubCategoryDAIF stubSubcategory = SubCategoryDAImpl.getInstance();
     private CategoryDAIF stubCategory = CategoryDAImpl.getInstance();
-
     private ServletContext servletContext;
 
     @Override
@@ -44,16 +48,23 @@ public class CategoryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        CategoryFilter filter = new CategoryFilter();
-
+        CategoryFilter filterCat = new CategoryFilter();
+        SubCategoryFilter filterSub = new SubCategoryFilter();
         List<Category> categories = null;
+        List<SubCategory> subcategories = null;
         Throwable exc = null;
         try {
-            Result<Category> res = stubCategory.fetchCategories(filter);
-            if (res.getException() != null) {
-                exc = res.getException();
+            Result<Category> resCats = stubCategory.fetchCategories(filterCat);
+            if (resCats.getException() != null) {
+                exc = resCats.getException();
             } else {
-                categories = res.getResult();
+                categories = resCats.getResult();
+            }
+            Result<SubCategory> resSubs = stubSubcategory.fetchSubCategories(filterSub);
+            if (resSubs.getException() != null) {
+                exc = resSubs.getException();
+            } else {
+                subcategories = resSubs.getResult();
             }
         } catch (RemoteException eR) {
             exc = eR;
@@ -64,8 +75,9 @@ public class CategoryServlet extends HttpServlet {
             request.getRequestDispatcher("error.jsp").forward(request, response);
         } else {
             request.setAttribute("categories", categories);
+            request.setAttribute("subcategories", subcategories);
             //System.out.println("userID:" + userID);
-            request.getRequestDispatcher("categories.jsp").forward(request, response);
+            request.getRequestDispatcher("subcategories.jsp").forward(request, response);
         }
     }
 
@@ -80,39 +92,44 @@ public class CategoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         String update = ParameterExtractor.getParameter(request, "update");
         String insert = ParameterExtractor.getParameter(request, "insert");
         String action = ParameterExtractor.getParameter(request, "action");
         String name = ParameterExtractor.getParameter(request, "name");
         String description = ParameterExtractor.getParameter(request, "description");
-        List<Category> categories = new ArrayList<Category>();
+        String categoryID = ParameterExtractor.getParameter(request, "category");
+        
+        List<SubCategory> subcategories = new ArrayList<SubCategory>();
 
         Throwable exc = null;
         if (insert != null || update != null) {
             action = "write";
             if (name == null) {
                 exc = new Exception("Name missing!");
+            } else if (categoryID == null){
+                exc = new Exception("Category missing!");
             } else {
                 if (insert != null) {
                     String sessionCode = (String) request.getSession().getAttribute("sessionCode");
-                    Category reg = new Category(0);
-                    List<Category> lst = new ArrayList<Category>();
-                    lst.add(reg);
-                    reg.setName(name);
-                    reg.setDescription(description);
+                    SubCategory sub = new SubCategory(0);
+                    List<SubCategory> lst = new ArrayList<SubCategory>();
+                    lst.add(sub);
+                    sub.setName(name);
+                    sub.setDescription(description);
+                    sub.setCategory(new Category(Integer.parseInt(categoryID)));
                     try {
-                        Result<Category> resIns = stubCategory.insertCategory(lst, new Session(sessionCode));
+                        Result<SubCategory> resIns = stubSubcategory.insertSubCategory(lst, new Session(sessionCode));
                         if (resIns.getException() != null) {
                             exc = resIns.getException();
                         } else {
-                            CategoryFilter filter = new CategoryFilter();
+                            SubCategoryFilter filter = new SubCategoryFilter();
                             filter.ids.addAll(resIns.getAutoIDs());
-                            Result<Category> res = stubCategory.fetchCategories(filter);
+                            Result<SubCategory> res = stubSubcategory.fetchSubCategories(filter);
                             if (res.getException() != null) {
                                 exc = res.getException();
                             } else {
-                                categories = res.getResult();
+                                subcategories = res.getResult();
                             }
                         }
                     } catch (RemoteException eR) {
@@ -125,30 +142,31 @@ public class CategoryServlet extends HttpServlet {
                         exc = new Exception("Missing id!");
                     } else {
                         int id = Integer.parseInt(targetID);
-                        CategoryFilter filter = new CategoryFilter();
+                        SubCategoryFilter filter = new SubCategoryFilter();
                         filter.ids.add(id);
-                        Result<Category> resFetch = stubCategory.fetchCategories(filter);
+                        Result<SubCategory> resFetch = stubSubcategory.fetchSubCategories(filter);
                         if (resFetch.getException() != null) {
                             exc = resFetch.getException();
                         } else if (resFetch.getResult().isEmpty()) {
                             exc = new Exception("Item not found!");
                         } else {
-                            List<Category> lst = new ArrayList();
-                            Category oldCat = resFetch.getResult().get(0);
-                            oldCat.setName(name);
-                            oldCat.setDescription(description);
-                            lst.add(oldCat);
-                            Result<Category> resUpd = stubCategory.updateCategory(lst, new Session(sessionCode));
+                            List<SubCategory> lst = new ArrayList();
+                            SubCategory oldSub = resFetch.getResult().get(0);
+                            oldSub.setName(name);
+                            oldSub.setDescription(description);
+                            oldSub.setCategory(new Category(Integer.parseInt(categoryID)));
+                            lst.add(oldSub);
+                            Result<SubCategory> resUpd = stubSubcategory.updateSubCategory(lst, new Session(sessionCode));
                             if (resUpd.getException() != null) {
                                 exc = resUpd.getException();
                             } else {
-                                resFetch = stubCategory.fetchCategories(filter);
+                                resFetch = stubSubcategory.fetchSubCategories(filter);
                                 if (resFetch.getException() != null) {
                                     exc = resFetch.getException();
                                 } else if (resFetch.getResult().isEmpty()) {
                                     exc = new Exception("Item not found!");
                                 } else {
-                                    categories = resFetch.getResult();
+                                    subcategories = resFetch.getResult();
                                 }
                             }
                         }
@@ -162,32 +180,34 @@ public class CategoryServlet extends HttpServlet {
                 exc = new Exception("Missing id!");
             } else {
                 int id = Integer.parseInt(targetID);
-                CategoryFilter filter = new CategoryFilter();
+                SubCategoryFilter filter = new SubCategoryFilter();
                 filter.ids.add(id);
-                Result<Category> res = stubCategory.fetchCategories(filter);
+                Result<SubCategory> res = stubSubcategory.fetchSubCategories(filter);
                 if (res.getException() != null) {
                     exc = res.getException();
                 } else {
-                    categories = res.getResult();
+                    subcategories = res.getResult();
                 }
             }
         }
         StringBuffer sb = new StringBuffer();
-        sb.append("<categories>");
-        for (Category item : categories) {
+        sb.append("<subcategories>");
+        for (SubCategory item : subcategories) {
             String descr = action.equals("read") ? item.getDescription() : item.getShortDescription();
             if(descr == null || descr.isEmpty()){
                 descr = " ";
             }
-            sb.append("<category>");
+            Category cat = item.getCategory();
+            String category = action.equals("read") ? cat.getName(): cat.getShortName();
+            sb.append("<subcategory>");
             sb.append("<id>" + item.getID() + "</id>");
             sb.append("<name>" + item.getName() + "</name>");
-            sb.append("<subCategoryCount>" + item.getSubCategoryCount() + "</subCategoryCount>");
+            sb.append("<category>" + category + "</category>");
             sb.append("<interestCount>" + item.getInterestCount() + "</interestCount>");
             sb.append("<shortDescription>" + descr + "</shortDescription>");
-            sb.append("</category>");
+            sb.append("</subcategory>");
         }
-        sb.append("</categories>");
+        sb.append("</subcategories>");
 
         if (exc != null) {
             String xml = "<error>" + exc.getMessage() + "</error>";
@@ -211,7 +231,7 @@ public class CategoryServlet extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             }
         }
-
+        
     }
 
     /**
