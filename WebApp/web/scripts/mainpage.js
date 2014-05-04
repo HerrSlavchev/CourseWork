@@ -55,7 +55,9 @@ function callback_MainPage() {
     if (req.readyState === 4) {
         if (req.status === 200) {
             //subpage jsp returned as text
-            parseMessagesMainPage(req.responseText);
+            if (checkError(req)) {
+                parseMessagesMainPage(req.responseText);
+            }
         }
     }
 }
@@ -149,4 +151,19 @@ function selectOption(selectID, literal) {
            break;
         }
     }
+}
+
+function checkError(req){
+    var responseXML = req.responseXML;
+    
+    if(responseXML !== null){
+        var root = responseXML.getElementsByTagName("root")[0];
+        var error = root.getElementsByTagName("error");
+        if(error.length !== 0){
+            alert(error[0].childNodes[0].nodeValue);
+            return false;
+        } 
+    }
+    
+    return true;
 }

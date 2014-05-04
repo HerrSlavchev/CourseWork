@@ -49,7 +49,9 @@ function changeSubscription(id) {
 function callback_subscription() {
     if (req.readyState === 4) {
         if (req.status === 200) {
-            parseMessages_subscription(req.responseXML);
+            if (checkError(req)) {
+                parseMessages_subscription(req.responseXML);
+            }
         }
     }
 }

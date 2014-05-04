@@ -91,8 +91,12 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (exc != null) {
-            request.setAttribute("errorMsg", exc.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            String xml = "<error>" + exc.getMessage() + "</error>";
+            response.setContentType("text/xml");
+            response.setHeader("Cache-Control", "no-cache");
+            String answer = "<root>" + xml + "</root>";
+            //System.out.println(answer);
+            response.getWriter().write(answer);
         } else {
             request.setAttribute("interests", interests);
             request.setAttribute("userID", userID);

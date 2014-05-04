@@ -8,7 +8,9 @@
 function callback_towns() {
     if (req.readyState === 4) {
         if (req.status === 200) {
-            parseMessages_towns(req.responseXML);
+            if (checkError(req)) {
+                parseMessages_towns(req.responseXML);
+            }
         }
     }
 }

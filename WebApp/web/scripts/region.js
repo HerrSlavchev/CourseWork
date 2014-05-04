@@ -7,7 +7,9 @@
 function callback_regions() {
     if (req.readyState === 4) {
         if (req.status === 200) {
-            parseMessages_regions(req.responseXML);
+            if (checkError(req)) {
+                parseMessages_regions(req.responseXML);
+            }
         }
     }
 }

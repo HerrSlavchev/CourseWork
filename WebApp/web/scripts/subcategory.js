@@ -7,7 +7,9 @@
 function callback_subcategories() {
     if (req.readyState === 4) {
         if (req.status === 200) {
-            parseMessages_subcategories(req.responseXML);
+            if (checkError(req)) {
+                parseMessages_subcategories(req.responseXML);
+            }
         }
     }
 }
@@ -18,19 +20,19 @@ function parseMessages_subcategories(responseXML) {
     } else {
 
         var root = responseXML.getElementsByTagName("root")[0];
-        
-        
-        
+
+
+
         var error = root.getElementsByTagName("error");
-        if(error.length !== 0){
+        if (error.length !== 0) {
             alert(error[0].childNodes[0].nodeValue);
             return false;
-        } 
-        
+        }
+
         var action = root.getElementsByTagName("action")[0].childNodes[0].nodeValue;
         var subcategories = root.getElementsByTagName("subcategories")[0];
 
-        
+
         if (subcategories.childNodes.length > 0) {
             for (var loop = 0; loop < subcategories.childNodes.length; loop++) {
                 var subcategory = subcategories.childNodes[loop];
@@ -39,37 +41,37 @@ function parseMessages_subcategories(responseXML) {
                 var category = subcategory.getElementsByTagName("category")[0];
                 var interestCount = subcategory.getElementsByTagName("interestCount")[0];
                 var shortDescription = subcategory.getElementsByTagName("shortDescription")[0];
-                if(action === "write"){
+                if (action === "write") {
                     addRow4(subcategoryID.childNodes[0].nodeValue,
                             name.childNodes[0].nodeValue,
                             category.childNodes[0].nodeValue,
                             interestCount.childNodes[0].nodeValue,
                             shortDescription.childNodes[0].nodeValue);
-                } else if (action === "read"){
+                } else if (action === "read") {
                     show_subcategory(subcategoryID.childNodes[0].nodeValue,
                             name.childNodes[0].nodeValue,
                             category.childNodes[0].nodeValue,
                             interestCount.childNodes[0].nodeValue,
                             shortDescription.childNodes[0].nodeValue);
                 }
-                
+
             }
         }
     }
 }
 
-function show_subcategories(id, name, category, interestCount, shortDescription){
-    
+function show_subcategories(id, name, category, interestCount, shortDescription) {
+
     var idxDescr = shortDescription.indexOf("...");
     var cmpDescr = shortDescription.length - 3;
     var idxCat = category.indexOf("...");
     var cmpCat = category.length - 3;
-    if(idxDescr !== cmpDescr && idxCat !== cmpCat){
+    if (idxDescr !== cmpDescr && idxCat !== cmpCat) {
         show_subcategory(id, name, category, interestCount, shortDescription);
         return;
     }
-    
-    
+
+
     var url = "SubcategoryServlet?action=read&id=" + escape(id);
     req = initRequest();
     req.open("POST", url, true);
@@ -78,10 +80,10 @@ function show_subcategories(id, name, category, interestCount, shortDescription)
 
 }
 
-function show_subcategory(id, name, category, interestCount, description){
-    
+function show_subcategory(id, name, category, interestCount, description) {
+
     var formid = lastid + 'form';
-    
+
     getChildFromParent(formid, 'id').value = id;
     getChildFromParent(formid, 'name').value = name;
     selectOption('category', category);

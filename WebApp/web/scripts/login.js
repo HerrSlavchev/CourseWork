@@ -7,13 +7,15 @@
 function callback_login() {
     if (req.readyState === 4) {
         if (req.status === 200) {
-            parseMessages_login(req.responseText);
+            if (checkError(req)) {
+                parseMessages_login(req.responseText);
+            }
         }
     }
 }
 
-function parseMessages_login(response) {
-    personalDiv.innerHTML = response;
+function parseMessages_login(responseText) {
+    personalDiv.innerHTML = responseText;
     targetDiv.innerHTML = "";
     applyPersonalTabBehaviour();
 }
